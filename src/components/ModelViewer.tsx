@@ -1,7 +1,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 interface ModelViewerProps {
@@ -56,19 +56,19 @@ const ModelViewer: React.FC<ModelViewerProps> = ({ modelSrc, children }) => {
     controls.maxDistance = 100;
 
     // Load model
-    const loader = new GLTFLoader();
+    const loader = new OBJLoader();
     loader.load(
       modelSrc,
-      (gltf) => {
+      (object) => {
         // Center the model
-        const box = new THREE.Box3().setFromObject(gltf.scene);
+        const box = new THREE.Box3().setFromObject(object);
         const center = box.getCenter(new THREE.Vector3());
         const size = box.getSize(new THREE.Vector3());
         
         // Reset position to center
-        gltf.scene.position.x = -center.x;
-        gltf.scene.position.y = -center.y;
-        gltf.scene.position.z = -center.z;
+        object.position.x = -center.x;
+        object.position.y = -center.y;
+        object.position.z = -center.z;
         
         // Adjust camera position based on model size
         const maxDim = Math.max(size.x, size.y, size.z);
@@ -81,7 +81,7 @@ const ModelViewer: React.FC<ModelViewerProps> = ({ modelSrc, children }) => {
         controls.target.set(0, 0, 0);
         controls.update();
         
-        scene.add(gltf.scene);
+        scene.add(object);
         setIsLoading(false);
       },
       (xhr) => {
