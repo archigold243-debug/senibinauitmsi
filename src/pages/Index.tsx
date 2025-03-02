@@ -23,7 +23,7 @@ const Index = () => {
         <div className="relative z-10 container mx-auto px-4 pt-24 pb-48 md:pt-36 md:pb-64">
           <div className="max-w-3xl mx-auto text-center">
             <div className="inline-block px-3 py-1 mb-6 text-xs font-medium uppercase tracking-wider text-primary bg-primary/5 rounded-full animate-fade-in">
-              Interactive Building Explorer
+              Interactive Annex 1 Explorer
             </div>
             <h1 className="text-4xl md:text-6xl font-light tracking-tight mb-6 animate-slide-up" style={{animationDelay: '100ms'}}>
               Welcome to Architecture School <br /> 
