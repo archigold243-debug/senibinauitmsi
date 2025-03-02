@@ -28,7 +28,7 @@ const GroundFloor = () => {
                 title="Main Entrance"
                 description="The primary entrance features automatic sliding glass doors and a security checkpoint for visitors."
                 position="right"
-                modelPosition={[3, 1, 3]} 
+                modelPosition={[5, 1, 5]} 
               />
               <HoverDetails
                 x={50}
@@ -36,7 +36,7 @@ const GroundFloor = () => {
                 title="Reception Desk"
                 description="A centralized reception area with multiple staff stations to assist visitors and direct them to their destinations."
                 position="top"
-                modelPosition={[0, 0, 1.2]}
+                modelPosition={[-5, 0, -5]}
               />
               <HoverDetails
                 x={75}
