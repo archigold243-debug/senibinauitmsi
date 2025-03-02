@@ -61,7 +61,7 @@ const Index = () => {
           </div>
           
           <div className="bg-white rounded-lg shadow-lg p-4">
-            <ModelViewer modelSrc="/Annex 1.obj" />
+            <ModelViewer modelSrc="/Annex 1.glb" />
           </div>
           
           <div className="mt-6 text-center text-sm text-gray-500">
