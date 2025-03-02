@@ -21,7 +21,7 @@ const GroundFloor = () => {
           </div>
           
           <div className="bg-white rounded-lg shadow-lg overflow-hidden mb-8 animate-scale-up">
-            <ModelViewer modelSrc="/Annex 1.glb" ">
+            <ModelViewer modelSrc="/Annex 1.glb">
               <HoverDetails
                 x={25}
                 y={30}
