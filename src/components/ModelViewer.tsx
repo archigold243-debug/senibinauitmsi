@@ -22,7 +22,7 @@ const ModelViewer: React.FC<ModelViewerProps> = ({ modelSrc, children }) => {
 
     // Scene setup
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xf0f0f0);
+    scene.background = new THREE.Color(0x333333);
 
     // Camera setup
     const camera = new THREE.PerspectiveCamera(
