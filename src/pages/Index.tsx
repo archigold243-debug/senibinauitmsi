@@ -6,11 +6,11 @@ import ModelViewer from '@/components/ModelViewer';
 
 const Index = () => {
   const floors = [
-    { name: 'Ground Floor', path: '/ground-floor', description: 'Entrance, reception area, and public spaces' },
-    { name: '1st Floor', path: '/first-floor', description: 'Meeting rooms and collaborative spaces' },
-    { name: '2nd Floor', path: '/second-floor', description: 'Open workspaces and break areas' },
-    { name: '3rd Floor', path: '/third-floor', description: 'Executive offices and premium suites' },
-    { name: '4th Floor', path: '/fourth-floor', description: 'Recreational area and rooftop garden' },
+    { name: 'Ground Floor', path: '/ground-floor', description: 'Entrance, Master Studios, Studios, Classroom, Lab and Lecturer Offices' },
+    { name: '1st Floor', path: '/first-floor', description: 'Studios, Lecturers Offices, Foyer and collaborative spaces' },
+    { name: '2nd Floor', path: '/second-floor', description: 'Staff Lounge, Studios, Crit Room and Lecturer Offices' },
+    { name: '3rd Floor', path: '/third-floor', description: 'Classrooms, Studios fitted with Fixed Workstations' },
+    { name: '4th Floor', path: '/fourth-floor', description: 'Surau, Studio, Classroom and Lecturers Offices' },
   ];
   
   return (
