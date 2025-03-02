@@ -1,8 +1,8 @@
-
 import React from 'react';
 import Layout from '@/components/Layout';
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
+import ModelViewer from '@/components/ModelViewer';
 
 const Index = () => {
   const floors = [
@@ -47,6 +47,25 @@ const Index = () => {
                 View All Floors
               </a>
             </div>
+          </div>
+        </div>
+      </section>
+      
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-light tracking-tight mb-4">Building Overview</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Explore our interactive 3D model of the building. Use your mouse to rotate and zoom.
+            </p>
+          </div>
+          
+          <div className="bg-white rounded-lg shadow-lg p-4">
+            <ModelViewer modelSrc="/Annex 1.glb" />
+          </div>
+          
+          <div className="mt-6 text-center text-sm text-gray-500">
+            Click and drag to rotate. Use scroll wheel to zoom in and out.
           </div>
         </div>
       </section>
