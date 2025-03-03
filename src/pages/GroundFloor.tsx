@@ -36,7 +36,7 @@ const GroundFloor = () => {
                 y={-30}
                 title="Studio Master 01"
                 description="MAx Pax= 25. 24 hours operational Studio. Fixed Workstation. "
-                position="top"
+                position="right"
                 cardOffset={{ x: 0, y: 0 }}
                 modelPosition={[5, 1, -8]}
               />
