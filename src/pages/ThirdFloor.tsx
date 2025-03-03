@@ -27,14 +27,18 @@ const ThirdFloor = () => {
                 y={35}
                 title="Executive Suite"
                 description="Premium office space for C-level executives featuring private restrooms, meeting areas, and administrative support spaces."
-                position="right"
+                position="top"
+                cardOffset={{ x: -20, y: -70 }}
+                className="max-w-[250px]"
               />
               <HoverDetails
                 x={65}
                 y={30}
                 title="Board Room"
                 description="Formal meeting room with premium finishes, state-of-the-art presentation technology, and videoconferencing capabilities."
-                position="left"
+                position="top"
+                cardOffset={{ x: -20, y: -70 }}
+                className="max-w-[250px]"
               />
               <HoverDetails
                 x={45}
@@ -42,20 +46,26 @@ const ThirdFloor = () => {
                 title="Executive Lounge"
                 description="Private relaxation space with upscale furnishings, refreshments, and views of the surrounding area."
                 position="top"
+                cardOffset={{ x: -20, y: -70 }}
+                className="max-w-[250px]"
               />
               <HoverDetails
                 x={20}
                 y={70}
                 title="Administrative Hub"
                 description="Centralized area for executive assistants and support staff with easy access to executive offices."
-                position="right"
+                position="top"
+                cardOffset={{ x: -20, y: -70 }}
+                className="max-w-[250px]"
               />
               <HoverDetails
                 x={80}
                 y={55}
                 title="Private Dining Room"
                 description="Elegant space for hosting business meals and special events with catering facilities."
-                position="left"
+                position="top"
+                cardOffset={{ x: -20, y: -70 }}
+                className="max-w-[250px]"
               />
             </ModelViewer>
           </div>

@@ -27,14 +27,18 @@ const FourthFloor = () => {
                 y={35}
                 title="Rooftop Garden"
                 description="Landscaped outdoor area with seating, planters, and views of the surrounding cityscape."
-                position="right"
+                position="top"
+                cardOffset={{ x: -20, y: -70 }}
+                className="max-w-[250px]"
               />
               <HoverDetails
                 x={65}
                 y={30}
                 title="Event Space"
                 description="Flexible indoor area that can be configured for company events, presentations, and social gatherings."
-                position="left"
+                position="top"
+                cardOffset={{ x: -20, y: -70 }}
+                className="max-w-[250px]"
               />
               <HoverDetails
                 x={45}
@@ -42,20 +46,26 @@ const FourthFloor = () => {
                 title="Fitness Center"
                 description="Complete gym with cardio equipment, weights, and space for group fitness classes."
                 position="top"
+                cardOffset={{ x: -20, y: -70 }}
+                className="max-w-[250px]"
               />
               <HoverDetails
                 x={20}
                 y={70}
                 title="Wellness Area"
                 description="Quiet space for meditation, yoga, and relaxation with calming views and natural elements."
-                position="right"
+                position="top"
+                cardOffset={{ x: -20, y: -70 }}
+                className="max-w-[250px]"
               />
               <HoverDetails
                 x={80}
                 y={55}
                 title="Café and Bar"
                 description="Food and beverage service area that can transition from daytime café to evening social space."
-                position="left"
+                position="top"
+                cardOffset={{ x: -20, y: -70 }}
+                className="max-w-[250px]"
               />
             </ModelViewer>
           </div>
