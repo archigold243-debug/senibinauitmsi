@@ -25,18 +25,18 @@ const GroundFloor = () => {
               <HoverDetails
                 x={25}
                 y={30}
-                title="Main Entrance"
-                description="The primary entrance features automatic sliding glass doors and a security checkpoint for visitors."
+                title="Studio 08B"
+                description="Max Pax= 30. Fixed Workstation. 3 AC"
                 position="right"
-                modelPosition={[35, 1, 0]} 
+                modelPosition={[33, 1, 2]} 
               />
               <HoverDetails
                 x={50}
                 y={40}
-                title="Reception Desk"
-                description="A centralized reception area with multiple staff stations to assist visitors and direct them to their destinations."
+                title="Studio Master 01"
+                description="MAx Pax= 25. 24 hours operational Studio. Fixed Workstation. "
                 position="top"
-                modelPosition={[-5, 0, -5]}
+                modelPosition={[-5, 1, -10]}
               />
               <HoverDetails
                 x={75}
