@@ -23,8 +23,8 @@ const GroundFloor = () => {
           <div className="bg-white rounded-lg shadow-lg overflow-hidden mb-8 animate-scale-up">
             <ModelViewer modelSrc="/Annex 1GF.glb">
               <HoverDetails
-                x={0}
-                y={0}
+                x={10}
+                y={-30}
                 title="Studio 08B"
                 description="Max Pax= 30. Fixed Workstation. 3 AC"
                 position="right"
