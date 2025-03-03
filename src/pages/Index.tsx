@@ -117,65 +117,7 @@ const Index = () => {
         </div>
       </section>
       
-      <section className="py-24">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-light tracking-tight mb-6">How to Use This Interactive Explorer</h2>
-              <div className="space-y-6">
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
-                    1
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-medium mb-1">Select a Floor</h3>
-                    <p className="text-muted-foreground">
-                      Navigate through different levels using the menu at the top or floor cards.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
-                    2
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-medium mb-1">Explore the 3D Model</h3>
-                    <p className="text-muted-foreground">
-                      Use your mouse to rotate, zoom, and pan around the 3D model.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
-                    3
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-medium mb-1">Discover Interactive Elements</h3>
-                    <p className="text-muted-foreground">
-                      Hover over hotspots within the model to reveal detailed information about specific areas.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="glass rounded-lg p-6 md:p-8">
-              <div className="aspect-video bg-gray-100 rounded mb-6 flex items-center justify-center">
-                <div className="text-center text-gray-500">
-                  <svg className="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                  </svg>
-                  <p>Tutorial Video</p>
-                </div>
-              </div>
-              <div className="text-center">
-                <p className="text-sm text-muted-foreground">
-                  Watch this quick tutorial to get the most out of your interactive building exploration experience.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+    
     </Layout>
   );
 };
