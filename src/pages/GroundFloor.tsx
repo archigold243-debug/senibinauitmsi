@@ -83,7 +83,7 @@ const GroundFloor = () => {
                 description="Senior Lecturer"
                 position="right"
                 cardOffset={{ x: 0, y: 0 }}
-                modelPosition={[30, 1, -20]}
+                modelPosition={[30, 1, -23]}
                />
                <HoverDetails
                 x={10}
