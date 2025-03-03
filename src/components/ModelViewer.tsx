@@ -21,6 +21,7 @@ const ModelViewer: React.FC<ModelViewerProps> = ({ modelSrc, children }) => {
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
   const controlsRef = useRef<OrbitControls | null>(null);
   const modelRef = useRef<THREE.Group | null>(null);
+  const animationFrameRef = useRef<number | null>(null);
 
   // Update hotspot positions when camera or controls change
   const updateHotspotPositions = () => {
@@ -190,17 +191,23 @@ const ModelViewer: React.FC<ModelViewerProps> = ({ modelSrc, children }) => {
 
     // Animation loop
     const animate = () => {
+      animationFrameRef.current = requestAnimationFrame(animate);
       if (!sceneRef.current || !cameraRef.current || !rendererRef.current) return;
       
-      requestAnimationFrame(animate);
       if (controlsRef.current) controlsRef.current.update();
       rendererRef.current.render(sceneRef.current, cameraRef.current);
+      
+      // Update hotspot positions in every frame
+      updateHotspotPositions();
     };
     
     animate();
 
     // Cleanup
     return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
       window.removeEventListener('resize', handleResize);
       if (containerRef.current && rendererRef.current) {
         containerRef.current.removeChild(rendererRef.current.domElement);
