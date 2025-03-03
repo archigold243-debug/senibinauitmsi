@@ -24,11 +24,11 @@ const GroundFloor = () => {
             <ModelViewer modelSrc="/Annex 1GF.glb">
               <HoverDetails
                 x={10}
-                y={-300}
+                y={-30}
                 title="Studio 08B"
                 description="Max Pax= 30. Fixed Workstation. 3 AC"
                 position="right"
-                cardOffset={{ x: 0, y: 0 }}
+                cardOffset={{ x: 0, y: -30 }}
                 modelPosition={[33, 1, 2]} 
               />
               <HoverDetails
@@ -38,7 +38,7 @@ const GroundFloor = () => {
                 description="MAx Pax= 25. 24 hours operational Studio. Fixed Workstation. "
                 position="top"
                 cardOffset={{ x: 0, y: 0 }}
-                modelPosition={[-5, 1, -10]}
+                modelPosition={[-5, 1, -15]}
               />
               <HoverDetails
                 x={75}
