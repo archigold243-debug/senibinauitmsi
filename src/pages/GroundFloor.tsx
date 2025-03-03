@@ -15,7 +15,7 @@ const GroundFloor = () => {
             </div>
             <h1 className="text-3xl md:text-4xl font-light mb-4">Ground Floor</h1>
             <p className="text-lg text-muted-foreground">
-              The ground floor features the main entrance, reception area, and public spaces.
+              The ground floor features the Studios, Toilets, Courtyard, and public spaces.
               Hover over the highlighted areas to learn more about each space.
             </p>
           </div>
