@@ -11,6 +11,7 @@ interface HoverDetailsProps {
   position?: 'right' | 'left' | 'top' | 'bottom';
   className?: string;
   modelPosition?: [number, number, number]; // 3D coordinates in the model space
+  cardOffset?: { x: number; y: number }; // Custom offset for the info card
 }
 
 const HoverDetails: React.FC<HoverDetailsProps> = ({
@@ -22,21 +23,24 @@ const HoverDetails: React.FC<HoverDetailsProps> = ({
   position = 'right',
   className,
   modelPosition,
+  cardOffset = { x: 0, y: 0 },
 }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const getCardStyle = () => {
+    const baseOffset = 20; // Base offset from the hotspot in pixels
+    
     switch (position) {
       case 'right':
-        return { left: '30px', top: '0' };
+        return { left: `${baseOffset + cardOffset.x}px`, top: `${cardOffset.y}px` };
       case 'left':
-        return { right: '30px', top: '0' };
+        return { right: `${baseOffset + cardOffset.x}px`, top: `${cardOffset.y}px` };
       case 'top':
-        return { bottom: '30px', left: '0' };
+        return { bottom: `${baseOffset + cardOffset.y}px`, left: `${cardOffset.x}px` };
       case 'bottom':
-        return { top: '30px', left: '0' };
+        return { top: `${baseOffset + cardOffset.y}px`, left: `${cardOffset.x}px` };
       default:
-        return { left: '30px', top: '0' };
+        return { left: `${baseOffset + cardOffset.x}px`, top: `${cardOffset.y}px` };
     }
   };
 
@@ -69,8 +73,9 @@ const HoverDetails: React.FC<HoverDetailsProps> = ({
             top: position === 'right' || position === 'left' || position === 'bottom' ? `${y}%` : 'auto',
             bottom: position === 'top' ? `${100 - y}%` : 'auto',
             animationFillMode: 'forwards',
-            minWidth: '240px',
-            maxWidth: '320px',
+            minWidth: '220px',
+            maxWidth: '300px',
+            transform: 'translateX(0) translateY(0)', // Will be overridden by inline style if needed
           }}
         >
           <h4 className="text-base font-medium mb-1">{title}</h4>
