@@ -56,7 +56,7 @@ const GroundFloor = () => {
                 description="Max Pax= 30. Fixed Workstation. 3 AC"
                 position="right"
                 cardOffset={{ x: 0, y: 0 }}
-                modelPosition={[-15, 1, -6]}
+                modelPosition={[-17, 1, -6]}
               />
               <HoverDetails
                 x={10}
