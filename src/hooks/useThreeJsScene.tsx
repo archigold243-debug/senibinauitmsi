@@ -98,7 +98,7 @@ export const useThreeJsScene = ({
       controls.enableDamping = true;
       controls.dampingFactor = 0.25;
       controls.screenSpacePanning = false;
-      controls.maxDistance = 100;
+      controls.maxDistance = maxDim * 3;
       
       // Add event listener to update hotspot positions when user interacts
       if (onHotspotUpdate) {
@@ -277,9 +277,9 @@ export const useThreeJsScene = ({
         const size = new THREE.Vector3();
         box.getSize(size);
         const maxDim = Math.max(size.x, size.y, size.z);
-        const fov = camera.fov * (Math.PI / 180); 
-        let cameraZ = Math.abs(maxDim / 4 * Math.tan(fov * 1));
-        camera.position.set(100, size.y / 2, cameraZ);
+        const fov = camera.fov =50; 
+        let cameraZ = Math.abs(maxDim / 4 * Math.tan(fov * 10));
+        camera.position.set(maxDim * 1.5, maxDim, maxDim * 1.5);
         
         // Ensure the camera looks at the model
         const center = new THREE.Vector3();
