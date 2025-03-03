@@ -65,7 +65,7 @@ const GroundFloor = () => {
                 description="Max Pax= 25. 24 hours operational Studio. Fixed Workstation"
                 position="right"
                 cardOffset={{ x: 0, y: 0 }}
-                modelPosition={[1, 1, 30]}
+                modelPosition={[1, 1, 20]}
               />
             </ModelViewer>
           </div>
