@@ -76,6 +76,15 @@ const GroundFloor = () => {
                 cardOffset={{ x: 0, y: 0 }}
                 modelPosition={[13, 1, 16]}
                />
+               <HoverDetails
+                x={10}
+                y={-30}
+                title="En Faisol"
+                description="Senior Lecturer"
+                position="right"
+                cardOffset={{ x: 0, y: 0 }}
+                modelPosition={[16, 1, -8]}
+               />
             </ModelViewer>
           </div>
           
