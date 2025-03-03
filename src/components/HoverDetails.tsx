@@ -75,7 +75,7 @@ const HoverDetails: React.FC<HoverDetailsProps> = ({
             animationFillMode: 'forwards',
             minWidth: '220px',
             maxWidth: '300px',
-            transform: 'translate(-10%, -10%)',
+            transform: 'translate(-1%, -1%)',
           }}
         >
           <h4 className="text-base font-medium mb-1">{title}</h4>
