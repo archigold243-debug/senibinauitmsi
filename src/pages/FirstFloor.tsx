@@ -56,7 +56,7 @@ const FirstFloor = () => {
                 description="Used for Crtique Sessions, Wrap up,Llectures"
                 position="right"
                 cardOffset={{ x: 0, y: 0 }}
-                modelPosition={[10, 6, 20]} 
+                modelPosition={[11, 6, 17]} 
               />
               <HoverDetails
                 x={80}
@@ -65,7 +65,7 @@ const FirstFloor = () => {
                 description="Max Pax =30, Fixed Work Station 3 AC split unit, Projector."
                 position="left"
                 cardOffset={{ x: 0, y: 0 }}
-                modelPosition={[-15, 6, 20]} 
+                modelPosition={[-12, 6, 17]} 
               />
             </ModelViewer>
           </div>
