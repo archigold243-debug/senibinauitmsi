@@ -47,7 +47,7 @@ const SecondFloor = () => {
                 description="Max Pax =30, 2 AC split unit, Projector"
                 position="right"
                 cardOffset={{ x: 0, y: 0 }}
-                modelPosition={[-15, 8, 15]} 
+                modelPosition={[-17, 8, 15]} 
               />
               <HoverDetails
                 x={10}
@@ -65,7 +65,7 @@ const SecondFloor = () => {
                 description="Max Pax =28, 3 AC split unit, Projector."
                 position="right"
                 cardOffset={{ x: 0, y: 0 }}
-                modelPosition={[-10, 8, 15]} 
+                modelPosition={[-8, 8, 15]} 
               />
               <HoverDetails
                 x={10}
