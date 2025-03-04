@@ -21,7 +21,7 @@ const FirstFloor = () => {
           </div>
           
           <div className="bg-white rounded-lg shadow-lg overflow-hidden mb-8 animate-scale-up">
-            <ModelViewer modelSrc="Annex 11F.skp">
+            <ModelViewer modelSrc="Annex 11F.gltf">
               <HoverDetails
                 x={30}
                 y={25}
