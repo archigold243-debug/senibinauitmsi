@@ -15,7 +15,7 @@ const FirstFloor = () => {
             </div>
             <h1 className="text-3xl md:text-4xl font-light mb-4">First Floor</h1>
             <p className="text-lg text-muted-foreground">
-              This floor have Studios, Toilets (Purple, pink), Archi. Lecturer's Office (yellow), Courtyard, and public spaces.
+              This floor have Studios, Crit Rooms, Toilets (Purple, pink), Archi. Lecturer's Office (yellow), and Open Galery/Stage.
               Hover over the highlighted areas to learn more about each space.
             </p>
           </div>
@@ -50,22 +50,31 @@ const FirstFloor = () => {
                 modelPosition={[24, 6, -20]} 
               />
               <HoverDetails
-                x={20}
-                y={70}
+                x={10}
+                y={-30}
                 title="Bilik Krit TEC"
-                description="Used for Crtique Sessions, Wrap up,Llectures"
-                position="right"
+                description="Use for Crtique Sessions, Wrap up, Lectures, Projector"
+                position="left"
                 cardOffset={{ x: 0, y: 0 }}
                 modelPosition={[11, 6, 17]} 
               />
               <HoverDetails
-                x={80}
-                y={50}
+                x={10}
+                y={-30}
                 title="Studio 07A"
                 description="Max Pax =30, Fixed Work Station 3 AC split unit, Projector."
-                position="left"
+                position="right"
                 cardOffset={{ x: 0, y: 0 }}
                 modelPosition={[-12, 6, 17]} 
+              />
+              <HoverDetails
+                x={10}
+                y={-30}
+                title="Bilik Krit Kecil"
+                description="Use for Crtique Sessions, Wrap up, Lectures, Projector"
+                position="left"
+                cardOffset={{ x: 0, y: 0 }}
+                modelPosition={[-20, 6, 2]} 
               />
             </ModelViewer>
           </div>
