@@ -25,7 +25,7 @@ const FirstFloor = () => {
               <HoverDetails
                 x={10}
                 y={-30}
-                title="Bilik Krit Kecil"
+                title="Studio 01A"
                 description="Max Pax= ??"
                 position="right"
                 cardOffset={{ x: 0, y: 0 }}
@@ -37,6 +37,8 @@ const FirstFloor = () => {
                 title="Conference Room B"
                 description="Medium-sized conference room with modular furniture that can be reconfigured for different meeting styles."
                 position="left"
+                cardOffset={{ x: 0, y: 0 }}
+                modelPosition={[25, 2, -10]} 
               />
               <HoverDetails
                 x={45}
