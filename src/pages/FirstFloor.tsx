@@ -56,7 +56,7 @@ const FirstFloor = () => {
                 description="Use for Crtique Sessions, Wrap up, Lectures, Projector"
                 position="bottom"
                 cardOffset={{ x: 0, y: 0 }}
-                modelPosition={[11, 6, 17]} 
+                modelPosition={[11, 6, 15]} 
               />
               <HoverDetails
                 x={10}
@@ -65,7 +65,7 @@ const FirstFloor = () => {
                 description="Max Pax =30, Fixed Work Station 3 AC split unit, Projector."
                 position="right"
                 cardOffset={{ x: 0, y: 0 }}
-                modelPosition={[-12, 6, 17]} 
+                modelPosition={[-12, 6, 15]} 
               />
               <HoverDetails
                 x={10}
