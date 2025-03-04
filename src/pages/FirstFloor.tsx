@@ -54,7 +54,7 @@ const FirstFloor = () => {
                 y={-30}
                 title="Bilik Krit TEC"
                 description="Use for Crtique Sessions, Wrap up, Lectures, Projector"
-                position="left"
+                position="top"
                 cardOffset={{ x: 0, y: 0 }}
                 modelPosition={[11, 6, 17]} 
               />
@@ -72,7 +72,7 @@ const FirstFloor = () => {
                 y={-30}
                 title="Bilik Krit Kecil"
                 description="Use for Crtique Sessions, Wrap up, Lectures, Projector"
-                position="left"
+                position="top"
                 cardOffset={{ x: 0, y: 0 }}
                 modelPosition={[-20, 6, 2]} 
               />
