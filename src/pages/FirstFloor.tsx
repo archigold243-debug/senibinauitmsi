@@ -74,7 +74,7 @@ const FirstFloor = () => {
                 description="Use for Crtique Sessions, Wrap up, Lectures, Projector"
                 position="bottom"
                 cardOffset={{ x: 0, y: 0 }}
-                modelPosition={[-23, 6, 2]} 
+                modelPosition={[-23, 6, 0]} 
               />
             </ModelViewer>
           </div>
