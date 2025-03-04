@@ -2,12 +2,11 @@
 import React from 'react';
 
 interface LoadingStateProps {
-  progress: number;
-  isLoading?: boolean;
-  error?: string | null;
+  isLoading: boolean;
+  error: string | null;
 }
 
-const LoadingState: React.FC<LoadingStateProps> = ({ progress, isLoading = true, error = null }) => {
+const LoadingState: React.FC<LoadingStateProps> = ({ isLoading, error }) => {
   if (!isLoading && !error) return null;
   
   return (
@@ -15,7 +14,7 @@ const LoadingState: React.FC<LoadingStateProps> = ({ progress, isLoading = true,
       {isLoading && (
         <div className="flex flex-col items-center">
           <div className="w-12 h-12 rounded-full border-4 border-primary border-t-transparent animate-spin"></div>
-          <p className="mt-4 text-sm text-gray-500">Loading model... {progress}%</p>
+          <p className="mt-4 text-sm text-gray-500">Loading model...</p>
         </div>
       )}
       
