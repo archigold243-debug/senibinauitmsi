@@ -1,3 +1,4 @@
+
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
@@ -8,7 +9,8 @@ interface UseThreeJsSceneProps {
   containerRef: React.RefObject<HTMLDivElement>;
   onModelLoaded?: () => void;
   onHotspotUpdate?: () => void;
-  onObjectClick?: (object: THREE.Object3D) => void; // Added a callback for clicking objects
+  onObjectClick?: (object: THREE.Object3D) => void;
+  onObjectHover?: (object: THREE.Object3D | null) => void; // Added hover callback
 }
 
 interface ThreeJsSceneRefs {
@@ -25,7 +27,8 @@ export const useThreeJsScene = ({
   containerRef,
   onModelLoaded,
   onHotspotUpdate,
-  onObjectClick // Add a handler for object clicks
+  onObjectClick,
+  onObjectHover
 }: UseThreeJsSceneProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -51,6 +54,7 @@ export const useThreeJsScene = ({
 
   const raycaster = useRef(new THREE.Raycaster()); // Raycaster instance
   const mouse = useRef(new THREE.Vector2()); // Store mouse position
+  const hoveredObject = useRef<THREE.Object3D | null>(null); // Track currently hovered object
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -123,19 +127,44 @@ export const useThreeJsScene = ({
       });
     }
 
-    // Handle raycasting for mouse click events
+    // Handle raycasting for mouse interactions (click and hover)
     const onMouseMove = (event: MouseEvent) => {
-      if (!containerRef.current || !cameraRef.current) return;
+      if (!containerRef.current || !cameraRef.current || !modelRef.current) return;
       
       // Calculate mouse position in normalized device coordinates (-1 to +1)
-      mouse.current.x = (event.clientX / containerRef.current.clientWidth) * 2 - 1;
-      mouse.current.y = -(event.clientY / containerRef.current.clientHeight) * 2 + 1;
+      const rect = containerRef.current.getBoundingClientRect();
+      mouse.current.x = ((event.clientX - rect.left) / containerRef.current.clientWidth) * 2 - 1;
+      mouse.current.y = -((event.clientY - rect.top) / containerRef.current.clientHeight) * 2 + 1;
+      
+      // Handle hover state with raycasting
+      raycaster.current.setFromCamera(mouse.current, cameraRef.current);
+      const intersects = raycaster.current.intersectObjects(modelRef.current.children, true);
+      
+      if (intersects.length > 0) {
+        const object = intersects[0].object;
+        
+        // If hovering a new object
+        if (hoveredObject.current !== object && onObjectHover) {
+          hoveredObject.current = object;
+          onObjectHover(object);
+          containerRef.current.style.cursor = 'pointer'; // Change cursor to indicate interactive element
+        }
+      } else if (hoveredObject.current !== null) {
+        // If no longer hovering any object
+        hoveredObject.current = null;
+        if (onObjectHover) onObjectHover(null);
+        containerRef.current.style.cursor = 'auto'; // Reset cursor
+      }
     };
 
-    const onMouseClick = () => {
-      if (!modelRef.current || !cameraRef.current) return;
+    const onMouseClick = (event: MouseEvent) => {
+      if (!containerRef.current || !cameraRef.current || !modelRef.current) return;
       
       // Update the raycaster with the mouse position and camera
+      const rect = containerRef.current.getBoundingClientRect();
+      mouse.current.x = ((event.clientX - rect.left) / containerRef.current.clientWidth) * 2 - 1;
+      mouse.current.y = -((event.clientY - rect.top) / containerRef.current.clientHeight) * 2 + 1;
+      
       raycaster.current.setFromCamera(mouse.current, cameraRef.current);
       
       // Find intersects with objects
@@ -243,8 +272,8 @@ export const useThreeJsScene = ({
     renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
     
-    // Update to use the correct properties for newer Three.js versions
-    renderer.outputEncoding = THREE.sRGBEncoding;
+    // Use outputColorSpace instead of outputEncoding (for newer Three.js versions)
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1;
     renderer.setClearColor(0x000000, 0); // Optional: makes background transparent
@@ -267,7 +296,25 @@ export const useThreeJsScene = ({
     loader.load(
       modelSrc, 
       (gltf) => {
+        console.log('Model loaded successfully:', gltf);
+        
+        // Log model structure to help with debugging
         const model = gltf.scene;
+        console.log('Model structure:', model);
+        
+        // Add names to unnamed objects for better identification
+        model.traverse((object) => {
+          // If object has no name but has geometry, set a name based on material or index
+          if (!object.name && (object as THREE.Mesh).geometry) {
+            const mesh = object as THREE.Mesh;
+            const materialName = mesh.material ? 
+              (Array.isArray(mesh.material) ? mesh.material[0].name || 'Material' : mesh.material.name || 'Material') : 
+              'Unknown';
+            object.name = `Part_${materialName}_${Math.floor(Math.random() * 1000)}`;
+            console.log('Named object:', object.name);
+          }
+        });
+        
         model.scale.set(1, 1, 1); // Adjust scale if needed
         scene.add(model);
         modelRef.current = model;
@@ -279,7 +326,7 @@ export const useThreeJsScene = ({
         const maxDim = Math.max(size.x, size.y, size.z);
         const fov = camera.fov * (Math.PI / 90); 
         let cameraZ = Math.abs(maxDim / 4 * Math.tan(fov * 2));
-        camera.position.set(100, size.y * 5, -size.z * 5);
+        camera.position.set(size.x * 0.5, size.y * 2, size.z * 2);
         
         // Ensure the camera looks at the model
         const center = new THREE.Vector3();
@@ -291,19 +338,40 @@ export const useThreeJsScene = ({
 
         onLoaded(); // Invoke callback
       },
-      undefined, 
+      (progress) => {
+        console.log('Loading progress:', progress);
+      }, 
       (error) => {
+        console.error('Error loading model:', error);
         setError('An error occurred while loading the model.');
         setIsLoading(false);
         loadingRef.current = false;
-        console.error(error);
       }
     );
+  };
+
+  // Function to resize renderer based on container size
+  const resizeRendererToDisplaySize = () => {
+    if (!rendererRef.current || !containerRef.current || !cameraRef.current) return false;
+    
+    const canvas = rendererRef.current.domElement;
+    const width = containerRef.current.clientWidth;
+    const height = containerRef.current.clientHeight;
+    const needResize = canvas.width !== width || canvas.height !== height;
+    
+    if (needResize) {
+      rendererRef.current.setSize(width, height, false);
+      cameraRef.current.aspect = width / height;
+      cameraRef.current.updateProjectionMatrix();
+    }
+    
+    return needResize;
   };
 
   return {
     isLoading,
     error,
-    refs
+    refs,
+    resizeRendererToDisplaySize
   };
 };

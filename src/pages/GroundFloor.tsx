@@ -1,10 +1,102 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import Layout from '@/components/Layout';
 import ModelViewer from '@/components/ModelViewer';
 import HoverDetails from '@/components/HoverDetails';
+import * as THREE from 'three';
+
+const modelPartsInfo: Record<string, { title: string; description: string }> = {
+  "Studio08B": {
+    title: "Studio 08B",
+    description: "Max Pax= 30. Fixed Workstation. 3 AC"
+  },
+  "StudioMaster01": {
+    title: "Studio Master 01",
+    description: "Max Pax= 25. 24 hours operational Studio. Fixed Workstation"
+  },
+  "StudioMaster03": {
+    title: "Studio Master 03",
+    description: "Max Pax= 25. 24 hours operational Studio. Fixed Workstation"
+  },
+  "Studio08A": {
+    title: "Studio 08A",
+    description: "Max Pax= 30. Fixed Workstation. 3 AC"
+  },
+  "StudioMaster04": {
+    title: "Studio Master 04",
+    description: "Max Pax= 25. 24 hours operational Studio. Fixed Workstation"
+  },
+  "StudioMaster02": {
+    title: "Studio Master 02",
+    description: "Max Pax= 25. 24 hours operational Studio. Fixed Workstation"
+  },
+  "TsNasuruddin": {
+    title: "Ts. Nasuruddin",
+    description: "Senior Lecturer"
+  },
+  "EnFaisol": {
+    title: "En Faisol",
+    description: "Senior Lecturer"
+  },
+};
 
 const GroundFloor = () => {
+  const [hoveredPart, setHoveredPart] = useState<{
+    name: string;
+    screenPosition: { x: number; y: number };
+    info: { title: string; description: string };
+  } | null>(null);
+
+  const handleModelPartHover = (info: {
+    object: THREE.Object3D;
+    position: THREE.Vector3;
+    name: string;
+  } | null) => {
+    if (!info) {
+      setHoveredPart(null);
+      return;
+    }
+
+    let partInfo = modelPartsInfo[info.name];
+    
+    if (!partInfo) {
+      for (const key of Object.keys(modelPartsInfo)) {
+        if (info.name.includes(key)) {
+          partInfo = modelPartsInfo[key];
+          break;
+        }
+      }
+    }
+
+    if (!partInfo) {
+      partInfo = {
+        title: info.name || "Model Part",
+        description: "No additional information available"
+      };
+    }
+
+    const vector = new THREE.Vector3();
+    vector.copy(info.position);
+    
+    const screenPosition = {
+      x: 50 + (vector.x * 5),
+      y: 50 + (vector.z * 5)
+    };
+
+    setHoveredPart({
+      name: info.name,
+      screenPosition,
+      info: partInfo
+    });
+  };
+
+  const handleModelPartClick = (info: {
+    object: THREE.Object3D;
+    position: THREE.Vector3;
+    name: string;
+  }) => {
+    console.log('Clicked on model part:', info.name);
+  };
+
   return (
     <Layout>
       <div className="container mx-auto px-4 py-8">
@@ -16,84 +108,31 @@ const GroundFloor = () => {
             <h1 className="text-3xl md:text-4xl font-light mb-4">Ground Floor</h1>
             <p className="text-lg text-muted-foreground">
               The ground floor features the Studios, Toilets (Purple, pink), Archi. Lecturer's Office (yellow), Courtyard, and public spaces.
-              Hover over the highlighted areas to learn more about each space.
+              Hover over different areas of the model to learn more about each space.
             </p>
           </div>
           
           <div className="bg-white rounded-lg shadow-lg overflow-hidden mb-8 animate-scale-up">
-            <ModelViewer modelSrc="/Annex 1GF.gltf">
-              <HoverDetails
-                x={10}
-                y={-30}
-                title="Studio 08B"
-                description="Max Pax= 30. Fixed Workstation. 3 AC"
-                position="right"
-                cardOffset={{ x: 0, y: 0 }}
-                modelPosition={[25, 1, 2]} 
-              />
-              <HoverDetails
-                x={10}
-                y={-30}
-                title="Studio Master 01"
-                description="Max Pax= 25. 24 hours operational Studio. Fixed Workstation"
-                position="right"
-                cardOffset={{ x: 0, y: 0 }}
-                modelPosition={[-2, 1, -6]}
-              />
-              <HoverDetails
-                x={10}
-                y={-30}
-                title="Studio Master 03"
-                description="Max Pax= 25. 24 hours operational Studio. Fixed Workstation"
-                position="right"
-                cardOffset={{ x: 0, y: 0 }}
-                modelPosition={[9, 1, -6]}
-              />
-              <HoverDetails
-                x={10}
-                y={-30}
-                title="Studio 08A"
-                description="Max Pax= 30. Fixed Workstation. 3 AC"
-                position="right"
-                cardOffset={{ x: 0, y: 0 }}
-                modelPosition={[-20, 1, -5]}
-              />
-              <HoverDetails
-                x={10}
-                y={-30}
-                title="Studio Master 04"
-                description="Max Pax= 25. 24 hours operational Studio. Fixed Workstation"
-                position="right"
-                cardOffset={{ x: 0, y: 0 }}
-                modelPosition={[-2, 1, 20]}
-              />
-              <HoverDetails
-                x={10}
-                y={-30}
-                title="Studio Master 02"
-                description="Max Pax= 25. 24 hours operational Studio. Fixed Workstation"
-                position="right"
-                cardOffset={{ x: 0, y: 0 }}
-                modelPosition={[13, 1, 20]}
-               />
-               <HoverDetails
-                x={10}
-                y={-30}
-                title="Ts. Nasuruddin"
-                description="Senior Lecturer"
-                position="right"
-                cardOffset={{ x: 0, y: 0 }}
-                modelPosition={[23, 1, -20]}
-               />
-               <HoverDetails
-                x={10}
-                y={-30}
-                title="En Faisol"
-                description="Senior Lecturer"
-                position="right"
-                cardOffset={{ x: 0, y: 0 }}
-                modelPosition={[18, 1, -8.5]}
-                />
+            <ModelViewer 
+              modelSrc="/Annex 1GF.gltf"
+              onModelPartHover={handleModelPartHover}
+              onModelPartClick={handleModelPartClick}
+            >
+              {hoveredPart && (
+                <div 
+                  className="absolute pointer-events-none info-card bg-white p-3 rounded-lg shadow-lg z-20 opacity-100 transition-all duration-300 ease-in-out"
+                  style={{
+                    left: `${hoveredPart.screenPosition.x}%`,
+                    top: `${hoveredPart.screenPosition.y}%`,
+                    transform: 'translate(-50%, -50%)',
+                    minWidth: '220px',
+                    maxWidth: '300px',
+                  }}
+                >
+                  <h4 className="text-base font-medium mb-1">{hoveredPart.info.title}</h4>
+                  <p className="text-sm text-gray-600">{hoveredPart.info.description}</p>
+                </div>
+              )}
             </ModelViewer>
           </div>
           

@@ -4,9 +4,10 @@ import React from 'react';
 interface LoadingStateProps {
   isLoading: boolean;
   error: string | null;
+  progress?: number;
 }
 
-const LoadingState: React.FC<LoadingStateProps> = ({ isLoading, error }) => {
+const LoadingState: React.FC<LoadingStateProps> = ({ isLoading, error, progress }) => {
   if (!isLoading && !error) return null;
   
   return (
@@ -14,7 +15,12 @@ const LoadingState: React.FC<LoadingStateProps> = ({ isLoading, error }) => {
       {isLoading && (
         <div className="flex flex-col items-center">
           <div className="w-12 h-12 rounded-full border-4 border-primary border-t-transparent animate-spin"></div>
-          <p className="mt-4 text-sm text-gray-500">Loading model...</p>
+          <p className="mt-4 text-sm text-gray-500">
+            Loading model...
+            {progress !== undefined && progress > 0 && (
+              <span className="ml-2">{Math.round(progress * 100)}%</span>
+            )}
+          </p>
         </div>
       )}
       

@@ -1,15 +1,36 @@
-import React, { useRef, useCallback, useEffect } from 'react';
+
+import React, { useRef, useCallback, useEffect, useState } from 'react';
 import { useThreeJsScene } from '@/hooks/useThreeJsScene';
 import { useHotspotPositioning } from '@/hooks/useHotspotPositioning';
 import LoadingState from './model-viewer/LoadingState';
+import * as THREE from 'three';
 
 interface ModelViewerProps {
   modelSrc: string;
   children?: React.ReactNode;
+  onModelPartHover?: (info: {
+    object: THREE.Object3D;
+    position: THREE.Vector3;
+    name: string;
+  } | null) => void;
+  onModelPartClick?: (info: {
+    object: THREE.Object3D;
+    position: THREE.Vector3;
+    name: string;
+  }) => void;
 }
 
-const ModelViewer: React.FC<ModelViewerProps> = ({ modelSrc, children }) => {
+const ModelViewer: React.FC<ModelViewerProps> = ({ 
+  modelSrc, 
+  children,
+  onModelPartHover,
+  onModelPartClick
+}) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [hoveredInfo, setHoveredInfo] = useState<{
+    position: [number, number];
+    info: { title: string; description: string } | null;
+  } | null>(null);
 
   // Create a callback for when hotspot positions need to be updated
   const onHotspotUpdateRef = useRef<() => void>(() => {});
@@ -18,7 +39,31 @@ const ModelViewer: React.FC<ModelViewerProps> = ({ modelSrc, children }) => {
   const { isLoading, error, refs, resizeRendererToDisplaySize } = useThreeJsScene({
     modelSrc,
     containerRef,
-    onHotspotUpdate: () => onHotspotUpdateRef.current()
+    onHotspotUpdate: () => onHotspotUpdateRef.current(),
+    onObjectHover: (object) => {
+      if (onModelPartHover && object) {
+        const position = new THREE.Vector3();
+        object.getWorldPosition(position);
+        onModelPartHover({
+          object,
+          position,
+          name: object.name || 'Unknown part'
+        });
+      } else if (onModelPartHover && !object) {
+        onModelPartHover(null);
+      }
+    },
+    onObjectClick: (object) => {
+      if (onModelPartClick) {
+        const position = new THREE.Vector3();
+        object.getWorldPosition(position);
+        onModelPartClick({
+          object,
+          position,
+          name: object.name || 'Unknown part'
+        });
+      }
+    }
   });
 
   // Setup hotspot positioning
