@@ -29,7 +29,7 @@ const FirstFloor = () => {
                 description="Max Pax =30, 2 AC split unit, Projector"
                 position="right"
                 cardOffset={{ x: 0, y: 0 }}
-                modelPosition={[23, 6, 2]} 
+                modelPosition={[24, 6, 2]} 
               />
               <HoverDetails
                 x={10}
@@ -38,7 +38,7 @@ const FirstFloor = () => {
                 description="Max Pax =30, 2 AC split unit, Non projector"
                 position="right"
                 cardOffset={{ x: 0, y: 0 }}
-                modelPosition={[23, 6, -10]} 
+                modelPosition={[24, 6, -10]} 
               />
               <HoverDetails
                 x={10}
@@ -47,7 +47,7 @@ const FirstFloor = () => {
                 description="Max Pax =30, 2 AC split unit, Projector"
                 position="right"
                 cardOffset={{ x: 0, y: 0 }}
-                modelPosition={[23, 6, -20]} 
+                modelPosition={[24, 6, -20]} 
               />
               <HoverDetails
                 x={20}
