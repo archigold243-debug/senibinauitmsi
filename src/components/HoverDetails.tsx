@@ -52,7 +52,7 @@ const HoverDetails: React.FC<HoverDetailsProps> = ({
       {isHovered && (
         <div 
           className={cn(
-            "absolute bg-white p-3 rounded-lg shadow-lg z-20 opacity-0 animate-fade-in pointer-events-auto",
+            "absolute bg-white p-3 rounded-lg shadow-lg opacity-0 animate-fade-in pointer-events-auto",
             className
           )}
           style={{ 
@@ -60,6 +60,7 @@ const HoverDetails: React.FC<HoverDetailsProps> = ({
             animationFillMode: 'forwards',
             minWidth: '220px',
             maxWidth: '300px',
+            zIndex: 30, // Increased z-index to ensure it appears in front
           }}
         >
           <h4 className="text-base font-medium mb-1">{title}</h4>
