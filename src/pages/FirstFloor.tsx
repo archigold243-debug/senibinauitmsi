@@ -41,10 +41,8 @@ const FirstFloor = () => {
                 modelPosition={[24, 6, -20]} 
               />
               <HoverDetails
-                x={10}
-                y={-30}
                 title="Bilik Krit TEC"
-                description="Use for Crtique Sessions, Wrap up, Lectures, Projector"
+                description="Use for Crtique Sessions, Wrap up, Lectures, Projector, AP1 132"
                 position="bottom"
                 modelPosition={[11, 6, 15]} 
               />
@@ -56,7 +54,7 @@ const FirstFloor = () => {
               />
               <HoverDetails
                 title="Bilik Krit Kecil"
-                description="Use for Crtique Sessions, Wrap up, Lectures, Projector"
+                description="Use for Crtique Sessions, Wrap up, Lectures, Projector, AP1 104"
                 position="bottom"
                 modelPosition={[-23, 6, 0]} 
               />
