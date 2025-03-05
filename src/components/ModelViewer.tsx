@@ -19,6 +19,10 @@ const ModelViewer: React.FC<ModelViewerProps> = ({ modelSrc, children }) => {
   const { isLoading, error, refs, resizeRendererToDisplaySize } = useThreeJsScene({
     modelSrc,
     containerRef,
+    onModelLoaded: () => {
+      // Force update positions after model loaded
+      setTimeout(() => onHotspotUpdateRef.current(), 100);
+    },
     onHotspotUpdate: () => onHotspotUpdateRef.current()
   });
 
@@ -51,8 +55,8 @@ const ModelViewer: React.FC<ModelViewerProps> = ({ modelSrc, children }) => {
     <div className="relative w-full h-full min-h-[500px] md:min-h-[700px]" ref={containerRef}>
       <LoadingState isLoading={isLoading} error={error} />
       
-      {/* This is where interactive elements would be placed */}
-      <div className="model-container absolute inset-0 pointer-events-none">
+      {/* Interactive elements positioned over the 3D scene */}
+      <div className="absolute inset-0 pointer-events-none">
         {children}
       </div>
     </div>

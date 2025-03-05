@@ -15,46 +15,41 @@ const ThirdFloor = () => {
             <h1 className="text-3xl md:text-4xl font-light mb-4">Third Floor</h1>
             <p className="text-lg text-muted-foreground">
               This floor have Studios, Crit Rooms, Toilets (Purple, pink), Archi. Lecturer's Office (yellow), and Staff Lounge.
-              Hover over the highlighted areas to learn more about each space..
+              Hover over the highlighted areas to learn more about each space.
             </p>
           </div>
           
           <div className="bg-white rounded-lg shadow-lg overflow-hidden mb-8 animate-scale-up">
-            <ModelViewer modelSrc="Annex13F.gltf">
+            <ModelViewer modelSrc="/Annex13F.gltf">
               <HoverDetails
-                x={30}
-                y={35}
                 title="Executive Suite"
                 description="Premium office space for C-level executives featuring private restrooms, meeting areas, and administrative support spaces."
                 position="right"
+                modelPosition={[24, 8, 2]}
               />
               <HoverDetails
-                x={65}
-                y={30}
                 title="Board Room"
                 description="Formal meeting room with premium finishes, state-of-the-art presentation technology, and videoconferencing capabilities."
                 position="left"
+                modelPosition={[-8, 8, 15]}
               />
               <HoverDetails
-                x={45}
-                y={60}
                 title="Executive Lounge"
                 description="Private relaxation space with upscale furnishings, refreshments, and views of the surrounding area."
                 position="top"
+                modelPosition={[11, 8, 15]}
               />
               <HoverDetails
-                x={20}
-                y={70}
                 title="Administrative Hub"
                 description="Centralized area for executive assistants and support staff with easy access to executive offices."
                 position="right"
+                modelPosition={[-17, 8, 15]}
               />
               <HoverDetails
-                x={80}
-                y={55}
                 title="Private Dining Room"
                 description="Elegant space for hosting business meals and special events with catering facilities."
                 position="left"
+                modelPosition={[-24, 8, 0]}
               />
             </ModelViewer>
           </div>

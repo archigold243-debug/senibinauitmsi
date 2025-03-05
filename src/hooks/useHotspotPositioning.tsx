@@ -37,18 +37,22 @@ export const useHotspotPositioning = ({
       // Project the 3D position to 2D screen coordinates
       position.project(cameraRef.current!);
       
-      // Convert to CSS coordinates
+      // Convert normalized coordinates to CSS pixels
       const widthHalf = containerRect.width / 2;
       const heightHalf = containerRect.height / 2;
       const posX = (position.x * widthHalf) + widthHalf;
       const posY = - (position.y * heightHalf) + heightHalf;
       
-      // Only show hotspots that are in front of the camera
-      if (position.z < 1) {
+      // Check if point is in front of the camera (z < 1)
+      // And within the container bounds
+      if (position.z < 1 && 
+          posX > 0 && posX < containerRect.width && 
+          posY > 0 && posY < containerRect.height) {
         hotspot.style.left = `${posX}px`;
         hotspot.style.top = `${posY}px`;
         hotspot.style.display = 'block';
       } else {
+        // Hide hotspot if behind camera or outside viewport
         hotspot.style.display = 'none';
       }
     });
@@ -60,6 +64,9 @@ export const useHotspotPositioning = ({
       // Get all hotspots after model loads
       const hotspotElements = containerRef.current.querySelectorAll('.hotspot') as NodeListOf<HTMLDivElement>;
       setHotspots(Array.from(hotspotElements || []));
+      
+      // Force initial update of positions
+      setTimeout(updateHotspotPositions, 100);
     }
   }, [isLoading, containerRef]);
 
