@@ -99,7 +99,7 @@ const GroundFloor = () => {
                 description="Senior Lecturer"
                 position="right"
                 modelPosition={[32, 2, -7]}
-               />
+                />
             </ModelViewer>
           </div>
           
