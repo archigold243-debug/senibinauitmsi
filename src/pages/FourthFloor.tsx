@@ -26,7 +26,7 @@ const FourthFloor = () => {
                 title="Studio 4A/B"
                 description="Max Pax =28. Projector"
                 position="right"
-                modelPosition={[25, 16, 0]} 
+                modelPosition={[25, 16, -20]} 
               />
               <HoverDetails
                 title="Surau L"
