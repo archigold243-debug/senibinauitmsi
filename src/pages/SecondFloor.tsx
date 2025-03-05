@@ -86,13 +86,13 @@ const SecondFloor = () => {
                 title="En. Anwar"
                 description="Senior Lecturer"
                 position="right"                
-                modelPosition={[-10, 8, -20]} 
+                modelPosition={[-8, 8, -15]} 
               />
               <HoverDetails
                 title="Dr. Syamimi"
                 description="Senior Lecturer"
                 position="right"                
-                modelPosition={[-17, 8, -9]} 
+                modelPosition={[-18, 8, -9]} 
               />
               <HoverDetails
                 title="Dr. Fariz"
@@ -123,32 +123,32 @@ const SecondFloor = () => {
                   <svg className="w-5 h-5 text-primary mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span>Total area: 11,200 sq ft</span>
+                  <span>Lecturers Offices: 12</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <svg className="w-5 h-5 text-primary mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span>Ceiling height: 10 ft</span>
+                  <span>Studios: 4</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <svg className="w-5 h-5 text-primary mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span>Capacity for 120 workstations</span>
+                  <span>Other amenities: Staff Lounge, Crit Room</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <svg className="w-5 h-5 text-primary mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span>Natural lighting from floor-to-ceiling windows</span>
+                  <span>Toilet: 2</span>
                 </li>
               </ul>
             </div>
             <div className="bg-white rounded-lg p-6 shadow animate-slide-in-from-right">
               <h3 className="text-lg font-medium mb-2">Key Features</h3>
               <p className="text-sm text-gray-600 mb-4">
-                The second floor balances open collaboration with spaces for focused work, supported by amenities that enhance employee well-being.
+                Great view to the stage/open galery area
               </p>
               <div className="space-y-2 text-sm text-gray-600">
                 <div className="flex items-center gap-2">
