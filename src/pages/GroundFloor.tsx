@@ -68,19 +68,19 @@ const GroundFloor = () => {
                 title="Dr Azhan"
                 description="Senior Lecturer"
                 position="right"
-                modelPosition={[-13, 2, -2]}
+                modelPosition={[-14, 2, 3]}
                />
                <HoverDetails
                 title="En Faisol"
                 description="Senior Lecturer"
                 position="right"
-                modelPosition={[17, 2, -8]}
+                modelPosition={[17, 2, -7]}
                 />
                <HoverDetails
                 title="Dr. Wan Nur Rukiah"
                 description="Senior Lecturer"
                 position="right"
-                modelPosition={[33, 2, -8]}
+                modelPosition={[33, 2, -7]}
                />
             </ModelViewer>
           </div>
