@@ -28,7 +28,6 @@ const SecondFloor = () => {
                 title="Studio 02A"
                 description="Max Pax =30, 2 AC split unit, Projector"
                 position="right"
-                cardOffset={{ x: 0, y: 0 }}
                 modelPosition={[24, 8, 2]} 
               />
               <HoverDetails
@@ -36,8 +35,7 @@ const SecondFloor = () => {
                 y={-30}
                 title="Studio 02B"
                 description="Max Pax =30, 2 AC split unit, Non projector"
-                position="right"
-                cardOffset={{ x: 0, y: 0 }}
+                position="right"                
                 modelPosition={[24, 8, -10]} 
               />
               <HoverDetails
@@ -45,8 +43,7 @@ const SecondFloor = () => {
                 y={-60}
                 title="Staff Lounge"
                 description="Max Pax =30, 2 AC split unit, Projector"
-                position="right"
-                cardOffset={{ x: 0, y: 0 }}
+                position="right"                
                 modelPosition={[-17, 8, 15]} 
               />
               <HoverDetails
@@ -55,7 +52,6 @@ const SecondFloor = () => {
                 title="Studio 02C"
                 description="Max Pax =35, 4 AC, Projector"
                 position="bottom"
-                cardOffset={{ x: 0, y: 0 }}
                 modelPosition={[11, 8, 15]} 
               />
               <HoverDetails
@@ -64,7 +60,6 @@ const SecondFloor = () => {
                 title="Studio 02D"
                 description="Max Pax =28, 3 AC split unit, Projector."
                 position="right"
-                cardOffset={{ x: 0, y: 0 }}
                 modelPosition={[-8, 8, 15]} 
               />
               <HoverDetails
@@ -73,7 +68,6 @@ const SecondFloor = () => {
                 title="Bilik Krit Utama"
                 description="Use for Crtique Sessions, Wrap up, Lectures, Projector"
                 position="bottom"
-                cardOffset={{ x: 0, y: 0 }}
                 modelPosition={[-24, 8, 0]} 
               />
             </ModelViewer>
