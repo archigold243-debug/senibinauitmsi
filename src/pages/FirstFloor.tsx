@@ -68,7 +68,7 @@ const FirstFloor = () => {
                 title="Cik Ainsyah"
                 description="Lecturer"
                 position="right"
-                modelPosition={[5, 6, -16]} 
+                modelPosition={[6, 6, -16]} 
               />
             </ModelViewer>
           </div>
