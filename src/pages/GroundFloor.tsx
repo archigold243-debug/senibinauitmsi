@@ -117,7 +117,7 @@ const GroundFloor = () => {
                   <svg className="w-5 h-5 text-primary mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span>Studio: 6t</span>
+                  <span>Studio: 6</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <svg className="w-5 h-5 text-primary mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
