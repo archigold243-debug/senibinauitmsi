@@ -23,48 +23,33 @@ const GroundFloor = () => {
           <div className="bg-white rounded-lg shadow-lg overflow-hidden mb-8 animate-scale-up">
             <ModelViewer modelSrc="Annex 1GF.gltf">
               <HoverDetails
-                x={10}
-                y={-30}
                 title="Studio 08B"
                 description="Max Pax= 30. Fixed Workstation. 3 AC"
                 position="right"
-                cardOffset={{ x: 0, y: 0 }}
-                modelPosition={[25, 2, 2]} 
+                modelPosition={[27, 2, 3]} 
               />
               <HoverDetails
-                x={10}
-                y={-30}
                 title="Studio Master 01"
                 description="Max Pax= 25. 24 hours operational Studio. Fixed Workstation"
                 position="right"
-                cardOffset={{ x: 0, y: 0 }}
-                modelPosition={[-2, 2, -6]}
+                modelPosition={[-4, 2, -5]}
               />
               <HoverDetails
-                x={10}
-                y={-30}
                 title="Studio Master 03"
                 description="Max Pax= 25. 24 hours operational Studio. Fixed Workstation"
                 position="right"
-                cardOffset={{ x: 0, y: 0 }}
                 modelPosition={[9, 2, -6]}
               />
               <HoverDetails
-                x={10}
-                y={-30}
                 title="Studio 08A"
                 description="Max Pax= 30. Fixed Workstation. 3 AC"
                 position="right"
-                cardOffset={{ x: 0, y: 0 }}
-                modelPosition={[-20, 2, -5]}
+                modelPosition={[-22, 2, -3]}
               />
               <HoverDetails
-                x={10}
-                y={-30}
                 title="Studio Master 04"
                 description="Max Pax= 25. 24 hours operational Studio. Fixed Workstation"
                 position="right"
-                cardOffset={{ x: 0, y: 0 }}
                 modelPosition={[-2, 2, 20]}
               />
               <HoverDetails
