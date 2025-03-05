@@ -23,50 +23,38 @@ const SecondFloor = () => {
           <div className="bg-white rounded-lg shadow-lg overflow-hidden mb-8 animate-scale-up">
             <ModelViewer modelSrc="Annex 12F.gltf">
               <HoverDetails
-                x={10}
-                y={-30}
                 title="Studio 02A"
                 description="Max Pax =30, 2 AC split unit, Projector"
                 position="right"
                 modelPosition={[24, 8, 2]} 
               />
               <HoverDetails
-                x={10}
-                y={-30}
                 title="Studio 02B"
                 description="Max Pax =30, 2 AC split unit, Non projector"
                 position="right"                
                 modelPosition={[24, 8, -10]} 
               />
               <HoverDetails
-                x={10}
-                y={-60}
                 title="Staff Lounge"
-                description="Max Pax =30, 2 AC split unit, Projector"
-                position="right"                
+                description="Max Pax =30, 2 AC split unit, Projector, AP1 232"
+                position="bottom"                
                 modelPosition={[-17, 8, 15]} 
               />
               <HoverDetails
-                x={10}
-                y={-30}
                 title="Studio 02C"
                 description="Max Pax =35, 4 AC, Projector"
                 position="bottom"
                 modelPosition={[11, 8, 15]} 
               />
               <HoverDetails
-                x={10}
-                y={-30}
                 title="Studio 02D"
                 description="Max Pax =28, 3 AC split unit, Projector."
                 position="right"
                 modelPosition={[-8, 8, 15]} 
               />
               <HoverDetails
-                x={10}
-                y={-30}
                 title="Bilik Krit Utama"
-                description="Use for Crtique Sessions, Wrap up, Lectures, Projector"
+                description="Use for Crtique Sessions, Wrap up, Lectures, Projector, AP1 224"
                 position="bottom"
                 modelPosition={[-24, 8, 0]} 
               />
