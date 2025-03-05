@@ -141,19 +141,19 @@ const SecondFloor = () => {
                   <svg className="w-5 h-5 text-primary mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span>Lecturers Offices: 12</span>
+                  <span>Lecturer Office: 12</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <svg className="w-5 h-5 text-primary mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span>Studios: 4</span>
+                  <span>Studio: 4</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <svg className="w-5 h-5 text-primary mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span>Other amenities: Staff Lounge, Crit Room</span>
+                  <span>Other Amenities: Staff Lounge, Crit Room</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <svg className="w-5 h-5 text-primary mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -166,7 +166,7 @@ const SecondFloor = () => {
             <div className="bg-white rounded-lg p-6 shadow animate-slide-in-from-right">
               <h3 className="text-lg font-medium mb-2">Key Features</h3>
               <p className="text-sm text-gray-600 mb-4">
-                Great view to the stage/open galery area
+                Great view to the stage/open gallery area
               </p>
               <div className="space-y-2 text-sm text-gray-600">
                 <div className="flex items-center gap-2">
@@ -175,15 +175,15 @@ const SecondFloor = () => {
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 rounded-full bg-primary"></div>
-                  <span>Sit-stand desks at all workstations</span>
+                  <span>Optimum view into the courtyard that can see all the activities happening</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 rounded-full bg-primary"></div>
-                  <span>Zoned sound masking system</span>
+                  <span>---</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 rounded-full bg-primary"></div>
-                  <span>Smart environmental controls</span>
+                  <span>----</span>
                 </div>
               </div>
             </div>
