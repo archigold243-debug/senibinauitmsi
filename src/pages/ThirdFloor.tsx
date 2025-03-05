@@ -22,40 +22,46 @@ const ThirdFloor = () => {
           <div className="bg-white rounded-lg shadow-lg overflow-hidden mb-8 animate-scale-up">
             <ModelViewer modelSrc="Annex 13F.gltf">
               <HoverDetails
-                title="Executive Suite"
-                description="Premium office space for C-level executives featuring private restrooms, meeting areas, and administrative support spaces."
+                title="Classroom"
+                description="Max pax= 40"
                 position="right"
                 modelPosition={[24, 12, 2]}
               />
               <HoverDetails
                 title="Studio 05A"
-                description="Formal meeting room with premium finishes, state-of-the-art presentation technology, and videoconferencing capabilities."
+                description="Fixed Work Station 3 AC split unit, Projector"
                 position="left"
                 modelPosition={[-8, 12, 15]}
               />
               <HoverDetails
-                title="Executive Lounge"
-                description="Private relaxation space with upscale furnishings, refreshments, and views of the surrounding area."
+                title="Floating Studio 05"
+                description="Open Layout"
                 position="top"
                 modelPosition={[11, 12, 15]}
               />
               <HoverDetails
-                title="Administrative Hub"
-                description="Centralized area for executive assistants and support staff with easy access to executive offices."
+                title="Floating Studio 05"
+                description="Open Area"
                 position="right"
                 modelPosition={[-17, 12, 15]}
               />
               <HoverDetails
-                title="Private Dining Room"
-                description="Elegant space for hosting business meals and special events with catering facilities."
+                title="Classroom"
+                description="Max pax= 40"
                 position="left"
                 modelPosition={[-24, 12, 0]}
               />
               <HoverDetails
                 title="Studio 05B"
-                description="Max Pax= 25, 3 AC split unit, Lectures, Projector"
+                description="Max Pax= 25, Fixed Work Station 3 AC split unit, Projector"
                 position="bottom"
                 modelPosition={[-24, 8, 0]} 
+              />
+               <HoverDetails
+                title="Studio 04B"
+                description="Max Pax =30, Fixed Work Station 3 AC split unit, Projector"
+                position="right"
+                modelPosition={[-12, 6, 15]} 
               />
             </ModelViewer>
           </div>
