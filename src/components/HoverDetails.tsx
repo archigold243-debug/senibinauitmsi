@@ -49,6 +49,8 @@ const HoverDetails: React.FC<HoverDetailsProps> = ({
       data-position={modelPosition.join(',')}
     >
       <div className="w-2 h-2 bg-white rounded-full"></div>
+      
+      {/* Render the info card conditionally based on hover state */}
       {isHovered && (
         <div 
           className={cn(
@@ -60,7 +62,7 @@ const HoverDetails: React.FC<HoverDetailsProps> = ({
             animationFillMode: 'forwards',
             minWidth: '220px',
             maxWidth: '300px',
-            zIndex: 30, // Increased z-index to ensure it appears in front
+            zIndex: 50, // Increased z-index to ensure it appears on top of the dots
           }}
         >
           <h4 className="text-base font-medium mb-1">{title}</h4>
