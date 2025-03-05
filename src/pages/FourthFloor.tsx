@@ -26,31 +26,31 @@ const FourthFloor = () => {
                 title="Studio 4A/B"
                 description="Max Pax =28. Projector"
                 position="right"
-                modelPosition={[30, 16, 3]} // Add 3D position coordinates for the rooftop garden
+                modelPosition={[25, 16, -5]} // Add 3D position coordinates for the rooftop garden
               />
               <HoverDetails
                 title="Surau L"
                 description="5 times Appoinment with Allah"
                 position="left"
-                modelPosition={[30, 16, 20]} // Add 3D position coordinates for the event space
+                modelPosition={[20, 16, 15]} // Add 3D position coordinates for the event space
               />
               <HoverDetails
                 title="Surau P"
                 description="5 times Appoinment with Allah"
                 position="top"
-                modelPosition={[-20, 16, 20]} // Add 3D position coordinates for the fitness center
+                modelPosition={[-20, 16, 15]} // Add 3D position coordinates for the fitness center
               />
               <HoverDetails
                 title="Classroom"
                 description="Max Pax= 40. Projector, AP1 403"
                 position="right"
-                modelPosition={[-23, 16, 15]} // Add 3D position coordinates for the wellness area
+                modelPosition={[-23, 16, 3]} // Add 3D position coordinates for the wellness area
               />
               <HoverDetails
                 title="Classroom"
                 description="Max Pax= 40. Projector, AP1 439"
                 position="left"
-                modelPosition={[30, 16, 15]} // Add 3D position coordinates for the café and bar
+                modelPosition={[25, 16, 15]} // Add 3D position coordinates for the café and bar
               />
             </ModelViewer>
           </div>
