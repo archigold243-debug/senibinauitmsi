@@ -31,13 +31,13 @@ const ThirdFloor = () => {
                 title="Studio 05A"
                 description="Fixed Work Station 3 AC split unit, Projector"
                 position="left"
-                modelPosition={[-8, 12, 15]}
+                modelPosition={[-8, 12, 13]}
               />
               <HoverDetails
                 title="Studio 04A"
                 description="Fixed Work Station 3 AC split unit, Projector"
                 position="top"
-                modelPosition={[11, 12, 15]}
+                modelPosition={[11, 12, 13]}
               />
               <HoverDetails
                 title="Floating Studio 05"
@@ -57,8 +57,14 @@ const ThirdFloor = () => {
                 position="bottom"
                 modelPosition={[-24, 12, -10]} 
               />
-               <HoverDetails
+              <HoverDetails
                 title="Studio 04B"
+                description="Max Pax =30, Fixed Work Station 3 AC split unit, Projector"
+                position="right"
+                modelPosition={[24, 12, -10]} 
+              />
+               <HoverDetails
+                title="Floating Studio 04"
                 description="Max Pax =30, Fixed Work Station 3 AC split unit, Projector"
                 position="right"
                 modelPosition={[13, 12, -10]} 
