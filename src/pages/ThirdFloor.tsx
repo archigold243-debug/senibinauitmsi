@@ -51,6 +51,12 @@ const ThirdFloor = () => {
                 position="left"
                 modelPosition={[-24, 12, 0]}
               />
+              <HoverDetails
+                title="Studio 05B"
+                description="Max Pax= 25, 3 AC split unit, Lectures, Projector"
+                position="bottom"
+                modelPosition={[-24, 8, 0]} 
+              />
             </ModelViewer>
           </div>
           
