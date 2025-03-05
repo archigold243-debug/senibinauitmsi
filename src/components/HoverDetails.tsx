@@ -42,7 +42,10 @@ const HoverDetails: React.FC<HoverDetailsProps> = ({
 
   return (
     <div 
-      className="hotspot absolute w-6 h-6 rounded-full bg-primary/80 flex items-center justify-center cursor-pointer shadow-lg pointer-events-auto z-10"
+      className={cn(
+        "hotspot absolute w-6 h-6 rounded-full bg-primary/80 flex items-center justify-center cursor-pointer shadow-lg pointer-events-auto",
+        isHovered ? "z-10" : "z-20" // Lower z-index when hovered so card appears on top
+      )}
       style={{ transform: 'translate(-50%, -50%)' }} // Center the hotspot on its position
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -62,7 +65,7 @@ const HoverDetails: React.FC<HoverDetailsProps> = ({
             animationFillMode: 'forwards',
             minWidth: '220px',
             maxWidth: '300px',
-            zIndex: 50, // Increased z-index to ensure it appears on top of the dots
+            zIndex: 50, // Higher z-index to ensure it appears on top of dots
           }}
         >
           <h4 className="text-base font-medium mb-1">{title}</h4>
