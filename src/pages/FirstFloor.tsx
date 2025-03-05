@@ -23,30 +23,21 @@ const FirstFloor = () => {
           <div className="bg-white rounded-lg shadow-lg overflow-hidden mb-8 animate-scale-up">
             <ModelViewer modelSrc="Annex 11F.gltf">
               <HoverDetails
-                x={10}
-                y={-30}
                 title="Studio 01A"
                 description="Max Pax =30, 2 AC split unit, Projector"
                 position="right"
-                cardOffset={{ x: 0, y: 0 }}
-                modelPosition={[24, 6, 2]} 
+                  modelPosition={[24, 6, 2]} 
               />
               <HoverDetails
-                x={10}
-                y={-30}
                 title="Studio 03A extended"
                 description="Max Pax =30, 2 AC split unit, Non projector"
                 position="right"
-                cardOffset={{ x: 0, y: 0 }}
                 modelPosition={[24, 6, -10]} 
               />
               <HoverDetails
-                x={10}
-                y={-60}
                 title="Studio 03A"
                 description="Max Pax =30, 2 AC split unit, Projector"
                 position="right"
-                cardOffset={{ x: 0, y: 0 }}
                 modelPosition={[24, 6, -20]} 
               />
               <HoverDetails
@@ -55,25 +46,18 @@ const FirstFloor = () => {
                 title="Bilik Krit TEC"
                 description="Use for Crtique Sessions, Wrap up, Lectures, Projector"
                 position="bottom"
-                cardOffset={{ x: 0, y: 0 }}
                 modelPosition={[11, 6, 15]} 
               />
               <HoverDetails
-                x={10}
-                y={-30}
                 title="Studio 07A"
                 description="Max Pax =30, Fixed Work Station 3 AC split unit, Projector."
                 position="right"
-                cardOffset={{ x: 0, y: 0 }}
                 modelPosition={[-12, 6, 15]} 
               />
               <HoverDetails
-                x={10}
-                y={-30}
                 title="Bilik Krit Kecil"
                 description="Use for Crtique Sessions, Wrap up, Lectures, Projector"
                 position="bottom"
-                cardOffset={{ x: 0, y: 0 }}
                 modelPosition={[-23, 6, 0]} 
               />
             </ModelViewer>
