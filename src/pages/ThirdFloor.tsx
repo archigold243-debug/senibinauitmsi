@@ -25,31 +25,31 @@ const ThirdFloor = () => {
                 title="Executive Suite"
                 description="Premium office space for C-level executives featuring private restrooms, meeting areas, and administrative support spaces."
                 position="right"
-                modelPosition={[24, 8, 2]}
+                modelPosition={[24, 10, 2]}
               />
               <HoverDetails
                 title="Board Room"
                 description="Formal meeting room with premium finishes, state-of-the-art presentation technology, and videoconferencing capabilities."
                 position="left"
-                modelPosition={[-8, 8, 15]}
+                modelPosition={[-8, 10, 15]}
               />
               <HoverDetails
                 title="Executive Lounge"
                 description="Private relaxation space with upscale furnishings, refreshments, and views of the surrounding area."
                 position="top"
-                modelPosition={[11, 8, 15]}
+                modelPosition={[11, 10, 15]}
               />
               <HoverDetails
                 title="Administrative Hub"
                 description="Centralized area for executive assistants and support staff with easy access to executive offices."
                 position="right"
-                modelPosition={[-17, 8, 15]}
+                modelPosition={[-17, 10, 15]}
               />
               <HoverDetails
                 title="Private Dining Room"
                 description="Elegant space for hosting business meals and special events with catering facilities."
                 position="left"
-                modelPosition={[-24, 8, 0]}
+                modelPosition={[-24, 10, 0]}
               />
             </ModelViewer>
           </div>
