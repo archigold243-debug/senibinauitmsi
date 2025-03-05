@@ -26,19 +26,19 @@ const FourthFloor = () => {
                 title="Studio 4A/B"
                 description="Max Pax =28. Projector"
                 position="right"
-                modelPosition={[25, 16, -5]} // Add 3D position coordinates for the rooftop garden
+                modelPosition={[25, 16, -5]} 
               />
               <HoverDetails
                 title="Surau L"
                 description="5 times Appoinment with Allah"
                 position="left"
-                modelPosition={[20, 16, 15]} // Add 3D position coordinates for the event space
+                modelPosition={[20, 16, 15]} 
               />
               <HoverDetails
                 title="Surau P"
                 description="5 times Appoinment with Allah"
                 position="top"
-                modelPosition={[-20, 16, 15]} // Add 3D position coordinates for the fitness center
+                modelPosition={[-20, 16, 15]} 
               />
               <HoverDetails
                 title="Classroom"
