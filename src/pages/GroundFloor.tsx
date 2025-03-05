@@ -32,13 +32,13 @@ const GroundFloor = () => {
                 title="Studio Master 01"
                 description="Max Pax= 25. 24 hours operational Studio. Fixed Workstation"
                 position="right"
-                modelPosition={[-4, 2, -5]}
+                modelPosition={[-4, 2, -3]}
               />
               <HoverDetails
                 title="Studio Master 03"
                 description="Max Pax= 25. 24 hours operational Studio. Fixed Workstation"
                 position="right"
-                modelPosition={[9, 2, -6]}
+                modelPosition={[9, 2, -3]}
               />
               <HoverDetails
                 title="Studio 08A"
@@ -53,31 +53,22 @@ const GroundFloor = () => {
                 modelPosition={[-2, 2, 20]}
               />
               <HoverDetails
-                x={10}
-                y={-30}
                 title="Studio Master 02"
                 description="Max Pax= 25. 24 hours operational Studio. Fixed Workstation"
                 position="right"
-                cardOffset={{ x: 0, y: 0 }}
                 modelPosition={[13, 2, 20]}
                />
                <HoverDetails
-                x={10}
-                y={-30}
                 title="Ts. Nasuruddin"
                 description="Senior Lecturer"
                 position="right"
-                cardOffset={{ x: 0, y: 0 }}
                 modelPosition={[23, 2, -20]}
                />
                <HoverDetails
-                x={10}
-                y={-30}
                 title="En Faisol"
                 description="Senior Lecturer"
                 position="right"
-                cardOffset={{ x: 0, y: 0 }}
-                modelPosition={[18, 2, -8.5]}
+                modelPosition={[17, 2, -8]}
                 />
             </ModelViewer>
           </div>
