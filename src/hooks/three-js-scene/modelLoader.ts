@@ -90,7 +90,7 @@ export const loadModel = (
     let cameraZ = Math.abs(maxDim / (2 * Math.tan(fovRadians / 2)));
     
     // Adjust camera position
-    camera.position.set(100, 0.5, 20);
+    camera.position.set( 0, 10, 100);
     
     // Ensure the camera looks at the model
     const center = new THREE.Vector3();
