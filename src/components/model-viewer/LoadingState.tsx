@@ -12,6 +12,13 @@ interface LoadingStateProps {
 const LoadingState: React.FC<LoadingStateProps> = ({ isLoading, error, onRetry, modelSrc }) => {
   if (!isLoading && !error) return null;
   
+  // Format error message for display - preserve newlines
+  const formattedError = error ? (
+    <div className="whitespace-pre-line text-left">
+      {error}
+    </div>
+  ) : null;
+  
   return (
     <div className="absolute inset-0 flex items-center justify-center bg-gray-50 z-10">
       {isLoading && (
@@ -24,28 +31,20 @@ const LoadingState: React.FC<LoadingStateProps> = ({ isLoading, error, onRetry, 
       
       {error && (
         <div className="text-center px-4 max-w-md">
-          <p className="text-lg text-red-500 mb-2">{error}</p>
-          <p className="text-sm text-gray-500 mb-2">
-            The model file may not be available or could be experiencing loading issues.
-          </p>
-          {modelSrc && (
-            <p className="text-xs text-gray-400 mb-4">
-              Attempted to load: {modelSrc}
-            </p>
-          )}
-          <div className="space-y-2">
+          <p className="text-lg text-red-500 mb-2">Error Loading Model</p>
+          {formattedError}
+          <div className="space-y-2 mt-4">
             {onRetry && (
               <Button onClick={onRetry} variant="default">
                 Retry Loading
               </Button>
             )}
             <div className="text-xs text-gray-500 mt-4">
-              <p>If the problem persists, please check:</p>
+              <p>If the problem persists:</p>
               <ul className="list-disc pl-5 mt-2 text-left">
-                <li>The model file exists in the public folder</li>
-                <li>The file name in the code matches exactly (case-sensitive)</li>
-                <li>The file format is supported (.gltf or .glb)</li>
+                <li>Check your network connection</li>
                 <li>Try clearing your browser cache</li>
+                <li>Contact support if the issue continues</li>
               </ul>
             </div>
           </div>

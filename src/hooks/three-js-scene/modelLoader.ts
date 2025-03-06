@@ -15,59 +15,124 @@ export const loadModel = (
 ) => {
   const loader = new GLTFLoader();
   
-  // Ensure modelSrc starts with a forward slash if it's a relative path
-  let normalizedModelSrc = modelSrc;
-  if (!modelSrc.startsWith('/') && !modelSrc.startsWith('http')) {
-    normalizedModelSrc = `/${modelSrc}`;
+  // Ensure modelSrc has the correct format for browser loading
+  // First, trim any leading slashes
+  let normalizedModelSrc = modelSrc.replace(/^\/+/, '');
+  
+  // Prepare for debugging
+  console.log(`Original model path: ${modelSrc}`);
+  console.log(`Normalized model path: ${normalizedModelSrc}`);
+  
+  try {
+    // If it's already an absolute URL, use it as is
+    if (normalizedModelSrc.startsWith('http')) {
+      loader.load(
+        normalizedModelSrc,
+        handleSuccess,
+        handleProgress,
+        handleError
+      );
+    } else {
+      // For relative paths, try direct loading first (without base URL prefixing)
+      loader.load(
+        normalizedModelSrc, 
+        handleSuccess,
+        handleProgress,
+        (error) => {
+          console.log(`Failed to load model directly: ${normalizedModelSrc}. Trying with origin prefix...`);
+          
+          // If direct loading fails, try with origin prefix
+          const originPrefixed = `${window.location.origin}/${normalizedModelSrc}`;
+          console.log(`Attempting with origin prefix: ${originPrefixed}`);
+          
+          loader.load(
+            originPrefixed,
+            handleSuccess,
+            handleProgress,
+            (error) => {
+              // If that fails too, try with /public/ prefix
+              const publicPrefixed = `${window.location.origin}/public/${normalizedModelSrc}`;
+              console.log(`Attempting with public folder prefix: ${publicPrefixed}`);
+              
+              loader.load(
+                publicPrefixed,
+                handleSuccess,
+                handleProgress,
+                (finalError) => handleError(finalError, [normalizedModelSrc, originPrefixed, publicPrefixed])
+              );
+            }
+          );
+        }
+      );
+    }
+  } catch (err) {
+    const error = err as Error;
+    console.error("Exception when setting up model loading:", error);
+    onError(`Failed to set up model loading: ${error.message}`);
   }
   
-  // Add cache busting query parameter to prevent browser caching
-  const cacheBustingSrc = `${normalizedModelSrc}?t=${new Date().getTime()}`;
-  console.log(`Requesting model with cache busting: ${cacheBustingSrc}`);
-  
-  // Create absolute URL for model (explicitly using window.location.origin)
-  const absoluteModelUrl = new URL(cacheBustingSrc, window.location.origin).href;
-  console.log(`Loading model from absolute URL: ${absoluteModelUrl}`);
-  
-  loader.load(
-    absoluteModelUrl, 
-    (gltf) => {
-      console.log("Model loaded successfully:", absoluteModelUrl);
-      const model = gltf.scene;
-      model.scale.set(1, 1, 1); // Adjust scale if needed
-      scene.add(model);
+  function handleSuccess(gltf: any) {
+    console.log("Model loaded successfully:", gltf);
+    const model = gltf.scene;
+    model.scale.set(1, 1, 1); // Adjust scale if needed
+    scene.add(model);
 
-      // Compute bounding box and center model
-      const box = new THREE.Box3().setFromObject(model);
-      const size = new THREE.Vector3();
-      box.getSize(size);
-      const maxDim = Math.max(size.x, size.y, size.z);
-      const fov = camera.fov * (Math.PI / 180); // Convert to radians
-      let cameraZ = Math.abs(maxDim / 4 * Math.tan(fov * 2));
-      camera.position.set(100, size.y * 5, -size.z * 5);
-      
-      // Ensure the camera looks at the model
-      const center = new THREE.Vector3();
-      box.getCenter(center);
-      camera.lookAt(center);
-      
-      controls.target.copy(center);
-      controls.update();
+    // Compute bounding box and center model
+    const box = new THREE.Box3().setFromObject(model);
+    const size = new THREE.Vector3();
+    box.getSize(size);
+    const maxDim = Math.max(size.x, size.y, size.z);
+    
+    // Convert FOV from degrees to radians before using in calculations
+    const fovRadians = (camera.fov * Math.PI) / 180;
+    
+    // Calculate camera position based on model size and FOV
+    let cameraZ = Math.abs(maxDim / (2 * Math.tan(fovRadians / 2)));
+    
+    // Adjust camera position
+    camera.position.set(cameraZ * 0.5, cameraZ * 0.5, cameraZ);
+    
+    // Ensure the camera looks at the model
+    const center = new THREE.Vector3();
+    box.getCenter(center);
+    camera.lookAt(center);
+    
+    // Update controls target
+    controls.target.copy(center);
+    controls.update();
 
-      onLoaded(); // Invoke callback
-      return model;
-    },
-    (progressEvent) => {
-      // Log loading progress
-      if (progressEvent.lengthComputable) {
-        const percentComplete = (progressEvent.loaded / progressEvent.total) * 100;
-        console.log(`Model loading progress: ${Math.round(percentComplete)}%`);
-      }
-    }, 
-    (error) => {
-      console.error("Error loading model:", error);
-      console.error("Model source:", absoluteModelUrl);
-      onError(`Failed to load model: ${normalizedModelSrc}. Please check if the file exists and is accessible.`);
+    // Notify that the model is loaded
+    onLoaded();
+    return model;
+  }
+  
+  function handleProgress(progressEvent: any) {
+    // Log loading progress
+    if (progressEvent.lengthComputable) {
+      const percentComplete = (progressEvent.loaded / progressEvent.total) * 100;
+      console.log(`Model loading progress: ${Math.round(percentComplete)}%`);
     }
-  );
+  }
+  
+  function handleError(error: any, attemptedPaths: string[] = [normalizedModelSrc]) {
+    console.error("Error loading model:", error);
+    
+    // Format the attempted paths for display
+    const pathsMessage = attemptedPaths.map(path => `- ${path}`).join('\n');
+    
+    const errorMessage = `
+Failed to load model: ${modelSrc}
+
+Attempted to load from:
+${pathsMessage}
+
+Please check if:
+1. The file exists in the public directory
+2. The file name is spelled correctly (case-sensitive)
+3. The file format is supported (.gltf or .glb)
+`;
+    
+    console.error("Detailed error:", errorMessage);
+    onError(errorMessage);
+  }
 };
