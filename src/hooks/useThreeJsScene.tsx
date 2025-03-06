@@ -102,7 +102,7 @@ export const useThreeJsScene = ({
     } else {
       // Scene setup (only if not already created)
       const scene = new THREE.Scene();
-      scene.background = new THREE.Color(0x333333);
+      scene.background = new THREE.Color(#8c8c8c);
       sceneRef.current = scene;
     }
 
