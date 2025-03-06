@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect } from 'react';
 import { useThreeJsScene } from '@/hooks/useThreeJsScene';
 import { useHotspotPositioning } from '@/hooks/useHotspotPositioning';

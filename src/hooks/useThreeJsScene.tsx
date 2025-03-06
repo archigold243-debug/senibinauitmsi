@@ -1,25 +1,9 @@
-
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-
-interface UseThreeJsSceneProps {
-  modelSrc: string;
-  containerRef: React.RefObject<HTMLDivElement>;
-  onModelLoaded?: () => void;
-  onHotspotUpdate?: () => void;
-  onObjectClick?: (object: THREE.Object3D) => void;
-}
-
-interface ThreeJsSceneRefs {
-  scene: THREE.Scene | null;
-  camera: THREE.PerspectiveCamera | null;
-  renderer: THREE.WebGLRenderer | null;
-  controls: OrbitControls | null;
-  model: THREE.Group | null;
-  animationFrame: number | null;
-}
+import { UseThreeJsSceneProps, ThreeJsSceneRefs } from './three-js-scene/types';
+import { setupLighting, setupRenderer, resizeRenderer } from './three-js-scene/sceneUtils';
+import { loadModel } from './three-js-scene/modelLoader';
 
 export const useThreeJsScene = ({
   modelSrc,
@@ -56,15 +40,7 @@ export const useThreeJsScene = ({
 
   // Method to handle renderer resize
   const resizeRendererToDisplaySize = () => {
-    if (!containerRef.current || !cameraRef.current || !rendererRef.current) return;
-    
-    cameraRef.current.aspect = containerRef.current.clientWidth / containerRef.current.clientHeight;
-    cameraRef.current.updateProjectionMatrix();
-    rendererRef.current.setSize(containerRef.current.clientWidth, containerRef.current.clientHeight);
-    
-    if (onHotspotUpdate) {
-      onHotspotUpdate();
-    }
+    resizeRenderer(containerRef, cameraRef.current, rendererRef.current, onHotspotUpdate);
   };
 
   // Function to retry loading the model
@@ -102,7 +78,7 @@ export const useThreeJsScene = ({
     } else {
       // Scene setup (only if not already created)
       const scene = new THREE.Scene();
-      // Fix the scene background color syntax
+      // Correct scene background color syntax
       scene.background = new THREE.Color(0x595959);
       sceneRef.current = scene;
     }
@@ -155,13 +131,25 @@ export const useThreeJsScene = ({
       
       console.log(`Loading model from: ${fixedModelSrc}`);
       
-      loadModel(fixedModelSrc, sceneRef.current, cameraRef.current, controlsRef.current, containerRef.current, () => {
-        setIsLoading(false);
-        loadingRef.current = false;
-        if (onModelLoaded) {
-          onModelLoaded();
+      loadModel(
+        fixedModelSrc, 
+        sceneRef.current, 
+        cameraRef.current, 
+        controlsRef.current, 
+        containerRef.current, 
+        () => {
+          setIsLoading(false);
+          loadingRef.current = false;
+          if (onModelLoaded) {
+            onModelLoaded();
+          }
+        },
+        (errorMsg) => {
+          setError(errorMsg);
+          setIsLoading(false);
+          loadingRef.current = false;
         }
-      });
+      );
     }
 
     // Handle raycasting for mouse click events
@@ -247,110 +235,6 @@ export const useThreeJsScene = ({
       }
     };
   }, [modelSrc, retryCount]);
-
-  // Helper function to setup lighting
-  const setupLighting = (scene: THREE.Scene) => {
-    // Stronger ambient light
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
-    scene.add(ambientLight);
-
-    // Add multiple directional lights from different angles
-    const directionalLight1 = new THREE.DirectionalLight(0xffffff, 1.5);
-    directionalLight1.position.set(1, 1, 1);
-    scene.add(directionalLight1);
-
-    const directionalLight2 = new THREE.DirectionalLight(0xffffff, 1);
-    directionalLight2.position.set(-1, 2, -1);
-    scene.add(directionalLight2);
-
-    const directionalLight3 = new THREE.DirectionalLight(0xffffff, 0.5);
-    directionalLight3.position.set(0, -1, 0);
-    scene.add(directionalLight3);
-
-    // Add a hemisphere light for more natural lighting
-    const hemisphereLight = new THREE.HemisphereLight(0xffffbb, 0x080820, 1);
-    scene.add(hemisphereLight);
-  };
-
-  // Helper function to setup renderer
-  const setupRenderer = (container: HTMLDivElement) => {
-    const renderer = new THREE.WebGLRenderer({ 
-      antialias: true,
-      alpha: true,
-      powerPreference: 'high-performance'
-    });
-    renderer.setSize(container.clientWidth, container.clientHeight);
-    renderer.setPixelRatio(window.devicePixelRatio);
-    
-    // Update to use the correct properties for newer Three.js versions
-    renderer.outputColorSpace = THREE.SRGBColorSpace;
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1;
-    renderer.setClearColor(0x000000, 0); // Optional: makes background transparent
-    
-    container.appendChild(renderer.domElement);
-    return renderer;
-  };
-
-  // Helper function to load the model
-  const loadModel = (
-    modelSrc: string, 
-    scene: THREE.Scene, 
-    camera: THREE.PerspectiveCamera, 
-    controls: OrbitControls,
-    container: HTMLDivElement, 
-    onLoaded: () => void
-  ) => {
-    const loader = new GLTFLoader();
-    
-    // Add cache busting query parameter to prevent browser caching
-    const cacheBustingSrc = `${modelSrc}?t=${new Date().getTime()}`;
-    console.log(`Requesting model with cache busting: ${cacheBustingSrc}`);
-    
-    loader.load(
-      cacheBustingSrc, 
-      (gltf) => {
-        console.log("Model loaded successfully:", modelSrc);
-        const model = gltf.scene;
-        model.scale.set(1, 1, 1); // Adjust scale if needed
-        scene.add(model);
-        modelRef.current = model;
-
-        // Compute bounding box and center model
-        const box = new THREE.Box3().setFromObject(model);
-        const size = new THREE.Vector3();
-        box.getSize(size);
-        const maxDim = Math.max(size.x, size.y, size.z);
-        const fov = camera.fov * (Math.PI / 180); // Convert to radians (fixed from 90)
-        let cameraZ = Math.abs(maxDim / 4 * Math.tan(fov * 2));
-        camera.position.set(100, size.y * 5, -size.z * 5);
-        
-        // Ensure the camera looks at the model
-        const center = new THREE.Vector3();
-        box.getCenter(center);
-        camera.lookAt(center);
-        
-        controls.target.copy(center);
-        controls.update();
-
-        onLoaded(); // Invoke callback
-      },
-      (progressEvent) => {
-        // Log loading progress
-        if (progressEvent.lengthComputable) {
-          const percentComplete = (progressEvent.loaded / progressEvent.total) * 100;
-          console.log(`Model loading progress: ${Math.round(percentComplete)}%`);
-        }
-      }, 
-      (error) => {
-        console.error("Error loading model:", error);
-        console.error("Model source:", modelSrc);
-        setError(`Failed to load model: ${modelSrc}`);
-        setIsLoading(false);
-        loadingRef.current = false;
-      }
-    );
-  };
 
   return {
     isLoading,
