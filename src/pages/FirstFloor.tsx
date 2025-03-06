@@ -21,7 +21,7 @@ const FirstFloor = () => {
           </div>
           
           <div className="bg-white rounded-lg shadow-lg overflow-hidden mb-8 animate-scale-up">
-            <ModelViewer modelSrc="Annex 11F.gltf">
+            <ModelViewer modelSrc="Annex11F.gltf">
               <HoverDetails
                 title="Studio 01A"
                 description="Max Pax =30, 2 AC split unit, Projector"
