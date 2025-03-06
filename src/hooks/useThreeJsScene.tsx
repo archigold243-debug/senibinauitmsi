@@ -103,7 +103,7 @@ export const useThreeJsScene = ({
       // Scene setup (only if not already created)
       const scene = new THREE.Scene();
       // Fix the scene background color syntax
-      scene.background = new THREE.Color(0x8c8c8c);
+      scene.background = new THREE.Color(0x595959);
       sceneRef.current = scene;
     }
 
