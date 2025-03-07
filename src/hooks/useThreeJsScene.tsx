@@ -138,6 +138,15 @@ export const useThreeJsScene = ({
         controlsRef.current, 
         containerRef.current, 
         () => {
+          // Set shadows for the model after it's loaded
+          if (modelRef.current) {
+            modelRef.current.traverse((node) => {
+              if (node.isMesh) {
+                node.castShadow = true;   // Ensure the model casts shadows
+                node.receiveShadow = true;  // Ensure the model receives shadows
+              }
+            });
+          }
           setIsLoading(false);
           loadingRef.current = false;
           if (onModelLoaded) {
