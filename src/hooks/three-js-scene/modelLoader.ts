@@ -1,4 +1,3 @@
-
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
@@ -16,15 +15,12 @@ export const loadModel = (
   const loader = new GLTFLoader();
   
   // Ensure modelSrc has the correct format for browser loading
-  // First, trim any leading slashes
   let normalizedModelSrc = modelSrc.replace(/^\/+/, '');
   
-  // Prepare for debugging
   console.log(`Original model path: ${modelSrc}`);
   console.log(`Normalized model path: ${normalizedModelSrc}`);
   
   try {
-    // If it's already an absolute URL, use it as is
     if (normalizedModelSrc.startsWith('http')) {
       loader.load(
         normalizedModelSrc,
@@ -33,27 +29,21 @@ export const loadModel = (
         handleError
       );
     } else {
-      // For relative paths, try direct loading first (without base URL prefixing)
       loader.load(
         normalizedModelSrc, 
         handleSuccess,
         handleProgress,
         (error) => {
           console.log(`Failed to load model directly: ${normalizedModelSrc}. Trying with origin prefix...`);
-          
-          // If direct loading fails, try with origin prefix
           const originPrefixed = `${window.location.origin}/${normalizedModelSrc}`;
           console.log(`Attempting with origin prefix: ${originPrefixed}`);
-          
           loader.load(
             originPrefixed,
             handleSuccess,
             handleProgress,
             (error) => {
-              // If that fails too, try with /public/ prefix
               const publicPrefixed = `${window.location.origin}/public/${normalizedModelSrc}`;
               console.log(`Attempting with public folder prefix: ${publicPrefixed}`);
-              
               loader.load(
                 publicPrefixed,
                 handleSuccess,
@@ -75,6 +65,15 @@ export const loadModel = (
     console.log("Model loaded successfully:", gltf);
     const model = gltf.scene;
     model.scale.set(1, 1, 1); // Adjust scale if needed
+
+    // Enable casting and receiving shadows
+    model.traverse((child) => {
+      if (child instanceof THREE.Mesh) {
+        child.castShadow = true;  // Make the model cast shadows
+        child.receiveShadow = true; // Make the model receive shadows
+      }
+    });
+
     scene.add(model);
 
     // Compute bounding box and center model
@@ -90,7 +89,7 @@ export const loadModel = (
     let cameraZ = Math.abs(maxDim / (2 * Math.tan(fovRadians / 2)));
     
     // Adjust camera position
-     camera.position.set(0, cameraZ * 0.5, -cameraZ * 2);
+    camera.position.set(0, cameraZ * 0.5, -cameraZ * 2);
     
     // Ensure the camera looks at the model
     const center = new THREE.Vector3();
@@ -107,7 +106,6 @@ export const loadModel = (
   }
   
   function handleProgress(progressEvent: any) {
-    // Log loading progress
     if (progressEvent.lengthComputable) {
       const percentComplete = (progressEvent.loaded / progressEvent.total) * 100;
       console.log(`Model loading progress: ${Math.round(percentComplete)}%`);
@@ -116,22 +114,16 @@ export const loadModel = (
   
   function handleError(error: any, attemptedPaths: string[] = [normalizedModelSrc]) {
     console.error("Error loading model:", error);
-    
-    // Format the attempted paths for display
     const pathsMessage = attemptedPaths.map(path => `- ${path}`).join('\n');
-    
     const errorMessage = `
 Failed to load model: ${modelSrc}
-
 Attempted to load from:
 ${pathsMessage}
-
 Please check if:
 1. The file exists in the public directory
 2. The file name is spelled correctly (case-sensitive)
 3. The file format is supported (.gltf or .glb)
 `;
-    
     console.error("Detailed error:", errorMessage);
     onError(errorMessage);
   }
