@@ -107,6 +107,12 @@ const FourthFloor = () => {
                 modelPosition={[-2, 16, 10]} 
               />
               <HoverDetails
+                title="En Faris"
+                description="Lecturer"
+                position="top"
+                modelPosition={[10, 16, 10]} 
+              />
+              <HoverDetails
                 title="Classroom"
                 description="Max Pax= 40. Projector, AP1 403"
                 position="right"
