@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { cn } from '@/lib/utils';
 
@@ -7,6 +6,7 @@ interface HoverDetailsProps {
   y?: number;
   title: string;
   description: string;
+  imageSrc?: string; // New prop for image
   position?: 'right' | 'left' | 'top' | 'bottom';
   className?: string;
   modelPosition: [number, number, number]; // 3D coordinates in the model space (required)
@@ -18,6 +18,7 @@ const HoverDetails: React.FC<HoverDetailsProps> = ({
   y,
   title,
   description,
+  imageSrc, // Accept imageSrc as a prop
   position = 'right',
   className,
   modelPosition,
@@ -68,7 +69,11 @@ const HoverDetails: React.FC<HoverDetailsProps> = ({
             zIndex: 50, // Higher z-index to ensure it appears on top of dots
           }}
         >
+          {/* Display the title, description, and image */}
           <h4 className="text-base font-medium mb-1">{title}</h4>
+          {imageSrc && (
+            <img src={imageSrc} alt={title} className="w-full mb-2 rounded" />
+          )}
           <p className="text-sm text-gray-600">{description}</p>
         </div>
       )}
