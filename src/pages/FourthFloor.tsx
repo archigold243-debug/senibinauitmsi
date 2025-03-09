@@ -1,10 +1,11 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import Layout from '@/components/Layout';
 import ModelViewer from '@/components/ModelViewer';
 import HoverDetails from '@/components/HoverDetails';
 
 const FourthFloor = () => {
+  const [hoveredItem, setHoveredItem] = useState<{ title: string; imageSrc: string } | null>(null);
+
   return (
     <Layout>
       <div className="container mx-auto px-4 py-8">
@@ -83,7 +84,7 @@ const FourthFloor = () => {
                 modelPosition={[13, 16, 15]} 
               />
               <HoverDetails
-                title="unoccupied"
+                title="Unoccupied"
                 description="Senior Lecturer"
                 position="top"
                 modelPosition={[-17, 16, 10]} 
@@ -133,11 +134,8 @@ const FourthFloor = () => {
                 <img src={hoveredItem.imageSrc} alt={hoveredItem.title} className="w-64 h-auto rounded-lg shadow-lg" />
               </div>
             )}
-            
           </div>
 
-          
-          
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
             <div className="bg-white rounded-lg p-6 shadow animate-slide-in-from-left">
               <h3 className="text-lg font-medium mb-2">Fourth Floor Specifications</h3>
@@ -188,7 +186,7 @@ const FourthFloor = () => {
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 rounded-full bg-primary"></div>
-                  <span>Integrated audio-visual systems</span>
+                  <span>Floor-to-ceiling windows for panoramic views</span>
                 </div>
               </div>
             </div>
