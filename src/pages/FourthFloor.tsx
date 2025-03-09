@@ -92,7 +92,8 @@ const FourthFloor = () => {
                 title="En AR"
                 description="Lecturer"
                 position="top"
-                modelPosition={[-14, 16, 10]} 
+                modelPosition={[-14, 16, 10]}
+                imageSrc="AR.jpg"
               />
               <HoverDetails
                 title="Ar Shahmizi"
