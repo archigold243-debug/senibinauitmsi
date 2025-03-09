@@ -127,13 +127,16 @@ const FourthFloor = () => {
                 modelPosition={[25, 16, 3]} 
               />
             </ModelViewer>
-          </div>
 
-          {hoveredItem && hoveredItem.imageSrc && (
+            {hoveredItem && hoveredItem.imageSrc && (
               <div className="ml-6 flex-shrink-0">
                 <img src={hoveredItem.imageSrc} alt={hoveredItem.title} className="w-64 h-auto rounded-lg shadow-lg" />
               </div>
             )}
+            
+          </div>
+
+          
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
             <div className="bg-white rounded-lg p-6 shadow animate-slide-in-from-left">
