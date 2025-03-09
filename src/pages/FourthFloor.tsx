@@ -94,7 +94,7 @@ const FourthFloor = () => {
                 description="Lecturer"
                 position="top"
                 modelPosition={[-14, 16, 10]}
-                onHover={() => setHoveredItem({ title: "En AR", imageSrc: "/AR.jpg" })} // Show image on hover
+                onHover={() => setHoveredItem({ title: "En AR", imageSrc: "/AR.jpg" })} // Use relative path if image is in the public folder
                 onLeave={() => setHoveredItem(null)} // Reset on hover leave
               />
               <HoverDetails
@@ -182,7 +182,7 @@ const FourthFloor = () => {
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 rounded-full bg-primary"></div>
-                  <span>Sustainable irrigation system for garden</span>
+                  <span>Open areas designed for both quiet and collaborative work</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 rounded-full bg-primary"></div>
@@ -198,3 +198,4 @@ const FourthFloor = () => {
 };
 
 export default FourthFloor;
+
