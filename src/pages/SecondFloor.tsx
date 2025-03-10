@@ -69,7 +69,8 @@ const SecondFloor = () => {
                 title="En. Nazrin"
                 description="Lecturer"
                 position="right"                
-                modelPosition={[10, 8, -15]} 
+                modelPosition={[10, 8, -15]}
+                imageSrc="YEN.jpg"
               />
               <HoverDetails
                 title="Dr. Mayamin"
@@ -126,7 +127,7 @@ const SecondFloor = () => {
                 modelPosition={[-15, 8, -15]} 
               />
               <HoverDetails
-                title="En. Kosong"
+                title="unoccupied"
                 description="Senior Lecturer"
                 position="right"                
                 modelPosition={[-11, 8, -15]} 
