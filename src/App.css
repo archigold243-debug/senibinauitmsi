@@ -54,8 +54,8 @@
 
 /* Annotation card styling */
 .annotation-card {
-  position: absolute;
-  z-index: 100; /* Cards have a higher z-index to appear on top of dots */
+  position: relative;
+  z-index: 1000; /* Cards have a higher z-index to appear on top of dots */
   background-color: white;
   padding: 1rem;
   border-radius: 8px;
