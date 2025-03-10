@@ -57,22 +57,19 @@ const SecondFloor = () => {
                 title="Bilik Krit Utama"
                 description="Use for Crtique Sessions, Wrap up, Lectures, Projector, AP1 224"
                 position="bottom"
-                modelPosition={[-24, 8, 0]}
-                className="room-card"
+                modelPosition={[-24, 8, 0]} 
               />
               <HoverDetails
                 title="Dr. Fazidah Hanim"
                 description="Senior Lecturer"
                 position="right"                
-                modelPosition={[10, 8, -8]}
-                className="lecturer-card"
+                modelPosition={[10, 8, -8]} 
               />
               <HoverDetails
                 title="En. Nazrin"
                 description="Lecturer"
                 position="right"                
                 modelPosition={[10, 8, -15]}
-                className="lecturer-card"
                 imageSrc="YEN.jpg"
               />
               <HoverDetails
