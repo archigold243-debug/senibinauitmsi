@@ -14,7 +14,7 @@ const ThirdFloor = () => {
             </div>
             <h1 className="text-3xl md:text-4xl font-light mb-4">Third Floor</h1>
             <p className="text-lg text-muted-foreground">
-              This floor have Studios, Crit Rooms, Toilets (Purple, pink), Archi. Lecturer's Office (yellow), and Staff Lounge.
+              This floor have Studios, Crit Rooms, Toilets (Purple, pink) and Classrooms.
               Hover over the highlighted areas to learn more about each space.
             </p>
           </div>
