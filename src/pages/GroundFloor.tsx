@@ -77,25 +77,25 @@ const GroundFloor = () => {
                 modelPosition={[-25, 2, -15]}
                />
                <HoverDetails
-                title="Ts. Nasuruddin"
+                title="Ts. MOHD NASURUDIN BIN HASBULLAH"
                 description="Senior Lecturer"
                 position="right"
                 modelPosition={[24, 2, -19]}
                />
                <HoverDetails
-                title="Dr Azhan"
+                title="Dr AZHAN BIN ABD AZIZ"
                 description="Senior Lecturer"
                 position="right"
                 modelPosition={[-14, 2, 4.5]}
                />
                <HoverDetails
-                title="En Faisol"
+                title="En AHMAD FAISOL BIN YUSOF"
                 description="Senior Lecturer"
                 position="right"
                 modelPosition={[17, 2, -7]}
                 />
                <HoverDetails
-                title="Dr. Wan Nur Rukiah"
+                title="Ts. Dr. WAN NUR RUKIAH BINTI MOHD ARSHAD"
                 description="Senior Lecturer"
                 position="right"
                 modelPosition={[32, 2, -7]}
