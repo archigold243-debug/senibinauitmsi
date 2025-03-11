@@ -99,7 +99,8 @@ const FourthFloor = () => {
                 title="Ar. MUHAMMAD ASSYAHMIZI BIN MOHD YUNUS"
                 description="Senior Lecturer"
                 position="top"
-                modelPosition={[-11, 16, 10]} 
+                modelPosition={[-11, 16, 10]}
+                imageSrc="Mizi.png"
               />
               <HoverDetails
                 title="En MOHAMAD SHAHIN BIN SHAHDAN"
