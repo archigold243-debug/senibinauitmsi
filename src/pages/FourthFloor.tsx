@@ -43,49 +43,49 @@ const FourthFloor = () => {
               <HoverDetails
                 title="Dr FARID AL HAKEEM BIN YUSERRIE"
                 description="Senior Lecturer"
-                position="top"
+                position="bottom"
                 modelPosition={[-17, 16, 15]}
                 imageSrc="Farid.jpg"
               />
               <HoverDetails
                 title="En AHMAD FAIZ BIN MOHD NAZAMUDIN"
                 description="Lecturer"
-                position="top"
+                position="bottom"
                 modelPosition={[-14, 16, 15]}
                 imageSrc="Mamoo.jpg"
               />
               <HoverDetails
                 title="En MOHAMMAD SYATHIR AMINI BIN SHAHBUDIN"
                 description="Lecturer"
-                position="top"
+                position="bottom"
                 modelPosition={[-2, 16, 15]}
                 imageSrc="Syathir.jpg"
               />
               <HoverDetails
                 title="En SALAHUDDIN ABDUL HAKEEM BIN ABAS"
                 description="Lecturer"
-                position="top"
+                position="bottom"
                 modelPosition={[1, 16, 15]}
                 imageSrc="Saha.jpg"
               />
               <HoverDetails
                 title="Ar. Dr JAMALUDIN BIN MUHAMAD"
                 description="Lecturer"
-                position="top"
+                position="bottom"
                 modelPosition={[7, 16, 15]}
                 imageSrc="Jamal.jpg"
               />
               <HoverDetails
                 title="Dr SAYED MUHAMMAD AIMAN BIN SAYED ABUL KHAIR"
                 description="Senior Lecturer"
-                position="top"
+                position="bottom"
                 modelPosition={[10, 16, 15]} 
                 imageSrc="Aiman.jpg"
               />
               <HoverDetails
                 title="Ts. IZZAT BIN ANUAR"
                 description="Lecturer"
-                position="top"
+                position="bottom"
                 modelPosition={[13, 16, 15]}
                 imageSrc="Izzat.jpg"
               />
@@ -98,28 +98,28 @@ const FourthFloor = () => {
               <HoverDetails
                 title="En ABDUL RAHMAN BIN KHAMARUZAMAN"
                 description="Lecturer"
-                position="top"
+                position="bottom"
                 modelPosition={[-14, 16, 10]}
                 imageSrc="AR.jpg"
               />
               <HoverDetails
                 title="Ar. MUHAMMAD ASSYAHMIZI BIN MOHD YUNUS"
                 description="Senior Lecturer"
-                position="top"
+                position="bottom"
                 modelPosition={[-11, 16, 10]}
                 imageSrc="Mizi.png"
               />
               <HoverDetails
                 title="En MOHAMAD SHAHIN BIN SHAHDAN"
                 description="Lecturer"
-                position="top"
+                position="bottom"
                 modelPosition={[-2, 16, 10]}
                 imageSrc="Shahin.jpg"
               />
               <HoverDetails
                 title="En MUHAMMAD FARIS ARMAN BIN"
                 description="Lecturer"
-                position="top"
+                position="bottom"
                 modelPosition={[10, 16, 10]} 
                 imageSrc="Baa.jpg"
               />
