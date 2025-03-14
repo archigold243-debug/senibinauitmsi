@@ -121,7 +121,7 @@ const FourthFloor = () => {
                 description="Lecturer"
                 position="bottom"
                 modelPosition={[10, 16, 10]} 
-                imageSrc="Baa.jpg"
+                imageSrc="Baa.jpeg"
               />
               <HoverDetails
                 title="Classroom"
