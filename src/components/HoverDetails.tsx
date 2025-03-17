@@ -66,8 +66,8 @@ const HoverDetails: React.FC<HoverDetailsProps> = ({
           style={{ 
             ...getCardStyle(),
             animationFillMode: 'forwards',
-            minWidth: '120px',
-            maxWidth: '200px',
+            minWidth: '170px',
+            maxWidth: '250px',
             zIndex: 100,
           }}
         >
