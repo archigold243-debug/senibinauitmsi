@@ -80,7 +80,7 @@ const HoverDetails: React.FC<HoverDetailsProps> = ({
                 className="w-full h-auto object-cover mb-2 rounded" // Full width, stacked image
               />
             )}
-            <h4 className="text-base font-medium mb-1">{title}</h4> {/* Main title */}
+            <h4 className="text-base font-medium mb-[2px]">{title}</h4> {/* Main title */}
             {surname && <p className="text-sm font-normal text-gray-600">{surname}</p>} {/* Surname, smaller font */}
           </div>
           
