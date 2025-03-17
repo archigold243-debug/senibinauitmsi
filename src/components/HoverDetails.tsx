@@ -81,7 +81,7 @@ const HoverDetails: React.FC<HoverDetailsProps> = ({
               />
             )}
             <h4 className="text-base font-medium mb-[2px]">{title}</h4> {/* Main title */}
-            {surname && <p className="text-sm font-normal text-gray-600">{surname}</p>} {/* Surname, smaller font */}
+            {surname && <p className="text-sm font-normal text-gray-600 mt-0">{surname}</p>} {/* Surname, smaller font */}
           </div>
           
           <p className="text-sm text-gray-600">{description}</p>
