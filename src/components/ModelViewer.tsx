@@ -1,5 +1,4 @@
-
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { useThreeJsScene } from '@/hooks/useThreeJsScene';
 import { useHotspotPositioning } from '@/hooks/useHotspotPositioning';
 import LoadingState from './model-viewer/LoadingState';
@@ -11,19 +10,21 @@ interface ModelViewerProps {
 
 const ModelViewer: React.FC<ModelViewerProps> = ({ modelSrc, children }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isARActive, setIsARActive] = useState(false); // Track AR/VR mode
 
   // Create a callback for when hotspot positions need to be updated
   const onHotspotUpdateRef = useRef<() => void>(() => {});
 
   // Initialize the Three.js scene
-  const { isLoading, error, refs, resizeRendererToDisplaySize, retryLoadModel } = useThreeJsScene({
+  const { isLoading, error, refs, resizeRendererToDisplaySize, retryLoadModel, toggleXR } = useThreeJsScene({
     modelSrc,
     containerRef,
     onModelLoaded: () => {
       // Force update positions after model loaded
       setTimeout(() => onHotspotUpdateRef.current(), 100);
     },
-    onHotspotUpdate: () => onHotspotUpdateRef.current()
+    onHotspotUpdate: () => onHotspotUpdateRef.current(),
+    isARActive, // Pass AR/VR state to scene
   });
 
   // Setup hotspot positioning
@@ -31,7 +32,7 @@ const ModelViewer: React.FC<ModelViewerProps> = ({ modelSrc, children }) => {
     containerRef,
     cameraRef: { current: refs.camera },
     sceneRef: { current: refs.scene },
-    isLoading
+    isLoading,
   });
 
   // Assign the update function to the ref so the ThreeJS scene can call it
@@ -56,6 +57,11 @@ const ModelViewer: React.FC<ModelViewerProps> = ({ modelSrc, children }) => {
     };
   }, [resizeRendererToDisplaySize, modelSrc]);
 
+  const handleToggleARVR = () => {
+    setIsARActive(!isARActive); // Toggle AR/VR mode
+    toggleXR(!isARActive); // Call the XR toggle function in the Three.js scene
+  };
+
   return (
     <div className="relative w-full h-full min-h-[500px] md:min-h-[700px]" ref={containerRef}>
       <LoadingState 
@@ -64,7 +70,15 @@ const ModelViewer: React.FC<ModelViewerProps> = ({ modelSrc, children }) => {
         onRetry={retryLoadModel} 
         modelSrc={modelSrc} 
       />
-      
+
+      {/* AR/VR Toggle Button */}
+      <button
+        onClick={handleToggleARVR}
+        className="absolute top-4 right-4 bg-blue-600 text-white p-2 rounded-lg z-10"
+      >
+        {isARActive ? 'Exit AR/VR' : 'Enter AR/VR'}
+      </button>
+
       {/* Interactive elements positioned over the 3D scene */}
       <div className="absolute inset-0 pointer-events-none">
         {children}
