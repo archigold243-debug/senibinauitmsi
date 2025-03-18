@@ -44,7 +44,7 @@ const FourthFloor = () => {
                 title="Dr FARID AL HAKEEM"
                 surname="YUSERRIE"
                 description="Senior Lecturer"
-                position="bottom"
+                position="right"
                 modelPosition={[-17, 16, 15]}
                 imageSrc="Farid.jpg"
               />
@@ -52,7 +52,7 @@ const FourthFloor = () => {
                 title="En AHMAD FAIZ"
                 surname="MOHD NAZAMUDIN"
                 description="Lecturer"
-                position="bottom"
+                position="right"
                 modelPosition={[-14, 16, 15]}
                 imageSrc="Mamoo.jpg"
               />
@@ -60,7 +60,7 @@ const FourthFloor = () => {
                 title="En MOHAMMAD SYATHIR AMINI"
                 surname="SHAHBUDIN"
                 description="Lecturer"
-                position="bottom"
+                position="right"
                 modelPosition={[-2, 16, 15]}
                 imageSrc="Syathir.jpg"
               />
@@ -68,7 +68,7 @@ const FourthFloor = () => {
                 title="En SALAHUDDIN ABDUL HAKEEM"
                 surname="ABAS"
                 description="Lecturer"
-                position="bottom"
+                position="right"
                 modelPosition={[1, 16, 15]}
                 imageSrc="Saha.jpg"
               />
@@ -76,7 +76,7 @@ const FourthFloor = () => {
                 title="Ar. Dr JAMALUDIN"
                 surname="MUHAMAD"
                 description="Senior Lecturer"
-                position="bottom"
+                position="right"
                 modelPosition={[7, 16, 15]}
                 imageSrc="Jamal.jpg"
               />
@@ -84,7 +84,7 @@ const FourthFloor = () => {
                 title="Dr SAYED MUHAMMAD AIMAN"
                 surname="SAYED ABUL KHAIR"
                 description="Senior Lecturer"
-                position="bottom"
+                position="right"
                 modelPosition={[10, 16, 15]} 
                 imageSrc="Aiman.jpg"
               />
@@ -92,7 +92,7 @@ const FourthFloor = () => {
                 title="Ts. IZZAT"
                 surname="ANUAR"
                 description="Lecturer"
-                position="bottom"
+                position="right"
                 modelPosition={[13, 16, 15]}
                 imageSrc="Izzat.jpg"
               />
@@ -100,14 +100,14 @@ const FourthFloor = () => {
                 title="unoccupied"
                 surname="-"
                 description="-"
-                position="top"
+                position="right"
                 modelPosition={[-17, 16, 10]} 
               />
               <HoverDetails
                 title="En ABDUL RAHMAN"
                 surname="KHAMARUZAMAN"
                 description="Lecturer"
-                position="bottom"
+                position="right"
                 modelPosition={[-14, 16, 10]}
                 imageSrc="AR.jpg"
               />
@@ -115,7 +115,7 @@ const FourthFloor = () => {
                 title="Ar. MUHAMMAD ASSYAHMIZI"
                 surname="MOHD YUNUS"
                 description="Senior Lecturer"
-                position="bottom"
+                position="right"
                 modelPosition={[-11, 16, 10]}
                 imageSrc="Mizi.png"
               />
@@ -123,7 +123,7 @@ const FourthFloor = () => {
                 title="En MOHAMAD SHAHIN"
                 surname="SHAHDAN"
                 description="Lecturer"
-                position="bottom"
+                position="right"
                 modelPosition={[-2, 16, 10]}
                 imageSrc="Shahin.jpg"
               />
@@ -131,7 +131,7 @@ const FourthFloor = () => {
                 title="En MUHAMMAD FARIS"
                 surname="ARMAN"
                 description="Lecturer"
-                position="bottom"
+                position="right"
                 modelPosition={[10, 16, 10]} 
                 imageSrc="Baa.jpeg"
               />
@@ -144,7 +144,7 @@ const FourthFloor = () => {
               <HoverDetails
                 title="Classroom"
                 description="Max Pax= 40. Projector, AP1 439"
-                position="left"
+                position="right"
                 modelPosition={[25, 16, 3]} 
               />
             </ModelViewer>
