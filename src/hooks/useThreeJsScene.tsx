@@ -5,6 +5,9 @@ import { UseThreeJsSceneProps, ThreeJsSceneRefs } from './three-js-scene/types';
 import { setupLighting, setupRenderer, resizeRenderer } from './three-js-scene/sceneUtils';
 import { loadModel } from './three-js-scene/modelLoader';
 
+// New imports for AR/VR
+import { VRButton } from 'three/examples/jsm/webxr/VRButton.js';
+
 export const useThreeJsScene = ({
   modelSrc,
   containerRef,
@@ -16,6 +19,9 @@ export const useThreeJsScene = ({
   const [error, setError] = useState<string | null>(null);
   const [retryCount, setRetryCount] = useState(0);
   
+  // New state to handle VR/AR mode
+  const [isVrMode, setIsVrMode] = useState(false);
+
   // Store Three.js objects for use in subsequent renders
   const sceneRef = useRef<THREE.Scene | null>(null);
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
@@ -78,8 +84,7 @@ export const useThreeJsScene = ({
     } else {
       // Scene setup (only if not already created)
       const scene = new THREE.Scene();
-      // Correct scene background color syntax
-      scene.background = new THREE.Color(0x595959);
+      scene.background = new THREE.Color(0x595959); // Correct scene background color syntax
       sceneRef.current = scene;
     }
 
@@ -236,11 +241,22 @@ export const useThreeJsScene = ({
     };
   }, [modelSrc, retryCount]);
 
+  // New function to enable VR mode
+  const enableVrMode = () => {
+    if (rendererRef.current) {
+      rendererRef.current.xr.enabled = true;
+      document.body.appendChild(VRButton.createButton(rendererRef.current));
+      setIsVrMode(true);
+    }
+  };
+
   return {
     isLoading,
     error,
+    retryLoadModel,
     refs,
-    resizeRendererToDisplaySize,
-    retryLoadModel
+    enableVrMode, // Expose the VR mode toggle function
+    isVrMode // Expose VR mode state
   };
 };
+
