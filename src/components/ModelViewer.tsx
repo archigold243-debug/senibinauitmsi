@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { useThreeJsScene } from '@/hooks/useThreeJsScene';
 import { useHotspotPositioning } from '@/hooks/useHotspotPositioning';
 import LoadingState from './model-viewer/LoadingState';
+import WebXRScene from './WebXRScene'; // Import the new WebXR scene
 
 interface ModelViewerProps {
   modelSrc: string;
@@ -79,10 +80,17 @@ const ModelViewer: React.FC<ModelViewerProps> = ({ modelSrc, children }) => {
         {isARActive ? 'Exit AR/VR' : 'Enter AR/VR'}
       </button>
 
-      {/* Interactive elements positioned over the 3D scene */}
-      <div className="absolute inset-0 pointer-events-none">
-        {children}
-      </div>
+      {/* Render WebXR scene or regular Three.js scene */}
+      {isARActive ? (
+        <WebXRScene modelSrc={modelSrc} />  // Render WebXR scene when AR/VR mode is active
+      ) : (
+        <>
+          {/* Interactive elements positioned over the 3D scene */}
+          <div className="absolute inset-0 pointer-events-none">
+            {children}
+          </div>
+        </>
+      )}
     </div>
   );
 };
