@@ -105,16 +105,16 @@ const ThirdFloor = () => {
             <div className="bg-white rounded-lg p-6 shadow animate-slide-in-from-right">
               <h3 className="text-lg font-medium mb-2">Key Features</h3>
               <p className="text-sm text-gray-600 mb-4">
-                The third floor projects an image of success and professionalism with premium materials and amenities for executives and special guests.
+                The transitional floor. where junior senior knowledge is being tested to see whether you are fit to go up the semester ladder.
               </p>
               <div className="space-y-2 text-sm text-gray-600">
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 rounded-full bg-primary"></div>
-                  <span>---</span>
+                  <span>Workstation studios</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 rounded-full bg-primary"></div>
-                  <span>---</span>
+                  <span>Come up meet your friendly 'seniors'</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 rounded-full bg-primary"></div>
