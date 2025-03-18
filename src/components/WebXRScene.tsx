@@ -65,10 +65,7 @@ const WebXRScene: React.FC<WebXRSceneProps> = ({ modelSrc }) => {
     // Animation loop
     const animate = () => {
       renderer.setAnimationLoop(() => {
-        if (modelRef.current) {
-          modelRef.current.rotation.y += 0.01; // Rotate the model for effect
-        }
-        renderer.render(scene, camera);
+        renderer.render(scene, camera); // No manual model rotation; rely on AR/VR device rotation
       });
     };
 
@@ -104,4 +101,3 @@ const WebXRScene: React.FC<WebXRSceneProps> = ({ modelSrc }) => {
 };
 
 export default WebXRScene;
-
