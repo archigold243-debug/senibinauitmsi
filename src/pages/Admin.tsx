@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Layout from '@/components/Layout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -16,15 +16,30 @@ const Admin = () => {
   const navigate = useNavigate();
   const { studios, namedRooms, updateStudioName, updateRoomName } = useRoomContext();
 
+  // Check localStorage for existing auth state on component mount
+  useEffect(() => {
+    const authState = localStorage.getItem('admin_authenticated');
+    if (authState === 'true') {
+      setIsAuthenticated(true);
+    }
+  }, []);
+
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     if (password === 'admin123') {
       setIsAuthenticated(true);
+      localStorage.setItem('admin_authenticated', 'true');
       toast.success('Access granted');
     } else {
       toast.error('Invalid password');
       setPassword('');
     }
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    localStorage.removeItem('admin_authenticated');
+    toast.success('Logged out successfully');
   };
 
   const [editingStudio, setEditingStudio] = useState<string | null>(null);
@@ -131,7 +146,7 @@ const Admin = () => {
             </div>
             <Button 
               variant="outline" 
-              onClick={() => setIsAuthenticated(false)}
+              onClick={handleLogout}
             >
               Logout
             </Button>
