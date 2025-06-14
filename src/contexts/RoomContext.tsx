@@ -28,23 +28,37 @@ export const useRoomContext = () => {
 
 export const RoomProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [studios, setStudios] = useState<RoomData[]>([
+    // Ground Floor Studios
     { id: 'studio-1a', currentName: 'Studio 1A', description: 'Max Pax= 28. Projector', floor: 'Ground Floor', position: [25, 4, -12] },
     { id: 'studio-1b', currentName: 'Studio 1B', description: 'Max Pax= 28. Projector', floor: 'Ground Floor', position: [-25, 4, -12] },
-    { id: 'studio-2a', currentName: 'Studio 2A', description: 'Max Pax= 28. Projector', floor: 'First Floor', position: [25, 8, -12] },
-    { id: 'studio-2b', currentName: 'Studio 2B', description: 'Max Pax= 28. Projector', floor: 'First Floor', position: [-25, 8, -12] },
-    { id: 'studio-3a', currentName: 'Studio 05A', description: 'Fixed Work Station 3 AC split unit, Projector', floor: 'Third Floor', position: [-8, 12, 13] },
-    { id: 'studio-3b', currentName: 'Studio 04A', description: 'Fixed Work Station 3 AC split unit, Projector', floor: 'Third Floor', position: [11, 12, 13] },
-    { id: 'studio-4c', currentName: 'Studio 4C', description: 'Max Pax =28. Projector', floor: 'Fourth Floor', position: [25, 16, -12] },
+    
+    // First Floor Studios
     { id: 'studio-01a', currentName: 'Studio 01A', description: 'Max Pax =30, 2 AC split unit, Projector', floor: 'First Floor', position: [24, 6, 2] },
     { id: 'studio-03a-extended', currentName: 'Studio 03A extended', description: 'Max Pax =30, 2 AC split unit, Non projector', floor: 'First Floor', position: [24, 6, -10] },
     { id: 'studio-03a', currentName: 'Studio 03A', description: 'Max Pax =30, 2 AC split unit, Projector', floor: 'First Floor', position: [24, 6, -20] },
     { id: 'studio-07a', currentName: 'Studio 07A', description: 'Max Pax =30, Fixed Work Station 3 AC split unit, Projector.', floor: 'First Floor', position: [-12, 6, 15] },
+    
+    // Second Floor Studios
+    { id: 'studio-2a', currentName: 'Studio 2A', description: 'Max Pax= 28. Projector', floor: 'Second Floor', position: [25, 8, -12] },
+    { id: 'studio-2b', currentName: 'Studio 2B', description: 'Max Pax= 28. Projector', floor: 'Second Floor', position: [-25, 8, -12] },
+    
+    // Third Floor Studios
+    { id: 'studio-3a', currentName: 'Studio 05A', description: 'Fixed Work Station 3 AC split unit, Projector', floor: 'Third Floor', position: [-8, 12, 13] },
+    { id: 'studio-3b', currentName: 'Studio 04A', description: 'Fixed Work Station 3 AC split unit, Projector', floor: 'Third Floor', position: [11, 12, 13] },
+    
+    // Fourth Floor Studios
+    { id: 'studio-4c', currentName: 'Studio 4C', description: 'Max Pax =28. Projector', floor: 'Fourth Floor', position: [25, 16, -12] },
   ]);
 
   const [namedRooms, setNamedRooms] = useState<RoomData[]>([
+    // Second Floor Rooms
     { id: 'crit-main', currentName: 'Bilik Krit Utama', description: 'Main critique room with projector', floor: 'Second Floor', position: [0, 10, 0] },
+    
+    // First Floor Rooms
     { id: 'crit-small', currentName: 'Bilik Krit Kecil', description: 'Small critique room', floor: 'First Floor', position: [15, 8, 0] },
     { id: 'crit-tec', currentName: 'Bilik Krit TEC', description: 'Use for Crtique Sessions, Wrap up, Lectures, Projector, AP1 132', floor: 'First Floor', position: [11, 6, 15] },
+    
+    // Fourth Floor Rooms
     { id: 'surau-l', currentName: 'Surau L', description: '5 times Appoinment with Allah', floor: 'Fourth Floor', position: [20, 16, 15] },
     { id: 'surau-p', currentName: 'Surau P', description: '5 times Appoinment with Allah', floor: 'Fourth Floor', position: [-20, 16, 15] },
   ]);
