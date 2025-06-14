@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Layout from '@/components/Layout';
 import { Button } from '@/components/ui/button';
@@ -17,7 +16,20 @@ interface RoomData {
 }
 
 const Admin = () => {
-  // Sample data - in a real app this would come from a database
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [password, setPassword] = useState('');
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (password === 'admin123') {
+      setIsAuthenticated(true);
+      toast.success('Access granted');
+    } else {
+      toast.error('Invalid password');
+      setPassword('');
+    }
+  };
+
   const [studios, setStudios] = useState<RoomData[]>([
     { id: 'studio-1a', currentName: 'Studio 1A', description: 'Max Pax= 28. Projector', floor: 'Ground Floor', position: [25, 4, -12] },
     { id: 'studio-1b', currentName: 'Studio 1B', description: 'Max Pax= 28. Projector', floor: 'Ground Floor', position: [-25, 4, -12] },
@@ -91,15 +103,57 @@ const Admin = () => {
     setNewRoomName('');
   };
 
+  if (!isAuthenticated) {
+    return (
+      <Layout>
+        <div className="container mx-auto px-4 py-8">
+          <div className="max-w-md mx-auto">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-center">Admin Access</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleLogin} className="space-y-4">
+                  <div>
+                    <Label htmlFor="password">Password</Label>
+                    <Input
+                      id="password"
+                      type="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      placeholder="Enter admin password"
+                      required
+                    />
+                  </div>
+                  <Button type="submit" className="w-full">
+                    Login
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </Layout>
+    );
+  }
+
   return (
     <Layout>
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-6xl mx-auto">
-          <div className="mb-8">
-            <h1 className="text-3xl md:text-4xl font-light mb-4">Admin Panel</h1>
-            <p className="text-lg text-muted-foreground">
-              Manage room and studio names across all floors of the building.
-            </p>
+          <div className="mb-8 flex justify-between items-center">
+            <div>
+              <h1 className="text-3xl md:text-4xl font-light mb-4">Admin Panel</h1>
+              <p className="text-lg text-muted-foreground">
+                Manage room and studio names across all floors of the building.
+              </p>
+            </div>
+            <Button 
+              variant="outline" 
+              onClick={() => setIsAuthenticated(false)}
+            >
+              Logout
+            </Button>
           </div>
 
           <Tabs defaultValue="studios" className="w-full">
