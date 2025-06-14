@@ -10,6 +10,7 @@ import FirstFloor from "./pages/FirstFloor";
 import SecondFloor from "./pages/SecondFloor";
 import ThirdFloor from "./pages/ThirdFloor";
 import FourthFloor from "./pages/FourthFloor";
+import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/second-floor" element={<SecondFloor />} />
           <Route path="/third-floor" element={<ThirdFloor />} />
           <Route path="/fourth-floor" element={<FourthFloor />} />
+          <Route path="/admin" element={<Admin />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

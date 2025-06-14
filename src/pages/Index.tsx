@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Layout from '@/components/Layout';
 import { Link } from 'react-router-dom';
@@ -47,8 +48,8 @@ const Index = () => {
                 Bilik Krit Kecil
               </Link>
             </div>
-            {/* New Button for Google Maps */}
-            <div className="flex justify-center mt-8">
+            {/* Google Maps Button */}
+            <div className="flex justify-center mt-6">
               <a 
                 href="https://maps.app.goo.gl/8nYXVnFebumsi5FLA" 
                 target="_blank" 
@@ -57,6 +58,15 @@ const Index = () => {
               >
                 Location of Annex 1
               </a>
+            </div>
+            {/* Admin Button */}
+            <div className="flex justify-center mt-4">
+              <Link 
+                to="/admin" 
+                className="inline-flex items-center justify-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors"
+              >
+                Admin Panel
+              </Link>
             </div>
           </div>
         </div>
