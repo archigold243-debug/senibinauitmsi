@@ -1,10 +1,22 @@
-
 import React from 'react';
 import Layout from '@/components/Layout';
 import ModelViewer from '@/components/ModelViewer';
 import HoverDetails from '@/components/HoverDetails';
+import { useRoomContext } from '@/contexts/RoomContext';
 
 const FourthFloor = () => {
+  const { studios, namedRooms } = useRoomContext();
+  
+  const getStudioName = (id: string) => {
+    const studio = studios.find(s => s.id === id);
+    return studio ? studio.currentName : '';
+  };
+
+  const getRoomName = (id: string) => {
+    const room = namedRooms.find(r => r.id === id);
+    return room ? room.currentName : '';
+  };
+
   return (
     <Layout>
       <div className="container mx-auto px-4 py-8">
@@ -23,23 +35,24 @@ const FourthFloor = () => {
           <div className="bg-white rounded-lg shadow-lg overflow-hidden mb-8 animate-scale-up">
             <ModelViewer modelSrc="Annex14F.gltf">
               <HoverDetails
-                title="Studio 4C"
+                title={getStudioName('studio-4c')}
                 description="Max Pax =28. Projector"
                 position="right"
                 modelPosition={[25, 16, -12]} 
               />
               <HoverDetails
-                title="Surau L"
+                title={getRoomName('surau-l')}
                 description="5 times Appoinment with Allah"
                 position="left"
                 modelPosition={[20, 16, 15]} 
               />
               <HoverDetails
-                title="Surau P"
+                title={getRoomName('surau-p')}
                 description="5 times Appoinment with Allah"
                 position="top"
                 modelPosition={[-20, 16, 15]} 
               />
+              
               <HoverDetails
                 title="Dr FARID AL HAKEEM"
                 surname="YUSERRIE"
@@ -149,6 +162,7 @@ const FourthFloor = () => {
               />
             </ModelViewer>
           </div>
+          
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
             <div className="bg-white rounded-lg p-6 shadow animate-slide-in-from-left">

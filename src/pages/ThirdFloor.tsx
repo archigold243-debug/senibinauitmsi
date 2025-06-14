@@ -2,8 +2,16 @@ import React from 'react';
 import Layout from '@/components/Layout';
 import ModelViewer from '@/components/ModelViewer';
 import HoverDetails from '@/components/HoverDetails';
+import { useRoomContext } from '@/contexts/RoomContext';
 
 const ThirdFloor = () => {
+  const { studios } = useRoomContext();
+  
+  const getStudioName = (id: string) => {
+    const studio = studios.find(s => s.id === id);
+    return studio ? studio.currentName : '';
+  };
+
   return (
     <Layout>
       <div className="container mx-auto px-4 py-8">
@@ -28,13 +36,13 @@ const ThirdFloor = () => {
                 modelPosition={[24, 12, 2]}
               />
               <HoverDetails
-                title="Studio 05A"
+                title={getStudioName('studio-3a')}
                 description="Fixed Work Station 3 AC split unit, Projector"
                 position="top"
                 modelPosition={[-8, 12, 13]}
               />
               <HoverDetails
-                title="Studio 04A"
+                title={getStudioName('studio-3b')}
                 description="Fixed Work Station 3 AC split unit, Projector"
                 position="top"
                 modelPosition={[11, 12, 13]}

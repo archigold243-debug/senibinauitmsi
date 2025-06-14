@@ -2,9 +2,16 @@ import React from 'react';
 import Layout from '@/components/Layout';
 import ModelViewer from '@/components/ModelViewer';
 import HoverDetails from '@/components/HoverDetails';
+import { useRoomContext } from '@/contexts/RoomContext';
 
 const SecondFloor = () => {
   const modelPath = "Annex12F.gltf";
+  const { namedRooms } = useRoomContext();
+  
+  const getRoomName = (id: string) => {
+    const room = namedRooms.find(r => r.id === id);
+    return room ? room.currentName : '';
+  };
 
   return (
     <Layout>
@@ -54,7 +61,7 @@ const SecondFloor = () => {
                 modelPosition={[-8, 8, 15]} 
               />
               <HoverDetails
-                title="Bilik Krit Utama"
+                title={getRoomName('crit-main')}
                 description="Use for Crtique Sessions, Wrap up, Lectures, Projector, AP1 224"
                 position="bottom"
                 modelPosition={[-24, 8, 0]} 

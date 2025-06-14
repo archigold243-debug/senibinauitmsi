@@ -1,10 +1,17 @@
-
 import React from 'react';
 import Layout from '@/components/Layout';
 import ModelViewer from '@/components/ModelViewer';
 import HoverDetails from '@/components/HoverDetails';
+import { useRoomContext } from '@/contexts/RoomContext';
 
 const FirstFloor = () => {
+  const { namedRooms } = useRoomContext();
+  
+  const getRoomName = (id: string) => {
+    const room = namedRooms.find(r => r.id === id);
+    return room ? room.currentName : '';
+  };
+
   return (
     <Layout>
       <div className="container mx-auto px-4 py-8">
@@ -53,7 +60,7 @@ const FirstFloor = () => {
                 modelPosition={[-12, 6, 15]} 
               />
               <HoverDetails
-                title="Bilik Krit Kecil"
+                title={getRoomName('crit-small')}
                 description="Use for Crtique Sessions, Wrap up, Lectures, Projector, AP1 104"
                 position="bottom"
                 modelPosition={[-23, 6, 0]} 
