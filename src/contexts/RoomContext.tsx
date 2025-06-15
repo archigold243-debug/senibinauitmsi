@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { LECTURERS } from "@/pages/lecturers-data";
 
 interface RoomData {
   id: string;
@@ -78,29 +79,13 @@ export const RoomProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     { id: 'surau-p', currentName: 'Surau P', description: '5 times Appoinment with Allah', floor: 'Fourth Floor', position: [-20, 16, 15] },
   ]);
 
-  // Initial lecturer data (can eventually be loaded from a data source)
-  const [lecturers, setLecturers] = useState<LecturerData[]>([
-    // Example; these should match your lecturer cards/data
-    {
-      id: "nasurudin",
-      displayName: "Ts. MOHD NASURUDIN",
-      surname: "HASBULLAH",
-      role: "Senior Lecturer",
-      photo: "Nas.jpg",
-      floor: "Ground Floor",
-      roomId: "nasurudin",
-    },
-    {
-      id: "azhan",
-      displayName: "Dr AZHAN",
-      surname: "ABD AZIZ",
-      role: "Senior Lecturer",
-      photo: "Azhan.jpg",
-      floor: "Ground Floor",
-      roomId: "azhan",
-    },
-    // ... add others as needed for your context ...
-  ]);
+  // Import all lecturers from lecturers-data.ts; assign id from roomId if not present
+  const [lecturers, setLecturers] = useState<LecturerData[]>(
+    LECTURERS.map((l) => ({
+      ...l,
+      id: l.roomId ?? l.displayName.replace(/\s+/g, '').toLowerCase(),
+    }))
+  );
 
   const updateStudioName = (id: string, newName: string) => {
     setStudios(prev => prev.map(studio => 
@@ -114,7 +99,6 @@ export const RoomProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     ));
   };
 
-  // Handler to update basic lecturer info (stub for now)
   const updateLecturer = (id: string, updates: Partial<LecturerData>) => {
     setLecturers((prev) =>
       prev.map((lect) => (lect.id === id ? { ...lect, ...updates } : lect))
@@ -127,3 +111,4 @@ export const RoomProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     </RoomContext.Provider>
   );
 };
+export default RoomContext;
