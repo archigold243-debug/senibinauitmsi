@@ -65,7 +65,7 @@ export const LECTURERS = [
     role: 'Lecturer',
     photo: 'Hanim.jpg',
     floor: 'second-floor',
-    roomId: 'hanim'
+    roomId: 'ap1-218'
   },
   {
     displayName: 'En MOHAMMAD NAZRIN',
@@ -73,7 +73,7 @@ export const LECTURERS = [
     role: 'Lecturer',
     photo: 'YEN.jpg',
     floor: 'second-floor',
-    roomId: 'yen'
+    roomId: 'ap1-219'
   },
   {
     displayName: 'Dr MAYAMIN',
@@ -81,7 +81,7 @@ export const LECTURERS = [
     role: 'Lecturer',
     photo: 'Maya.jpg',
     floor: 'second-floor',
-    roomId: 'maya'
+    roomId: 'ap1-215'
   },
   {
     displayName: 'Ar. IZNNY',
@@ -89,7 +89,7 @@ export const LECTURERS = [
     role: 'Lecturer',
     photo: 'Iznny.jpg',
     floor: 'second-floor',
-    roomId: 'iznny'
+    roomId: 'ap1-222'
   },
   {
     displayName: 'En MD ANWAR',
@@ -97,7 +97,7 @@ export const LECTURERS = [
     role: 'Lecturer',
     photo: 'Anwar.jpg',
     floor: 'second-floor',
-    roomId: 'anwar'
+    roomId: 'ap1-213'
   },
   {
     displayName: 'Dr NOR SYAMIMI',
@@ -105,7 +105,7 @@ export const LECTURERS = [
     role: 'Lecturer',
     photo: 'Mimi.jpg',
     floor: 'second-floor',
-    roomId: 'mimi'
+    roomId: 'ap1-207'
   },
   {
     displayName: 'Dr FADHLIZIL FARIZ',
@@ -113,7 +113,7 @@ export const LECTURERS = [
     role: 'Lecturer',
     photo: 'Fariz.jpg',
     floor: 'second-floor',
-    roomId: 'fariz'
+    roomId: 'ap1-209'
   },
   {
     displayName: 'En AMIRUL AMIN',
@@ -121,7 +121,7 @@ export const LECTURERS = [
     role: 'Lecturer',
     photo: 'Amin.jpg',
     floor: 'second-floor',
-    roomId: 'amin'
+    roomId: 'ap1-212'
   },
   {
     displayName: 'En AMRAN',
@@ -129,7 +129,7 @@ export const LECTURERS = [
     role: 'Lecturer',
     photo: 'Amran.jpg',
     floor: 'second-floor',
-    roomId: 'amran'
+    roomId: 'ap1-211'
   },
   {
     displayName: 'En ADEEB',
@@ -137,7 +137,7 @@ export const LECTURERS = [
     role: 'Lecturer',
     photo: 'Adeeb.jpg',
     floor: 'second-floor',
-    roomId: 'adeeb'
+    roomId: 'ap1-206'
   },
   {
     displayName: 'Dr IRYANI',
@@ -145,7 +145,7 @@ export const LECTURERS = [
     role: 'Lecturer',
     photo: 'Iryani.jpg',
     floor: 'second-floor',
-    roomId: 'iryani'
+    roomId: 'ap1-208'
   },
   // --------- Fourth Floor Lecturers (NEW) -----------
   {
