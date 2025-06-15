@@ -4,8 +4,7 @@ import Layout from '@/components/Layout';
 import ModelViewer from '@/components/ModelViewer';
 import HoverDetails from '@/components/HoverDetails';
 import { useRoomContext } from '@/contexts/RoomContext';
-import { useSearchParams, useNavigate } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
+import { useSearchParams } from "react-router-dom";
 
 // RoomId to position mapping for Fourth Floor
 const roomIdToPosition: Record<string, [number, number, number]> = {
@@ -31,7 +30,6 @@ const roomIdToPosition: Record<string, [number, number, number]> = {
 const FourthFloor = () => {
   const { studios, namedRooms } = useRoomContext();
   const [params] = useSearchParams();
-  const navigate = useNavigate();
   const targetRoomId = params.get("room")?.toLowerCase() ?? undefined;
   const targetRoomPosition = targetRoomId && roomIdToPosition[targetRoomId] ? roomIdToPosition[targetRoomId] : undefined;
 
@@ -49,15 +47,6 @@ const FourthFloor = () => {
     <Layout>
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
-          {/* Back Button */}
-          <button
-            onClick={() => navigate(-1)}
-            className="mb-4 flex items-center gap-2 px-4 py-2 rounded bg-gray-100 hover:bg-gray-200 transition-all text-sm font-medium text-gray-700 shadow"
-            aria-label="Back"
-          >
-            <ArrowLeft size={18} />
-            Back
-          </button>
           <div className="mb-8 animate-fade-in">
             <div className="inline-block px-3 py-1 mb-2 text-xs font-medium uppercase tracking-wider text-primary bg-primary/5 rounded-full">
               Floor Plan
@@ -313,4 +302,3 @@ const FourthFloor = () => {
 };
 
 export default FourthFloor;
-
