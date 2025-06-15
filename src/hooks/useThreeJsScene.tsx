@@ -20,7 +20,7 @@ export const useThreeJsScene = ({
   const sceneRef = useRef<THREE.Scene | null>(null);
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
-  const controlsRef = useRef<OrbitControls | null | null>(null);
+  const controlsRef = useRef<OrbitControls | null>(null);
   const modelRef = useRef<THREE.Group | null>(null);
   const animationFrameRef = useRef<number | null>(null);
   const loadingRef = useRef<boolean>(true);
@@ -245,12 +245,12 @@ export const useThreeJsScene = ({
     // Target to look at
     const lookTarget = new THREE.Vector3(...target);
 
-    // Calculate a position in front of the model (positive Z direction)
+    // Calculate a position offset (back 38 units, up 10 units)
+    const direction = new THREE.Vector3().subVectors(camera.position, lookTarget).normalize();
+    // Distance can be tuned for desired FOV
     const desiredDistance = 38;
-    const newCameraPos = new THREE.Vector3();
-    newCameraPos.copy(lookTarget);
-    newCameraPos.z += desiredDistance; // Move camera forward (positive Z)
-    newCameraPos.y += 10; // Slightly elevated view
+    const newCameraPos = new THREE.Vector3().copy(lookTarget).add(direction.multiplyScalar(desiredDistance));
+    newCameraPos.y += 10;
 
     // Animate camera (simple lerp)
     const duration = 850; // ms
