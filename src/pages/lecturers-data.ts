@@ -7,7 +7,7 @@ export const LECTURERS = [
     role: 'Senior Lecturer',
     photo: 'Azhan.jpg',
     floor: 'ground-floor',
-    roomId: 'azhan'
+    roomId: 'ap1-004'
   },
   {
     displayName: 'En AHMAD FAISOL',
@@ -15,7 +15,7 @@ export const LECTURERS = [
     role: 'Senior Lecturer',
     photo: 'Faisol.jpg',
     floor: 'ground-floor',
-    roomId: 'faisol'
+    roomId: 'ap1-017'
   },
   {
     displayName: 'Ts. MOHD NASURUDIN',
@@ -23,7 +23,7 @@ export const LECTURERS = [
     role: 'Senior Lecturer',
     photo: 'Nas.jpg',
     floor: 'ground-floor',
-    roomId: 'nasurudin'
+    roomId: 'ap1-019'
   },
   {
     displayName: 'Ts. Dr. WAN NUR RUKIAH',
@@ -31,7 +31,7 @@ export const LECTURERS = [
     role: 'Senior Lecturer',
     photo: 'Wan.jpg',
     floor: 'ground-floor',
-    roomId: 'wan'
+    roomId: 'ap1-023'
   },
   // First Floor
   {
@@ -40,7 +40,7 @@ export const LECTURERS = [
     role: 'Lecturer',
     photo: 'Zikri.jpg',
     floor: 'first-floor',
-    roomId: 'zikri'
+    roomId: 'ap1-113'
   },
   {
     displayName: 'Pn FARAH HANNA',
@@ -48,7 +48,7 @@ export const LECTURERS = [
     role: 'Lecturer',
     photo: 'Farah.jpg',
     floor: 'first-floor',
-    roomId: 'farah'
+    roomId: 'ap1-118'
   },
   {
     displayName: 'Cik NOOR AINSYAH',
@@ -56,7 +56,7 @@ export const LECTURERS = [
     role: 'Lecturer',
     photo: 'Ainsyah.jpg',
     floor: 'first-floor',
-    roomId: 'ainsyah'
+    roomId: 'ap1-117'
   },
   // Second Floor
   {
