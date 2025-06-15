@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect } from 'react';
 import Layout from '@/components/Layout';
 import ModelViewer from '@/components/ModelViewer';
@@ -20,7 +19,8 @@ const roomIdToPosition: Record<string, [number, number, number]> = {
   "aiman": [10, 16, 15],
   "izzat": [13, 16, 15],
   "unoccupied": [-17, 16, 10],
-  "ar": [-14, 16, 10],
+  // "ar": [-14, 16, 10],    // Remove old mapping
+  "ap1-413": [-14, 16, 10], // Add/replace with new roomId
   "mizi": [-11, 16, 10],
   "shahin": [-2, 16, 10],
   "baa": [10, 16, 10],
