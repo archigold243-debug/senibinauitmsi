@@ -137,7 +137,7 @@ const LECTURERS = [
   },
   {
     displayName: 'En ADEEB',
-    surname: 'OTMAN',
+    surname: 'ZULKIFLI',
     role: 'Lecturer',
     photo: 'Adeeb.jpg',
     floor: 'second-floor',
