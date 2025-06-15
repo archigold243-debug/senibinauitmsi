@@ -11,14 +11,42 @@ const LecturerAdminPanel: React.FC = () => {
   const { lecturers, updateLecturer } = useRoomContext();
   const [editId, setEditId] = useState<string | null>(null);
   const [form, setForm] = useState<Partial<(typeof lecturers)[0]>>({});
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [localPhotoURL, setLocalPhotoURL] = useState<string | null>(null);
 
   const startEdit = (lect) => {
     setEditId(lect.id);
     setForm({ ...lect });
+    setSelectedFile(null);
+    setLocalPhotoURL(null);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handlePhotoFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setSelectedFile(file);
+      setLocalPhotoURL(URL.createObjectURL(file));
+      // Autofill photo field with recommended filename if possible:
+      const ext = file.name.split(".").pop();
+      // Optionally: use displayName_surname.ext or lecturer id as a unique filename
+      const displayName = (form.displayName ?? "").replace(/\s+/g, "");
+      const surname = (form.surname ?? "").replace(/\s+/g, "");
+      const safeName =
+        displayName && surname
+          ? `${displayName}_${surname}.${ext}`
+          : file.name;
+      setForm((curr) => ({
+        ...curr,
+        photo: safeName,
+      }));
+      toast.info(
+        "Image selected; please save changes and upload the image file to /public"
+      );
+    }
   };
 
   const handleSave = () => {
@@ -31,9 +59,15 @@ const LecturerAdminPanel: React.FC = () => {
         floor: form.floor ?? "",
         // roomId intentionally removed from updates for safety
       });
-      toast.success("Lecturer info updated!");
+      toast.success(
+        selectedFile
+          ? "Lecturer info updated. Remember to upload image manually to /public."
+          : "Lecturer info updated!"
+      );
       setEditId(null);
       setForm({});
+      setSelectedFile(null);
+      setLocalPhotoURL(null);
     } else {
       toast.error("Full name and surname are required");
     }
@@ -42,6 +76,8 @@ const LecturerAdminPanel: React.FC = () => {
   const handleCancel = () => {
     setEditId(null);
     setForm({});
+    setSelectedFile(null);
+    setLocalPhotoURL(null);
   };
 
   return (
@@ -53,7 +89,10 @@ const LecturerAdminPanel: React.FC = () => {
         <div className="space-y-4">
           {lecturers.map((lect) =>
             editId === lect.id ? (
-              <div key={lect.id} className="p-4 border rounded-lg bg-muted/20 flex flex-col gap-2">
+              <div
+                key={lect.id}
+                className="p-4 border rounded-lg bg-muted/20 flex flex-col gap-2"
+              >
                 <div className="flex flex-wrap gap-4">
                   <div className="flex-1 min-w-[180px]">
                     <Label htmlFor={`displayName-${lect.id}`}>Name</Label>
@@ -95,18 +134,39 @@ const LecturerAdminPanel: React.FC = () => {
                       className="mb-1"
                     />
                   </div>
-                  <div className="flex-1 min-w-[140px]">
-                    <Label htmlFor={`photo-${lect.id}`}>Photo (filename)</Label>
-                    <Input
-                      id={`photo-${lect.id}`}
-                      name="photo"
-                      value={form.photo ?? ""}
-                      onChange={handleChange}
-                      className="mb-1"
+                  <div className="flex-1 min-w-[180px] flex flex-col gap-2">
+                    <Label>Current Photo</Label>
+                    <img
+                      src={localPhotoURL || form.photo || lect.photo || "/placeholder.svg"}
+                      alt={form.displayName ?? lect.displayName}
+                      className="w-14 h-14 rounded-full object-cover border mb-2"
                     />
+                    <div>
+                      <Label htmlFor={`photo-upload-${lect.id}`}>Upload new photo</Label>
+                      <Input
+                        id={`photo-upload-${lect.id}`}
+                        type="file"
+                        accept="image/*"
+                        onChange={handlePhotoFile}
+                        className="block w-full mb-1"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor={`photo-${lect.id}`}>Photo filename</Label>
+                      <Input
+                        id={`photo-${lect.id}`}
+                        name="photo"
+                        value={form.photo ?? ""}
+                        onChange={handleChange}
+                        className="mb-1"
+                        placeholder="Photo filename (e.g. John_Doe.jpg)"
+                      />
+                    </div>
                   </div>
                   <div className="flex-1 min-w-[140px]">
-                    <Label htmlFor={`roomId-${lect.id}`}>Room ID <span className="text-xs text-gray-400">(fixed)</span></Label>
+                    <Label htmlFor={`roomId-${lect.id}`}>
+                      Room ID <span className="text-xs text-gray-400">(fixed)</span>
+                    </Label>
                     <Input
                       id={`roomId-${lect.id}`}
                       name="roomId"
@@ -118,11 +178,28 @@ const LecturerAdminPanel: React.FC = () => {
                   </div>
                 </div>
                 <div className="flex gap-2 mt-3">
-                  <Button onClick={handleSave} size="sm">Save</Button>
-                  <Button variant="outline" onClick={handleCancel} size="sm">Cancel</Button>
+                  <Button onClick={handleSave} size="sm">
+                    Save
+                  </Button>
+                  <Button variant="outline" onClick={handleCancel} size="sm">
+                    Cancel
+                  </Button>
                 </div>
                 <div className="text-xs text-gray-400 mt-2 italic">
                   Note: <b>Room ID</b> is fixed, used to connect lecturers to their floor hotspot, and cannot be changed.
+                </div>
+                <div className="text-xs text-blue-700 mt-1">
+                  To change the lecturer's photo:
+                  <ol className="list-decimal ml-4">
+                    <li>Select an image using the 'Upload new photo' field.</li>
+                    <li>
+                      After saving, <b>manually place the image file</b> into the <code>/public</code> folder of your project
+                      with the filename shown above for the photo.
+                    </li>
+                    <li>
+                      The image will be displayed as soon as it is available in <code>/public</code>!
+                    </li>
+                  </ol>
                 </div>
               </div>
             ) : (
@@ -143,7 +220,7 @@ const LecturerAdminPanel: React.FC = () => {
           )}
         </div>
         <div className="text-xs text-gray-400 mt-6">
-          To change photo, provide image filename (must be uploaded to public).
+          To update a photo, select it then upload the resulting file to <code>/public</code>.
         </div>
       </CardContent>
     </Card>
