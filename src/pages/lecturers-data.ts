@@ -154,7 +154,7 @@ export const LECTURERS = [
     role: 'Senior Lecturer',
     photo: 'Farid.jpg',
     floor: 'fourth-floor',
-    roomId: 'farid'
+    roomId: 'ap1-412'
   },
   {
     displayName: 'En AHMAD FAIZ',
@@ -162,7 +162,7 @@ export const LECTURERS = [
     role: 'Lecturer',
     photo: 'Mamoo.jpg',
     floor: 'fourth-floor',
-    roomId: 'mamoo'
+    roomId: 'ap1-414'
   },
   {
     displayName: 'En MOHAMMAD SYATHIR AMINI',
@@ -170,7 +170,7 @@ export const LECTURERS = [
     role: 'Lecturer',
     photo: 'Syathir.jpg',
     floor: 'fourth-floor',
-    roomId: 'syathir'
+    roomId: 'ap1-422'
   },
   {
     displayName: 'En SALAHUDDIN ABDUL HAKEEM',
@@ -178,7 +178,7 @@ export const LECTURERS = [
     role: 'Lecturer',
     photo: 'Saha.jpg',
     floor: 'fourth-floor',
-    roomId: 'saha'
+    roomId: 'ap1-424'
   },
   {
     displayName: 'Ar. Dr JAMALUDIN',
@@ -186,7 +186,7 @@ export const LECTURERS = [
     role: 'Senior Lecturer',
     photo: 'Jamal.jpg',
     floor: 'fourth-floor',
-    roomId: 'jamal'
+    roomId: 'ap1-428'
   },
   {
     displayName: 'Dr SAYED MUHAMMAD AIMAN',
@@ -194,7 +194,7 @@ export const LECTURERS = [
     role: 'Senior Lecturer',
     photo: 'Aiman.jpg',
     floor: 'fourth-floor',
-    roomId: 'aiman'
+    roomId: 'ap1-430'
   },
   {
     displayName: 'Ts. IZZAT',
@@ -202,7 +202,7 @@ export const LECTURERS = [
     role: 'Lecturer',
     photo: 'Izzat.jpg',
     floor: 'fourth-floor',
-    roomId: 'izzat'
+    roomId: 'ap1-432'
   },
   {
     displayName: 'En ABDUL RAHMAN',
@@ -218,7 +218,7 @@ export const LECTURERS = [
     role: 'Senior Lecturer',
     photo: 'Mizi.png',
     floor: 'fourth-floor',
-    roomId: 'mizi'
+    roomId: 'ap1-415'
   },
   {
     displayName: 'En MOHAMAD SHAHIN',
@@ -226,7 +226,7 @@ export const LECTURERS = [
     role: 'Lecturer',
     photo: 'Shahin.jpg',
     floor: 'fourth-floor',
-    roomId: 'shahin'
+    roomId: 'ap1-421'
   },
   {
     displayName: 'En MUHAMMAD FARIS',
@@ -234,6 +234,6 @@ export const LECTURERS = [
     role: 'Lecturer',
     photo: 'Baa.jpeg',
     floor: 'fourth-floor',
-    roomId: 'baa'
+    roomId: 'ap1-429'
   },
 ].sort((a, b) => a.displayName.localeCompare(b.displayName));
