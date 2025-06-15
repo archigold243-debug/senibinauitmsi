@@ -1,8 +1,10 @@
+
 import React, { useRef, useEffect } from 'react';
 import Layout from '@/components/Layout';
 import ModelViewer from '@/components/ModelViewer';
-import HoverDetails from '@/components/HoverDetails';
-import { useRoomContext } from '@/contexts/RoomContext';
+import FourthFloorHotspots from './FourthFloorHotspots';
+import FourthFloorSpecsCard from './FourthFloorSpecsCard';
+import FourthFloorFeaturesCard from './FourthFloorFeaturesCard';
 import { useSearchParams } from "react-router-dom";
 
 // RoomId to position mapping for Fourth Floor
@@ -27,23 +29,9 @@ const roomIdToPosition: Record<string, [number, number, number]> = {
 };
 
 const FourthFloor = () => {
-  const { studios, namedRooms, lecturers } = useRoomContext();
   const [params] = useSearchParams();
   const targetRoomId = params.get("room")?.toLowerCase() ?? undefined;
   const targetRoomPosition = targetRoomId && roomIdToPosition[targetRoomId] ? roomIdToPosition[targetRoomId] : undefined;
-
-  const getStudioName = (id: string) => {
-    const studio = studios.find(s => s.id === id);
-    return studio ? studio.currentName : '';
-  };
-
-  const getRoomName = (id: string) => {
-    const room = namedRooms.find(r => r.id === id);
-    return room ? room.currentName : '';
-  };
-
-  const getLecturerByRoomId = (roomId: string) =>
-    lecturers.find((lect) => lect.roomId?.toLowerCase() === roomId);
 
   // --- ModelViewer auto-scroll-to-view logic ---
   const modelViewerRef = useRef<HTMLDivElement>(null);
@@ -76,140 +64,16 @@ const FourthFloor = () => {
             ref={modelViewerRef}
           >
             <ModelViewer modelSrc="Annex14F.gltf" targetRoomPosition={targetRoomPosition}>
-              {/* Studio and Surau */}
-              <HoverDetails
-                title={getStudioName('studio-4c')}
-                roomId="studio-4c"
-                description="Max Pax =28. Projector"
-                position="right"
-                modelPosition={roomIdToPosition["studio-4c"]}
-                isHighlighted={targetRoomId === "studio-4c"}
-                autoOpen={targetRoomId === "studio-4c"}
-              />
-              <HoverDetails
-                title={getRoomName('surau-l')}
-                roomId="surau-l"
-                description="5 times Appoinment with Allah"
-                position="left"
-                modelPosition={roomIdToPosition["surau-l"]}
-                isHighlighted={targetRoomId === "surau-l"}
-                autoOpen={targetRoomId === "surau-l"}
-              />
-              <HoverDetails
-                title={getRoomName('surau-p')}
-                roomId="surau-p"
-                description="5 times Appoinment with Allah"
-                position="top"
-                modelPosition={roomIdToPosition["surau-p"]}
-                isHighlighted={targetRoomId === "surau-p"}
-                autoOpen={targetRoomId === "surau-p"}
-              />
-              {/* Dynamic Lecturer Hotspots */}
-              {["farid", "mamoo", "syathir", "saha", "jamal", "aiman", "izzat", "ar", "mizi", "shahin", "baa"].map((id) => {
-                const lect = getLecturerByRoomId(id);
-                if (!lect) return null;
-                return (
-                  <HoverDetails
-                    key={id}
-                    title={lect.displayName}
-                    surname={lect.surname}
-                    description={lect.role}
-                    position="right"
-                    modelPosition={roomIdToPosition[id]}
-                    imageSrc={lect.photo}
-                    roomId={id}
-                    isHighlighted={targetRoomId === id}
-                    autoOpen={targetRoomId === id}
-                  />
-                );
-              })}
-              {/* ... unoccupied case + classrooms ... */}
-              <HoverDetails
-                title="unoccupied"
-                surname="-"
-                description="-"
-                position="right"
-                modelPosition={roomIdToPosition["unoccupied"]}
-                roomId="unoccupied"
-                isHighlighted={targetRoomId === "unoccupied"}
-                autoOpen={targetRoomId === "unoccupied"}
-              />
-              <HoverDetails
-                title="Classroom"
-                description="Max Pax= 40. Projector, AP1 403"
-                position="right"
-                modelPosition={roomIdToPosition["classroom-403"]}
-                roomId="classroom-403"
-                isHighlighted={targetRoomId === "classroom-403"}
-                autoOpen={targetRoomId === "classroom-403"}
-              />
-              <HoverDetails
-                title="Classroom"
-                description="Max Pax= 40. Projector, AP1 439"
-                position="right"
-                modelPosition={roomIdToPosition["classroom-439"]}
-                roomId="classroom-439"
-                isHighlighted={targetRoomId === "classroom-439"}
-                autoOpen={targetRoomId === "classroom-439"}
+              <FourthFloorHotspots
+                roomIdToPosition={roomIdToPosition}
+                targetRoomId={targetRoomId}
               />
             </ModelViewer>
           </div>
           
-          
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-            <div className="bg-white rounded-lg p-6 shadow animate-slide-in-from-left">
-              <h3 className="text-lg font-medium mb-2">Fourth Floor Specifications</h3>
-              <ul className="space-y-2 text-sm text-gray-600">
-                <li className="flex items-start gap-2">
-                  <svg className="w-5 h-5 text-primary mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span>Lecturer Office: 12</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <svg className="w-5 h-5 text-primary mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span>Studio: 1</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <svg className="w-5 h-5 text-primary mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span>Other Amenities: 2 Classroom, Surau</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <svg className="w-5 h-5 text-primary mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span>Toilet: 2</span>
-                </li>
-              </ul>
-            </div>
-            <div className="bg-white rounded-lg p-6 shadow animate-slide-in-from-right">
-              <h3 className="text-lg font-medium mb-2">Key Features</h3>
-              <p className="text-sm text-gray-600 mb-4">
-                Climbing to the top is a challenge, thus there is where most of the lecturer's offices to send assignments, appointments, and many more reasons to be here.
-              </p>
-              <div className="space-y-2 text-sm text-gray-600">
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-primary"></div>
-                  <span>Bird's eye view to the whole centre of the building</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-primary"></div>
-                  <span>More air flow</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-primary"></div>
-                  <span>Peaceful floor</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-primary"></div>
-                  <span>Musolla for spiritual recharge</span>
-                </div>
-              </div>
-            </div>
+            <FourthFloorSpecsCard />
+            <FourthFloorFeaturesCard />
           </div>
         </div>
       </div>
