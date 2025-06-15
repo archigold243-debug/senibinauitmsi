@@ -6,6 +6,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
  * Animates the camera from an architectural front view to a target.
  * - Starts at (0, 15, -45) looking at (0, 0, 0)
  * - Animates both camera position and look target to room
+ * - Ends so the camera is viewing *from the front* (model's negative Z direction)
  */
 export function focusCameraOnPosition(
   camera: THREE.PerspectiveCamera | null,
@@ -18,16 +19,16 @@ export function focusCameraOnPosition(
 ) {
   if (!camera || !controls) return;
 
-  // --- Animation starting point (architectural view FROM the actual front, which is negative Z) ---
-  const overviewStartPos = new THREE.Vector3(0, 15, -45); // Changed to -45 Z for actual front
+  // --- Animation starting point (architectural view from the actual front, which is negative Z) ---
+  const overviewStartPos = new THREE.Vector3(0, 15, -45); // -45 Z = actual front
   const overviewStartTarget = new THREE.Vector3(0, 0, 0);
 
   // --- Animation end: room target and camera relative to it ---
   const lookTarget = new THREE.Vector3(...target);
 
-  // Place camera at desiredDistance "in front" of the room (along local +Z),
-  // then offset Y
-  const direction = new THREE.Vector3(0, 0, 1); // Z-forward in Three.js
+  // Place camera at desiredDistance "in front" of the room (along local -Z),
+  // then offset Y. This ensures you view the room as you would from in front of building.
+  const direction = new THREE.Vector3(0, 0, -1); // Negative Z = model's front in this system
   const newCameraPos = lookTarget.clone().add(direction.multiplyScalar(desiredDistance));
   newCameraPos.y += yOffset;
 
