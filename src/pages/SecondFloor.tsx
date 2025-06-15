@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect } from 'react';
 import Layout from '@/components/Layout';
 import ModelViewer from '@/components/ModelViewer';
@@ -15,17 +14,17 @@ const roomIdToPosition: Record<string, [number, number, number]> = {
   "studio-02c": [11, 8, 15],
   "studio-02d": [-8, 8, 15],
   "crit-main": [-24, 8, 0],
-  "hanim": [10, 8, -8],
-  "yen": [10, 8, -15],
-  "maya": [5, 8, -20],
-  "iznny": [16, 8, -8],
-  "anwar": [-8, 8, -15],
-  "mimi": [-18, 8, -8],
-  "fariz": [-15, 8, -8],
-  "amin": [-8, 8, -8],
-  "amran": [-11, 8, -8],
-  "adeeb": [-18, 8, -15],
-  "iryani": [-15, 8, -15],
+  "ap1-218": [10, 8, -8],       // Dr FAZIDAH HANIM
+  "ap1-219": [10, 8, -15],      // En MOHAMMAD NAZRIN
+  "ap1-215": [5, 8, -20],       // Dr MAYAMIN
+  "ap1-222": [16, 8, -8],       // Ar. IZNNY
+  "ap1-213": [-8, 8, -15],      // En MD ANWAR
+  "ap1-207": [-18, 8, -8],      // Dr NOR SYAMIMI
+  "ap1-209": [-15, 8, -8],      // Dr FADHLIZIL FARIZ
+  "ap1-212": [-8, 8, -8],       // En AMIRUL AMIN
+  "ap1-211": [-11, 8, -8],      // En AMRAN
+  "ap1-206": [-18, 8, -15],     // En ADEEB
+  "ap1-208": [-15, 8, -15],     // Dr IRYANI
   "unoccupied": [-11, 8, -15],
 };
 

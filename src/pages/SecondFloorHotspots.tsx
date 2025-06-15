@@ -77,7 +77,17 @@ const SecondFloorHotspots: React.FC<SecondFloorHotspotsProps> = ({ roomIdToPosit
       />
       {/* Dynamic Lecturer Hotspots */}
       {[
-        "hanim", "yen", "maya", "iznny", "anwar", "mimi", "fariz", "amin", "amran", "adeeb", "iryani"
+        "ap1-218", // Dr FAZIDAH HANIM
+        "ap1-219", // En MOHAMMAD NAZRIN
+        "ap1-215", // Dr MAYAMIN
+        "ap1-222", // Ar. IZNNY
+        "ap1-213", // En MD ANWAR
+        "ap1-207", // Dr NOR SYAMIMI
+        "ap1-209", // Dr FADHLIZIL FARIZ
+        "ap1-212", // En AMIRUL AMIN
+        "ap1-211", // En AMRAN
+        "ap1-206", // En ADEEB
+        "ap1-208"  // Dr IRYANI
       ].map((id) => {
         const lect = getLecturerByRoomId(id);
         if (!lect) return null;
