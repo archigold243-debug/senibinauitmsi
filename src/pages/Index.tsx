@@ -36,18 +36,25 @@ const Index = () => {
               Explore our building floor by floor with interactive 3D models.&nbsp;
               Discover spaces and details through an immersive digital experience.
             </p>
+            {/* Updated: Add 3 deep-link buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up" style={{ animationDelay: '300ms' }}>
               <Link
-                to="/second-floor"
+                to="/second-floor?room=crit-main"
                 className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary/90 transition-colors"
               >
                 Bilik Krit Utama
               </Link>
               <Link
-                to="/first-floor"
+                to="/first-floor?room=crit-small"
                 className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary/90 transition-colors"
               >
                 Bilik Krit Kecil
+              </Link>
+              <Link
+                to="/first-floor?room=crit-tec"
+                className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary/90 transition-colors"
+              >
+                Bilik Krit TEC
               </Link>
             </div>
             {/* Google Maps Button */}
