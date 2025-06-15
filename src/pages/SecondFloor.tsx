@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect } from 'react';
 import Layout from '@/components/Layout';
 import ModelViewer from '@/components/ModelViewer';
@@ -30,7 +29,7 @@ const roomIdToPosition: Record<string, [number, number, number]> = {
 
 const SecondFloor = () => {
   const modelPath = "Annex12F.gltf";
-  const { namedRooms } = useRoomContext();
+  const { namedRooms, lecturers } = useRoomContext();
   const [params] = useSearchParams();
   const targetRoomId = params.get("room")?.toLowerCase() ?? undefined;
   const targetRoomPosition = targetRoomId && roomIdToPosition[targetRoomId] ? roomIdToPosition[targetRoomId] : undefined;
@@ -39,6 +38,9 @@ const SecondFloor = () => {
     const room = namedRooms.find(r => r.id === id);
     return room ? room.currentName : '';
   };
+
+  const getLecturerByRoomId = (roomId: string) =>
+    lecturers.find((lect) => lect.roomId?.toLowerCase() === roomId);
 
   // --- ModelViewer auto-scroll-to-view logic ---
   const modelViewerRef = useRef<HTMLDivElement>(null);
@@ -127,127 +129,25 @@ const SecondFloor = () => {
                 isHighlighted={targetRoomId === "crit-main"}
                 autoOpen={targetRoomId === "crit-main"}
               />
-              <HoverDetails
-                title="Dr FAZIDAH HANIM"
-                surname="HUSAIN"
-                description="Senior Lecturer"
-                position="right"
-                modelPosition={[10, 8, -8]}
-                imageSrc="Hanim.jpg"
-                roomId="hanim"
-                isHighlighted={targetRoomId === "hanim"}
-                autoOpen={targetRoomId === "hanim"}
-              />
-              <HoverDetails
-                title="En MOHAMMAD NAZRIN"
-                surname="ZAINAL ABIDIN"
-                description="Lecturer"
-                position="right"
-                modelPosition={[10, 8, -15]}
-                imageSrc="YEN.jpg"
-                roomId="yen"
-                isHighlighted={targetRoomId === "yen"}
-                autoOpen={targetRoomId === "yen"}
-              />
-              <HoverDetails
-                title="Dr MAYAMIN"
-                surname="YUHANIZ"
-                description="Senior Lecturer"
-                position="right"
-                modelPosition={[5, 8, -20]}
-                imageSrc="Maya.jpg"
-                roomId="maya"
-                isHighlighted={targetRoomId === "maya"}
-                autoOpen={targetRoomId === "maya"}
-              />
-              <HoverDetails
-                title="Ar. IZNNY"
-                surname="ISMAIL"
-                description="Senior Lecturer"
-                position="right"
-                modelPosition={[16, 8, -8]}
-                imageSrc="Iznny.jpg"
-                roomId="iznny"
-                isHighlighted={targetRoomId === "iznny"}
-                autoOpen={targetRoomId === "iznny"}
-              />
-              <HoverDetails
-                title="En MD ANWAR"
-                surname="MD YUSOF"
-                description="Senior Lecturer"
-                position="right"
-                modelPosition={[-8, 8, -15]}
-                imageSrc="Anwar.jpg"
-                roomId="anwar"
-                isHighlighted={targetRoomId === "anwar"}
-                autoOpen={targetRoomId === "anwar"}
-              />
-              <HoverDetails
-                title="Dr NOR SYAMIMI"
-                surname="SAMSUDIN"
-                description="Senior Lecturer"
-                position="right"
-                modelPosition={[-18, 8, -8]}
-                imageSrc="Mimi.jpg"
-                roomId="mimi"
-                isHighlighted={targetRoomId === "mimi"}
-                autoOpen={targetRoomId === "mimi"}
-              />
-              <HoverDetails
-                title="Dr FADHLIZIL FARIZ"
-                surname="ABDUL MUNIR"
-                description="Senior Lecturer"
-                position="right"
-                modelPosition={[-15, 8, -8]}
-                imageSrc="Fariz.jpg"
-                roomId="fariz"
-                isHighlighted={targetRoomId === "fariz"}
-                autoOpen={targetRoomId === "fariz"}
-              />
-              <HoverDetails
-                title="En AMIRUL AMIN"
-                surname="ISMAIL"
-                description="Senior Lecturer"
-                position="right"
-                modelPosition={[-8, 8, -8]}
-                imageSrc="Amin.jpg"
-                roomId="amin"
-                isHighlighted={targetRoomId === "amin"}
-                autoOpen={targetRoomId === "amin"}
-              />
-              <HoverDetails
-                title="En AMRAN"
-                surname="ABDUL RAHIM"
-                description="Senior Lecturer"
-                position="right"
-                modelPosition={[-11, 8, -8]}
-                imageSrc="Amran.jpg"
-                roomId="amran"
-                isHighlighted={targetRoomId === "amran"}
-                autoOpen={targetRoomId === "amran"}
-              />
-              <HoverDetails
-                title="En ADEEB"
-                surname="ZULKIFLI"
-                description="Senior Lecturer"
-                position="right"
-                modelPosition={[-18, 8, -15]}
-                imageSrc="Adeeb.jpg"
-                roomId="adeeb"
-                isHighlighted={targetRoomId === "adeeb"}
-                autoOpen={targetRoomId === "adeeb"}
-              />
-              <HoverDetails
-                title="Dr IRYANI"
-                surname="ABDUL HALIM CHOO"
-                description="Senior Lecturer"
-                position="right"
-                modelPosition={[-15, 8, -15]}
-                imageSrc="Iryani.jpg"
-                roomId="iryani"
-                isHighlighted={targetRoomId === "iryani"}
-                autoOpen={targetRoomId === "iryani"}
-              />
+              {/* Dynamic Lecturer Hotspots */}
+              {["hanim", "yen", "maya", "iznny", "anwar", "mimi", "fariz", "amin", "amran", "adeeb", "iryani"].map((id) => {
+                const lect = getLecturerByRoomId(id);
+                if (!lect) return null;
+                return (
+                  <HoverDetails
+                    key={id}
+                    title={lect.displayName}
+                    surname={lect.surname}
+                    description={lect.role}
+                    position="right"
+                    modelPosition={roomIdToPosition[id]}
+                    imageSrc={lect.photo}
+                    roomId={id}
+                    isHighlighted={targetRoomId === id}
+                    autoOpen={targetRoomId === id}
+                  />
+                );
+              })}
               <HoverDetails
                 title="unoccupied"
                 description="Senior Lecturer"

@@ -12,15 +12,30 @@ const roomIdToPosition: Record<string, [number, number, number]> = {
   "studio-08a": [-22, 2, -3],
   "studio-master-04": [-2, 2, 20],
   "studio-master-02": [13, 2, 20],
-  // add other rooms if necessary
+  "arclab": [-22, 2, 10],
+  "classroom-022": [30, 2, -15],
+  "classroom-002": [-25, 2, -15],
+  "nasurudin": [24, 2, -19],
+  "azhan": [-14, 2, 4.5],
+  "faisol": [17, 2, -7],
+  "wan": [32, 2, -7]
 };
 
 const GroundFloor = () => {
+  const { lecturers, studios } = useRoomContext();
   const [params] = useSearchParams();
   const targetRoomId = params.get("room")?.toLowerCase() ?? undefined;
-  // FIX: Use targetRoomId (not targetRoomPosition) for lookup
   const targetRoomPosition =
     targetRoomId && roomIdToPosition[targetRoomId] ? roomIdToPosition[targetRoomId] : undefined;
+
+  // Helper to get lecturer info by roomId
+  const getLecturerByRoomId = (roomId: string) => 
+    lecturers.find((lect) => lect.roomId?.toLowerCase() === roomId);
+
+    const getStudioName = (id: string) => {
+      const studio = studios.find(s => s.id === id);
+      return studio ? studio.currentName : '';
+    };
 
   // --- ModelViewer auto-scroll-to-view logic ---
   const modelViewerRef = useRef<HTMLDivElement>(null);
@@ -54,7 +69,7 @@ const GroundFloor = () => {
           >
             <ModelViewer modelSrc="Annex1GF.gltf" targetRoomPosition={targetRoomPosition}>
               <HoverDetails
-                title="Studio 08B"
+                title={getStudioName('studio-08b')}
                 roomId="studio-08b"
                 description="Max Pax= 30. Fixed Workstation, 3 AC, Projector"
                 position="right"
@@ -63,7 +78,7 @@ const GroundFloor = () => {
                 autoOpen={targetRoomId === "studio-08b"}
               />
               <HoverDetails
-                title="Studio Master 01"
+                title={getStudioName('studio-master-01')}
                 roomId="studio-master-01"
                 description="Max Pax= 25. 24 hours operational Studio, Fixed Workstation, Projector"
                 position="right"
@@ -72,7 +87,7 @@ const GroundFloor = () => {
                 autoOpen={targetRoomId === "studio-master-01"}
               />
               <HoverDetails
-                title="Studio Master 03"
+                title={getStudioName('studio-master-03')}
                 roomId="studio-master-03"
                 description="Max Pax= 25. 24 hours operational Studio, Fixed Workstation, Projector"
                 position="right"
@@ -81,7 +96,7 @@ const GroundFloor = () => {
                 autoOpen={targetRoomId === "studio-master-03"}
               />
               <HoverDetails
-                title="Studio 08A"
+                title={getStudioName('studio-08a')}
                 roomId="studio-08a"
                 description="Max Pax= 30. Fixed Workstation, 3 AC, Projector"
                 position="right"
@@ -99,7 +114,7 @@ const GroundFloor = () => {
                 autoOpen={targetRoomId === "arclab"}
               />
               <HoverDetails
-                title="Studio Master 04"
+                title={getStudioName('studio-master-04')}
                 roomId="studio-master-04"
                 description="Max Pax= 25. 24 hours operational Studio, Fixed Workstation, Projector"
                 position="right"
@@ -108,7 +123,7 @@ const GroundFloor = () => {
                 autoOpen={targetRoomId === "studio-master-04"}
               />
               <HoverDetails
-                title="Studio Master 02"
+                title={getStudioName('studio-master-02')}
                 roomId="studio-master-02"
                 description="Max Pax= 25. 24 hours operational Studio, Fixed Workstation, Projector"
                 position="right"
@@ -134,50 +149,25 @@ const GroundFloor = () => {
                 isHighlighted={targetRoomId === "classroom-002"}
                 autoOpen={targetRoomId === "classroom-002"}
                />
-               <HoverDetails
-                title="Ts. MOHD NASURUDIN"
-                surname="HASBULLAH"
-                description="Senior Lecturer"
-                position="right"
-                modelPosition={[24, 2, -19]}
-                imageSrc="Nas.jpg"
-                roomId="nasurudin"
-                isHighlighted={targetRoomId === "nasurudin"}
-                autoOpen={targetRoomId === "nasurudin"}
-               />
-               <HoverDetails
-                title="Dr AZHAN"
-                surname="ABD AZIZ"
-                description="Senior Lecturer"
-                position="right"
-                modelPosition={[-14, 2, 4.5]}
-                imageSrc="Azhan.jpg"
-                 roomId="azhan"
-                isHighlighted={targetRoomId === "azhan"}
-                autoOpen={targetRoomId === "azhan"}
-               />
-               <HoverDetails
-                title="En AHMAD FAISOL"
-                surname="YUSOF"
-                description="Senior Lecturer"
-                position="right"
-                modelPosition={[17, 2, -7]}
-                imageSrc="Faisol.jpg"
-                roomId="faisol"
-                isHighlighted={targetRoomId === "faisol"}
-                autoOpen={targetRoomId === "faisol"}
-                />
-               <HoverDetails
-                title="Ts. Dr. WAN NUR RUKIAH"
-                surname="MOHD ARSHAD"
-                description="Senior Lecturer"
-                position="right"
-                modelPosition={[32, 2, -7]}
-                imageSrc="Wan.jpg"
-                roomId="wan"
-                isHighlighted={targetRoomId === "wan"}
-                autoOpen={targetRoomId === "wan"}
-                />
+              {/* Lecturer Hotspots using dynamic data */}
+              {["nasurudin", "azhan", "faisol", "wan"].map((id) => {
+                const lect = getLecturerByRoomId(id);
+                if (!lect) return null;
+                return (
+                  <HoverDetails
+                    key={id}
+                    title={lect.displayName}
+                    surname={lect.surname}
+                    description={lect.role}
+                    position="right"
+                    modelPosition={roomIdToPosition[id]}
+                    imageSrc={lect.photo}
+                    roomId={id}
+                    isHighlighted={targetRoomId === id}
+                    autoOpen={targetRoomId === id}
+                  />
+                );
+              })}
             </ModelViewer>
           </div>
           

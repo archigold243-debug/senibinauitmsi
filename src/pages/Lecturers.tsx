@@ -1,16 +1,20 @@
 
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LECTURERS } from './lecturers-data';
 import LecturerCard from './LecturerCard';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
+import { useRoomContext } from '@/contexts/RoomContext';
 
 const Lecturers: React.FC = () => {
   const navigate = useNavigate();
+  const { lecturers } = useRoomContext();
 
   const handleClick = (floor: string, roomId: string) => {
-    navigate(`/${floor}?room=${roomId}`);
+    // NOTE: Use the url format that matches existing routes (e.g., /ground-floor)
+    // Assume floor value in context is like "Ground Floor" and convert to "ground-floor"
+    const path = `/${floor.toLowerCase().replace(/\s+/g, "-")}`;
+    navigate(`${path}?room=${roomId}`);
   };
 
   return (
@@ -35,9 +39,9 @@ const Lecturers: React.FC = () => {
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {LECTURERS.map((lect, idx) => (
+          {lecturers.map((lect, idx) => (
             <LecturerCard
-              key={lect.displayName}
+              key={lect.id}
               photo={lect.photo}
               displayName={lect.displayName}
               surname={lect.surname}
@@ -55,4 +59,3 @@ const Lecturers: React.FC = () => {
 };
 
 export default Lecturers;
-

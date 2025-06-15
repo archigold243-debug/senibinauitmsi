@@ -18,7 +18,7 @@ const roomIdToPosition: Record<string, [number, number, number]> = {
 };
 
 const ThirdFloor = () => {
-  const { studios } = useRoomContext();
+  const { studios, lecturers } = useRoomContext();
   const [params] = useSearchParams();
   const targetRoomId = params.get("room")?.toLowerCase() ?? undefined;
   const targetRoomPosition = targetRoomId && roomIdToPosition[targetRoomId] ? roomIdToPosition[targetRoomId] : undefined;
@@ -27,6 +27,9 @@ const ThirdFloor = () => {
     const studio = studios.find(s => s.id === id);
     return studio ? studio.currentName : '';
   };
+
+  const getLecturerByRoomId = (roomId: string) => 
+    lecturers.find((lect) => lect.roomId?.toLowerCase() === roomId);
 
   // --- ModelViewer auto-scroll-to-view logic ---
   const modelViewerRef = useRef<HTMLDivElement>(null);
@@ -131,6 +134,7 @@ const ThirdFloor = () => {
                 isHighlighted={targetRoomId === "floating-studio-04"}
                 autoOpen={targetRoomId === "floating-studio-04"}
               />
+              {/* No lecturer offices currently on this floor in this map, placeholder for future */}
             </ModelViewer>
           </div>
           

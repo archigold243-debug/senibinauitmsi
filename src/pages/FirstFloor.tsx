@@ -2,8 +2,8 @@ import React, { useRef, useEffect } from 'react';
 import Layout from '@/components/Layout';
 import ModelViewer from '@/components/ModelViewer';
 import HoverDetails from '@/components/HoverDetails';
-import { useRoomContext } from '@/contexts/RoomContext';
 import { useSearchParams } from "react-router-dom";
+import { useRoomContext } from '@/contexts/RoomContext';
 
 // Room ID to position mapping for First Floor
 const roomIdToPosition: Record<string, [number, number, number]> = {
@@ -22,7 +22,7 @@ const roomIdToPosition: Record<string, [number, number, number]> = {
 const getPersonId = (name: string) => name?.toLowerCase().replace(/\s|[^\w]/g, '');
 
 const FirstFloor = () => {
-  const { studios, namedRooms } = useRoomContext();
+  const { studios, namedRooms, lecturers } = useRoomContext();
   const [params] = useSearchParams();
   const targetRoomId = params.get("room")?.toLowerCase() ?? undefined;
   const targetRoomPosition = targetRoomId && roomIdToPosition[targetRoomId] ? roomIdToPosition[targetRoomId] : undefined;
@@ -36,6 +36,9 @@ const FirstFloor = () => {
     const studio = studios.find(s => s.id === id);
     return studio ? studio.currentName : '';
   };
+
+  const getLecturerByRoomId = (roomId: string) =>
+    lecturers.find((lect) => lect.roomId?.toLowerCase() === roomId);
 
   // --- ModelViewer auto-scroll-to-view logic ---
   const modelViewerRef = useRef<HTMLDivElement>(null);
@@ -122,39 +125,25 @@ const FirstFloor = () => {
                 isHighlighted={targetRoomId === "crit-small"}
                 autoOpen={targetRoomId === "crit-small"}
               />
-              <HoverDetails
-                title="En MOHD ZIKRI"
-                surname="MOHD ZAKI"
-                description="Lecturer"
-                position="right"
-                modelPosition={[-10, 6, -15]}
-                imageSrc="Zikri.jpg"
-                roomId="zikri"
-                isHighlighted={targetRoomId === "zikri"}
-                autoOpen={targetRoomId === "zikri"}
-              />
-              <HoverDetails
-                title="Pn FARAH HANNA"
-                surname="®AHMAD FUAD"
-                description="Lecturer"
-                position="right"
-                modelPosition={[10, 6, -15]}
-                imageSrc="Farah.jpg"
-                roomId="farah"
-                isHighlighted={targetRoomId === "farah"}
-                autoOpen={targetRoomId === "farah"}
-              />
-              <HoverDetails
-                title="Cik NOOR AINSYAH"
-                surname="ZULKIFLI"
-                description="Lecturer"
-                position="right"
-                modelPosition={[6, 6, -16]}
-                imageSrc="Ainsyah.jpg"
-                roomId="ainsyah"
-                isHighlighted={targetRoomId === "ainsyah"}
-                autoOpen={targetRoomId === "ainsyah"}
-              />
+              {/* Dynamic Lecturer Details */}
+              {["zikri", "farah", "ainsyah"].map((id) => {
+                const lect = getLecturerByRoomId(id);
+                if (!lect) return null;
+                return (
+                  <HoverDetails
+                    key={id}
+                    title={lect.displayName}
+                    surname={lect.surname}
+                    description={lect.role}
+                    position="right"
+                    modelPosition={roomIdToPosition[id]}
+                    imageSrc={lect.photo}
+                    roomId={id}
+                    isHighlighted={targetRoomId === id}
+                    autoOpen={targetRoomId === id}
+                  />
+                );
+              })}
             </ModelViewer>
           </div>
           
