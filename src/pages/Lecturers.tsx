@@ -64,64 +64,64 @@ const LECTURERS = [
   },
   // Second Floor
   {
-    displayName: 'Dr HANIM',
-    surname: 'MURNI',
+    displayName: 'Dr FAZIDAH HANIM',
+    surname: 'HUSAIN',
     role: 'Lecturer',
     photo: 'Hanim.jpg',
     floor: 'second-floor',
     roomId: 'hanim'
   },
   {
-    displayName: 'Pn YEN IZZATY',
-    surname: 'ABDULLAH',
+    displayName: 'En MOHAMMAD NAZRIN',
+    surname: 'ZAINAL ABIDIN',
     role: 'Lecturer',
     photo: 'YEN.jpg',
     floor: 'second-floor',
     roomId: 'yen'
   },
   {
-    displayName: 'Pn MAYA ZUBAIDAH',
-    surname: 'ZAINUDDIN',
+    displayName: 'Dr MAYAMIN',
+    surname: 'YUHANIZ',
     role: 'Lecturer',
     photo: 'Maya.jpg',
     floor: 'second-floor',
     roomId: 'maya'
   },
   {
-    displayName: 'Pn IZNYY',
-    surname: 'FADZIL',
+    displayName: 'Ar. IZNNY',
+    surname: 'ISMAIL',
     role: 'Lecturer',
     photo: 'Iznny.jpg',
     floor: 'second-floor',
     roomId: 'iznny'
   },
   {
-    displayName: 'En ANWAR',
-    surname: 'ABDULLAH',
+    displayName: 'En MD ANWAR',
+    surname: 'MD YUSOF',
     role: 'Lecturer',
     photo: 'Anwar.jpg',
     floor: 'second-floor',
     roomId: 'anwar'
   },
   {
-    displayName: 'Pn MIMI',
-    surname: 'SITI AMINAH',
+    displayName: 'Dr NOR SYAMIMI',
+    surname: 'SAMSUDIN',
     role: 'Lecturer',
     photo: 'Mimi.jpg',
     floor: 'second-floor',
     roomId: 'mimi'
   },
   {
-    displayName: 'En FARIZ',
-    surname: 'ABD SAMAD',
+    displayName: 'Dr FADHLIZIL FARIZ',
+    surname: 'ABDUL MUNIR',
     role: 'Lecturer',
     photo: 'Fariz.jpg',
     floor: 'second-floor',
     roomId: 'fariz'
   },
   {
-    displayName: 'En AMIN',
-    surname: 'AZIZAN',
+    displayName: 'En AMIRUL AMIN',
+    surname: 'ISMAIL',
     role: 'Lecturer',
     photo: 'Amin.jpg',
     floor: 'second-floor',
@@ -144,8 +144,8 @@ const LECTURERS = [
     roomId: 'adeeb'
   },
   {
-    displayName: 'Pn IRYANI',
-    surname: 'ROSNAWI',
+    displayName: 'Dr IRYANI',
+    surname: 'ABDUL HALIM CHOO',
     role: 'Lecturer',
     photo: 'Iryani.jpg',
     floor: 'second-floor',
