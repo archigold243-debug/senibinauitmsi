@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 
@@ -60,7 +59,7 @@ const HoverDetails: React.FC<HoverDetailsProps> = ({
       className={cn(
         "hotspot absolute w-6 h-6 rounded-full flex items-center justify-center cursor-pointer shadow-lg pointer-events-auto outline-none",
         isHighlighted 
-          ? "bg-yellow-400 animate-pulse ring-4 ring-yellow-400 z-30" // <-- ring-4 for much bolder ring
+          ? "bg-red-400 animate-pulse ring-4 ring-red-400 z-30" // <-- changed to red
           : "bg-primary/80 z-20"
       )}
       tabIndex={0}
@@ -70,7 +69,7 @@ const HoverDetails: React.FC<HoverDetailsProps> = ({
       data-position={modelPosition.join(',')}
       data-room-id={roomId}
     >
-      <div className={cn("w-2 h-2 bg-white rounded-full", isHighlighted && "bg-yellow-500")} />
+      <div className={cn("w-2 h-2 bg-white rounded-full", isHighlighted && "bg-red-500")} />
       {/* Info card */}
       {isHovered && (
         <div 
@@ -105,4 +104,3 @@ const HoverDetails: React.FC<HoverDetailsProps> = ({
 };
 
 export default HoverDetails;
-
