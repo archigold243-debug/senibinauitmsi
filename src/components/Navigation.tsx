@@ -16,7 +16,7 @@ const Navigation: React.FC = () => {
   
   const mainRoutes = [
     { name: 'Overview', path: '/' },
-    { name: 'The Lecturers', path: '/lecturers' },
+    { name: 'Lecturers', path: '/lecturers' },
     { name: 'Admin', path: '/admin' },
   ];
 
@@ -35,7 +35,7 @@ const Navigation: React.FC = () => {
   return (
     <>
       {/* Desktop Navigation */}
-      <nav className="hidden md:flex items-center space-x-8">
+      <nav className="hidden lg:flex items-center space-x-4">
         {mainRoutes.slice(0, 1).map((route) => (
           <Link
             key={route.path}
@@ -102,7 +102,7 @@ const Navigation: React.FC = () => {
       
       {/* Mobile Navigation Button */}
       <button 
-        className="md:hidden flex items-center p-2 rounded-md"
+        className="lg:hidden flex items-center p-2 rounded-md"
         onClick={() => setIsOpen(!isOpen)}
       >
         <svg 
@@ -132,7 +132,7 @@ const Navigation: React.FC = () => {
       
       {/* Mobile Navigation Menu */}
       {isOpen && (
-        <div className="md:hidden absolute top-16 right-0 left-0 z-50 bg-background/95 backdrop-blur-md border-b animate-slide-down">
+        <div className="lg:hidden absolute top-16 right-0 left-0 z-50 bg-background/95 backdrop-blur-md border-b animate-slide-down">
           <div className="container mx-auto px-4 py-4">
             <nav className="flex flex-col space-y-4">
               {mainRoutes.slice(0, 1).map((route) => (
