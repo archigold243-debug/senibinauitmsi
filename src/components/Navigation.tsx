@@ -21,7 +21,7 @@ const Navigation: React.FC = () => {
   return (
     <>
       {/* Desktop Navigation */}
-      <nav className="hidden md:flex items-center space-x-6">
+      <nav className="hidden md:flex items-center space-x-8">
         {routes.map((route) => (
           <Link
             key={route.path}
