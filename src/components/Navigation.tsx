@@ -2,27 +2,88 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { ChevronDown } from 'lucide-react';
 
 const Navigation: React.FC = () => {
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   
-  const routes = [
+  const mainRoutes = [
     { name: 'Overview', path: '/' },
+    { name: 'The Lecturers', path: '/lecturers' },
+    { name: 'Admin', path: '/admin' },
+  ];
+
+  const floorRoutes = [
     { name: 'Ground Floor', path: '/ground-floor' },
     { name: '1st Floor', path: '/first-floor' },
     { name: '2nd Floor', path: '/second-floor' },
     { name: '3rd Floor', path: '/third-floor' },
     { name: '4th Floor', path: '/fourth-floor' },
-    { name: 'The Lecturers', path: '/lecturers' }, // Added new menu item here
-    { name: 'Admin', path: '/admin' },
   ];
+
+  // Check if current path is a floor page
+  const isFloorPage = floorRoutes.some(route => location.pathname === route.path);
+  const currentFloor = floorRoutes.find(route => location.pathname === route.path);
   
   return (
     <>
       {/* Desktop Navigation */}
-      <nav className="hidden md:flex items-center space-x-6">
-        {routes.map((route) => (
+      <nav className="hidden md:flex items-center space-x-8">
+        {mainRoutes.slice(0, 1).map((route) => (
+          <Link
+            key={route.path}
+            to={route.path}
+            className={cn(
+              "relative text-sm font-medium transition-colors hover:text-foreground/80",
+              "after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-foreground/70 after:transition-transform after:duration-300 hover:after:origin-bottom-left hover:after:scale-x-100",
+              location.pathname === route.path 
+                ? "text-foreground after:scale-x-100 after:origin-bottom-left" 
+                : "text-foreground/60"
+            )}
+          >
+            {route.name}
+          </Link>
+        ))}
+        
+        {/* Floors Dropdown */}
+        <DropdownMenu>
+          <DropdownMenuTrigger className={cn(
+            "relative flex items-center space-x-1 text-sm font-medium transition-colors hover:text-foreground/80 focus:outline-none",
+            "after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-foreground/70 after:transition-transform after:duration-300 hover:after:origin-bottom-left hover:after:scale-x-100",
+            isFloorPage 
+              ? "text-foreground after:scale-x-100 after:origin-bottom-left" 
+              : "text-foreground/60"
+          )}>
+            <span>Floors</span>
+            <ChevronDown className="h-4 w-4" />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="start" className="w-48 bg-background border shadow-md">
+            {floorRoutes.map((route) => (
+              <DropdownMenuItem key={route.path} asChild>
+                <Link
+                  to={route.path}
+                  className={cn(
+                    "w-full cursor-pointer",
+                    location.pathname === route.path 
+                      ? "bg-accent text-accent-foreground" 
+                      : ""
+                  )}
+                >
+                  {route.name}
+                </Link>
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
+
+        {mainRoutes.slice(1).map((route) => (
           <Link
             key={route.path}
             to={route.path}
@@ -74,7 +135,45 @@ const Navigation: React.FC = () => {
         <div className="md:hidden absolute top-16 right-0 left-0 z-50 bg-background/95 backdrop-blur-md border-b animate-slide-down">
           <div className="container mx-auto px-4 py-4">
             <nav className="flex flex-col space-y-4">
-              {routes.map((route) => (
+              {mainRoutes.slice(0, 1).map((route) => (
+                <Link
+                  key={route.path}
+                  to={route.path}
+                  className={cn(
+                    "py-2 text-sm font-medium transition-colors",
+                    location.pathname === route.path 
+                      ? "text-foreground" 
+                      : "text-foreground/60 hover:text-foreground/80"
+                  )}
+                  onClick={() => setIsOpen(false)}
+                >
+                  {route.name}
+                </Link>
+              ))}
+              
+              {/* Mobile Floor Links */}
+              <div className="pl-4 border-l border-border">
+                <div className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">
+                  Floors
+                </div>
+                {floorRoutes.map((route) => (
+                  <Link
+                    key={route.path}
+                    to={route.path}
+                    className={cn(
+                      "block py-2 text-sm font-medium transition-colors",
+                      location.pathname === route.path 
+                        ? "text-foreground" 
+                        : "text-foreground/60 hover:text-foreground/80"
+                    )}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {route.name}
+                  </Link>
+                ))}
+              </div>
+
+              {mainRoutes.slice(1).map((route) => (
                 <Link
                   key={route.path}
                   to={route.path}
