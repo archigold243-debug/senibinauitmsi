@@ -35,13 +35,13 @@ const Navigation: React.FC = () => {
   return (
     <>
       {/* Desktop Navigation */}
-      <nav className="hidden lg:flex items-center space-x-4">
+      <nav className="hidden lg:flex items-center space-x-2">
         {mainRoutes.slice(0, 1).map((route) => (
           <Link
             key={route.path}
             to={route.path}
             className={cn(
-              "relative text-sm font-medium transition-colors hover:text-foreground/80",
+              "relative text-sm font-medium transition-colors hover:text-foreground/80 px-2",
               "after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-foreground/70 after:transition-transform after:duration-300 hover:after:origin-bottom-left hover:after:scale-x-100",
               location.pathname === route.path 
                 ? "text-foreground after:scale-x-100 after:origin-bottom-left" 
@@ -55,7 +55,7 @@ const Navigation: React.FC = () => {
         {/* Floors Dropdown */}
         <DropdownMenu>
           <DropdownMenuTrigger className={cn(
-            "relative flex items-center space-x-1 text-sm font-medium transition-colors hover:text-foreground/80 focus:outline-none",
+            "relative flex items-center space-x-1 text-sm font-medium transition-colors hover:text-foreground/80 focus:outline-none px-2",
             "after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-foreground/70 after:transition-transform after:duration-300 hover:after:origin-bottom-left hover:after:scale-x-100",
             isFloorPage 
               ? "text-foreground after:scale-x-100 after:origin-bottom-left" 
@@ -88,7 +88,7 @@ const Navigation: React.FC = () => {
             key={route.path}
             to={route.path}
             className={cn(
-              "relative text-sm font-medium transition-colors hover:text-foreground/80",
+              "relative text-sm font-medium transition-colors hover:text-foreground/80 px-2",
               "after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-foreground/70 after:transition-transform after:duration-300 hover:after:origin-bottom-left hover:after:scale-x-100",
               location.pathname === route.path 
                 ? "text-foreground after:scale-x-100 after:origin-bottom-left" 
