@@ -1,10 +1,10 @@
-
 import React from 'react';
 import Layout from '@/components/Layout';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import ModelViewer from '@/components/ModelViewer';
+import { useVisitorTracker } from '@/hooks/useVisitorTracker'; // ✅ Import visitor tracking hook
 
 const floors = [
   { name: 'Ground Floor', path: '/ground-floor', description: 'Entrance, Master Studios, Studios, Classroom, Lab and Lecturer Offices' },
@@ -15,6 +15,8 @@ const floors = [
 ];
 
 const Index = () => {
+  useVisitorTracker(); // ✅ Track visitor on page load
+
   return (
     <Layout>
       {/* Hero section with gradient overlay and background image */}
