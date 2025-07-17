@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import ModelViewer from '@/components/ModelViewer';
-import { useVisitorTracker } from '@/hooks/useVisitorTracker'; // ✅ Make sure this path is correct
+import { useVisitorTracker } from '@/hooks/useVisitorTracker'; // ✅ Ensure hook is working
 
 const floors = [
   { name: 'Ground Floor', path: '/ground-floor', description: 'Entrance, Master Studios, Studios, Classroom, Lab and Lecturer Offices' },
@@ -15,7 +15,7 @@ const floors = [
 ];
 
 const Index = () => {
-  const { visitorCount } = useVisitorTracker(); // ✅ Using the hook
+  const { visitorCount } = useVisitorTracker(); // ✅ Hook tracks and fetches count
 
   return (
     <Layout>
@@ -81,7 +81,7 @@ const Index = () => {
           {/* ✅ Visitor Count Display */}
           {visitorCount !== null && (
             <div className="mt-6 text-center text-xs text-muted-foreground">
-              <p>Total Visitors: <strong>{visitorCount}</strong></p>
+              <p>Total Visitors Today: <strong>{visitorCount}</strong></p>
             </div>
           )}
         </div>
