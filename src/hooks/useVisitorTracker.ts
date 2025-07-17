@@ -4,42 +4,35 @@ export const useVisitorTracker = () => {
   const [visitorCount, setVisitorCount] = useState<number | null>(null);
 
   useEffect(() => {
-    const trackVisitor = async () => {
+    const trackAndFetchVisitor = async () => {
       try {
-        // Step 1: Get user's IP address
+        // Step 1: Track visitor
         const ipRes = await fetch("https://api.ipify.org?format=json");
-        const ipData = await ipRes.json();
-        const ip = ipData.ip;
-
-        // Step 2: Get User-Agent
+        const { ip } = await ipRes.json();
         const ua = navigator.userAgent;
 
-        // Step 3: Send IP + UA to Google Apps Script
         await fetch("https://script.google.com/macros/s/AKfycbwVOVFDDjd1S4eCuxGKyXt3sZ5pJMkgHOPBN8C0-g7SzMV3sWx-a3gG5MRrJQAYlwYM/exec", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
           body: new URLSearchParams({ ip, ua }),
         });
 
-        // Step 4: Fetch today's visitor count
-        const countRes = await fetch("https://script.google.com/macros/s/AKfycbwVOVFDDjd1S4eCuxGKyXt3sZ5pJMkgHOPBN8C0-g7SzMV3sWx-a3gG5MRrJQAYlwYM/exec?action=getCountToday");
+        // Step 2: Get count
+        const countRes = await fetch("https://script.google.com/macros/s/AKfycbwVOVFDDjd1S4eCuxGKyXt3sZ5pJMkgHOPBN8C0-g7SzMV3sWx-a3gG5MRrJQAYlwYM/exec");
         const countData = await countRes.json();
 
-        if (countData.success && typeof countData.count === "number") {
+        if (typeof countData.count === "number") {
           setVisitorCount(countData.count);
         } else {
-          console.warn("Unexpected response format:", countData);
+          console.warn("Unexpected response from visitor count fetch:", countData);
         }
-
-      } catch (error) {
-        console.error("Visitor tracking failed:", error);
+      } catch (err) {
+        console.error("Visitor tracking failed:", err);
       }
     };
 
-    trackVisitor();
+    trackAndFetchVisitor();
   }, []);
 
-  return visitorCount;
+  return { visitorCount };
 };
