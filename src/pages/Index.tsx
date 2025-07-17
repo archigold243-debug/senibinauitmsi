@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Layout from '@/components/Layout';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import ModelViewer from '@/components/ModelViewer';
+import { useVisitorTracker } from '@/hooks/useVisitorTracker'; // ✅ Make sure this path is correct
 
 const floors = [
   { name: 'Ground Floor', path: '/ground-floor', description: 'Entrance, Master Studios, Studios, Classroom, Lab and Lecturer Offices' },
@@ -14,26 +15,7 @@ const floors = [
 ];
 
 const Index = () => {
-  const [visitorCount, setVisitorCount] = useState<number | null>(null);
-
-  useEffect(() => {
-    const trackVisitor = async () => {
-      try {
-        const res = await fetch(
-          'https://script.google.com/macros/s/AKfycbwVOVFDDjd1S4eCuxGKyXt3sZ5pJMkgHOPBN8C0-g7SzMV3sWx-a3gG5MRrJQAYlwYM/exec',
-          { method: 'GET' }
-        );
-        const data = await res.json();
-        if (typeof data.visitorCount === 'number') {
-          setVisitorCount(data.visitorCount);
-        }
-      } catch (error) {
-        console.error('Visitor tracking failed:', error);
-      }
-    };
-
-    trackVisitor();
-  }, []);
+  const { visitorCount } = useVisitorTracker(); // ✅ Using the hook
 
   return (
     <Layout>
