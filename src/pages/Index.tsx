@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Layout from '@/components/Layout';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import ModelViewer from '@/components/ModelViewer';
-import { useVisitorTracker } from '@/hooks/useVisitorTracker'; // ✅ Tracks user visit
-import { useVisitorCount } from '@/hooks/useVisitorCount';     // ✅ Fetches total visitors
+import { useVisitorTracker } from '@/hooks/useVisitorTracker'; // ✅ Hook for tracking visitors
 
 const floors = [
   { name: 'Ground Floor', path: '/ground-floor', description: 'Entrance, Master Studios, Studios, Classroom, Lab and Lecturer Offices' },
@@ -16,8 +15,22 @@ const floors = [
 ];
 
 const Index = () => {
-  useVisitorTracker(); // Logs visit on load
-  const visitorCount = useVisitorCount(); // Gets visitor count
+  useVisitorTracker(); // ✅ Fire visitor tracking
+  const [visitorCount, setVisitorCount] = useState<number | null>(null);
+
+  useEffect(() => {
+    // 👇 Replace this URL with your deployed Google Apps Script if different
+    fetch('https://script.google.com/macros/s/AKfycbwVOVFDDjd1S4eCuxGKyXt3sZ5pJMkgHOPBN8C0-g7SzMV3sWx-a3gG5MRrJQAYlwYM/exec?action=count')
+      .then(res => res.json())
+      .then(data => {
+        if (typeof data.count === 'number') {
+          setVisitorCount(data.count);
+        }
+      })
+      .catch(err => {
+        console.error('Failed to fetch visitor count:', err);
+      });
+  }, []);
 
   return (
     <Layout>
@@ -43,27 +56,18 @@ const Index = () => {
 
             {/* Deep-link buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up" style={{ animationDelay: '300ms' }}>
-              <Link
-                to="/second-floor?room=crit-main"
-                className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary/90 transition-colors"
-              >
+              <Link to="/second-floor?room=crit-main" className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary/90 transition-colors">
                 Bilik Krit Utama
               </Link>
-              <Link
-                to="/first-floor?room=crit-small"
-                className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary/90 transition-colors"
-              >
+              <Link to="/first-floor?room=crit-small" className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary/90 transition-colors">
                 Bilik Krit Kecil
               </Link>
-              <Link
-                to="/first-floor?room=crit-tec"
-                className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary/90 transition-colors"
-              >
+              <Link to="/first-floor?room=crit-tec" className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary/90 transition-colors">
                 Bilik Krit TEC
               </Link>
             </div>
 
-            {/* Google Maps Button */}
+            {/* Google Maps */}
             <div className="flex justify-center mt-6">
               <a
                 href="https://maps.app.goo.gl/8nYXVnFebumsi5FLA"
@@ -78,7 +82,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* 3D model overview */}
+      {/* 3D Model Viewer */}
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
@@ -87,16 +91,14 @@ const Index = () => {
               Explore our interactive 3D model of the building. Use your mouse to rotate and zoom.
             </p>
           </div>
-
           <div className="bg-white rounded-lg shadow-lg p-4">
             <ModelViewer modelSrc="Annex1.glb" />
           </div>
-
           <div className="mt-6 text-center text-sm text-gray-500">
             Click and drag to rotate. Use scroll wheel to zoom in and out.
           </div>
 
-          {/* ✅ Visitor count display */}
+          {/* 👇 Visitor Count Display */}
           <div className="text-center mt-2 text-sm text-muted-foreground">
             {visitorCount !== null
               ? `${visitorCount} visitors have explored Annex 1 so far.`
@@ -105,7 +107,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Floor list grid */}
+      {/* Floor grid */}
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
@@ -128,7 +130,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Lecturers directory button */}
+      {/* Lecturers button */}
       <div className="flex flex-col items-center gap-4 my-8">
         <Button asChild variant="secondary" size="lg">
           <Link to="/lecturers">The Lecturers</Link>
