@@ -4,15 +4,17 @@ export const useVisitorTracker = () => {
   const [visitorCount, setVisitorCount] = useState<number | null>(null);
 
   useEffect(() => {
-    const trackAndFetchVisitor = async () => {
+    const trackVisitor = async () => {
       try {
-        // Get IP and User Agent
-        const res = await fetch("https://api.ipify.org?format=json");
-        const data = await res.json();
-        const ip = data.ip;
+        // Step 1: Get user's IP address
+        const ipRes = await fetch("https://api.ipify.org?format=json");
+        const ipData = await ipRes.json();
+        const ip = ipData.ip;
+
+        // Step 2: Get User-Agent
         const ua = navigator.userAgent;
 
-        // Send to Google Apps Script
+        // Step 3: Send IP + UA to Google Apps Script
         await fetch("https://script.google.com/macros/s/AKfycbwVOVFDDjd1S4eCuxGKyXt3sZ5pJMkgHOPBN8C0-g7SzMV3sWx-a3gG5MRrJQAYlwYM/exec", {
           method: "POST",
           headers: {
@@ -21,22 +23,23 @@ export const useVisitorTracker = () => {
           body: new URLSearchParams({ ip, ua }),
         });
 
-        // Now fetch the updated count (via GET)
-        const countRes = await fetch("https://script.google.com/macros/s/AKfycbwVOVFDDjd1S4eCuxGKyXt3sZ5pJMkgHOPBN8C0-g7SzMV3sWx-a3gG5MRrJQAYlwYM/exec");
+        // Step 4: Fetch today's visitor count
+        const countRes = await fetch("https://script.google.com/macros/s/AKfycbwVOVFDDjd1S4eCuxGKyXt3sZ5pJMkgHOPBN8C0-g7SzMV3sWx-a3gG5MRrJQAYlwYM/exec?action=getCountToday");
         const countData = await countRes.json();
 
-        if (typeof countData.count === "number") {
+        if (countData.success && typeof countData.count === "number") {
           setVisitorCount(countData.count);
         } else {
-          console.warn("Unexpected count response:", countData);
+          console.warn("Unexpected response format:", countData);
         }
-      } catch (err) {
-        console.error("Failed to track or fetch visitor count:", err);
+
+      } catch (error) {
+        console.error("Visitor tracking failed:", error);
       }
     };
 
-    trackAndFetchVisitor();
+    trackVisitor();
   }, []);
 
-  return { visitorCount }; // 🔥 THIS IS REQUIRED!
+  return visitorCount;
 };
