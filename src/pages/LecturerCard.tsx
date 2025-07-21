@@ -26,7 +26,7 @@ const LecturerCard: React.FC<LecturerCardProps> = ({
   <div className="bg-white rounded-xl shadow p-4 flex items-center gap-4">
     <div className="w-24 h-32 flex-shrink-0">
       <img
-        src={`/${photo}`}
+        src={photo.startsWith('http') ? photo : `/${photo}`}
         alt={displayName}
         className="w-full h-full object-cover rounded-lg border border-muted"
         loading={loadingPriority ? 'eager' : 'lazy'}
