@@ -118,7 +118,7 @@ const Lecturers: React.FC = () => {
                 surname={lect.surname}
                 role={lect.role}
                 floor={lect.floor}
-                roomID={lect.roomID}
+                roomID={lect.roomId}
                 onClick={handleClick}
                 loadingPriority={idx < 6}
               />
