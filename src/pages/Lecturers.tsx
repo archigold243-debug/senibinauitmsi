@@ -40,11 +40,11 @@ const Lecturers: React.FC = () => {
     return () => clearTimeout(timeout);
   }, [search]);
 
-  const handleClick = (floor: string, roomId: string) => {
+  const handleClick = (floor: string, roomID: string) => {
     // NOTE: Use the url format that matches existing routes (e.g., /ground-floor)
     // Assume floor value in context is like "Ground Floor" and convert to "ground-floor"
     const path = `/${floor.toLowerCase().replace(/\s+/g, "-")}`;
-    navigate(`${path}?room=${roomId}`);
+    navigate(`${path}?room=${roomID}`);
   };
 
   return (
