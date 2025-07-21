@@ -2,7 +2,7 @@
 export const LECTURERS = [
   // Ground Floor
   {
-    userId: '', // <-- Set the correct user_credentials id here
+    id: '3', // <-- Set the correct user_credentials id here
     displayName: 'Dr AZHAN',
     surname: 'ABD AZIZ',
     role: 'Senior Lecturer',
@@ -11,7 +11,7 @@ export const LECTURERS = [
     roomId: 'ap1-004'
   },
   {
-    userId: '',
+    id: '1',
     displayName: 'En AHMAD FAISOL',
     surname: 'YUSOF',
     role: 'Senior Lecturer',
@@ -20,7 +20,7 @@ export const LECTURERS = [
     roomId: 'ap1-017'
   },
   {
-    userId: '',
+    id: '10',
     displayName: 'Ts. MOHD NASURUDIN',
     surname: 'HASBULLAH',
     role: 'Senior Lecturer',
@@ -29,7 +29,7 @@ export const LECTURERS = [
     roomId: 'ap1-019'
   },
   {
-    userId: '',
+    id: '13',
     displayName: 'Ts. Dr. WAN NUR RUKIAH',
     surname: 'MOHD ARSHAD',
     role: 'Senior Lecturer',
@@ -39,7 +39,7 @@ export const LECTURERS = [
   },
   // First Floor
   {
-    userId: '',
+    id: '26',
     displayName: 'En MOHD ZIKRI',
     surname: 'MOHD ZAKI',
     role: 'Lecturer',
@@ -48,7 +48,7 @@ export const LECTURERS = [
     roomId: 'ap1-113'
   },
   {
-    userId: '',
+    id: '20',
     displayName: 'Pn FARAH HANNA',
     surname: '®AHMAD FUAD',
     role: 'Lecturer',
@@ -57,7 +57,7 @@ export const LECTURERS = [
     roomId: 'ap1-118'
   },
   {
-    userId: '',
+    id: '28',
     displayName: 'Cik NOOR AINSYAH',
     surname: 'ZULKIFLI',
     role: 'Lecturer',
@@ -67,7 +67,7 @@ export const LECTURERS = [
   },
   // Second Floor
   {
-    userId: '',
+    id: '5',
     displayName: 'Dr FAZIDAH HANIM',
     surname: 'HUSAIN',
     role: 'Lecturer',
@@ -76,7 +76,7 @@ export const LECTURERS = [
     roomId: 'ap1-218'
   },
   {
-    userId: '',
+    id: '24',
     displayName: 'En MOHAMMAD NAZRIN',
     surname: 'ZAINAL ABIDIN',
     role: 'Lecturer',
@@ -85,7 +85,7 @@ export const LECTURERS = [
     roomId: 'ap1-219'
   },
   {
-    userId: '',
+    id: '9',
     displayName: 'Dr MAYAMIN',
     surname: 'YUHANIZ',
     role: 'Lecturer',
@@ -94,7 +94,7 @@ export const LECTURERS = [
     roomId: 'ap1-215'
   },
   {
-    userId: '',
+    id: '7',
     displayName: 'Ar. IZNNY',
     surname: 'ISMAIL',
     role: 'Lecturer',
@@ -103,7 +103,7 @@ export const LECTURERS = [
     roomId: 'ap1-222'
   },
   {
-    userId: '',
+    id: '14',
     displayName: 'En MD ANWAR',
     surname: 'MD YUSOF',
     role: 'Lecturer',
@@ -112,7 +112,7 @@ export const LECTURERS = [
     roomId: 'ap1-213'
   },
   {
-    userId: '',
+    id: '11',
     displayName: 'Dr NOR SYAMIMI',
     surname: 'SAMSUDIN',
     role: 'Lecturer',
@@ -121,7 +121,7 @@ export const LECTURERS = [
     roomId: 'ap1-207'
   },
   {
-    userId: '',
+    id: '19',
     displayName: 'Dr FADHLIZIL FARIZ',
     surname: 'ABDUL MUNIR',
     role: 'Lecturer',
@@ -130,7 +130,7 @@ export const LECTURERS = [
     roomId: 'ap1-209'
   },
   {
-    userId: '',
+    id: '18',
     displayName: 'En AMIRUL AMIN',
     surname: 'ISMAIL',
     role: 'Lecturer',
@@ -139,7 +139,7 @@ export const LECTURERS = [
     roomId: 'ap1-212'
   },
   {
-    userId: '',
+    id: '2',
     displayName: 'En AMRAN',
     surname: 'ABDULLAH',
     role: 'Lecturer',
@@ -148,7 +148,7 @@ export const LECTURERS = [
     roomId: 'ap1-211'
   },
   {
-    userId: '',
+    id: '16',
     displayName: 'En ADEEB',
     surname: 'ZULKIFLI',
     role: 'Lecturer',
@@ -157,7 +157,7 @@ export const LECTURERS = [
     roomId: 'ap1-206'
   },
   {
-    userId: '',
+    id: '6',
     displayName: 'Dr IRYANI',
     surname: 'ABDUL HALIM CHOO',
     role: 'Lecturer',
@@ -167,7 +167,7 @@ export const LECTURERS = [
   },
   // --------- Fourth Floor Lecturers (NEW) -----------
   {
-    userId: '',
+    id: '4',
     displayName: 'Dr FARID AL HAKEEM',
     surname: 'YUSERRIE',
     role: 'Senior Lecturer',
@@ -176,7 +176,7 @@ export const LECTURERS = [
     roomId: 'ap1-412'
   },
   {
-    userId: '',
+    id: '17',
     displayName: 'En AHMAD FAIZ',
     surname: 'MOHD NAZAMUDIN',
     role: 'Lecturer',
@@ -185,7 +185,7 @@ export const LECTURERS = [
     roomId: 'ap1-414'
   },
   {
-    userId: '',
+    id: '25',
     displayName: 'En MOHAMMAD SYATHIR AMINI',
     surname: 'SHAHBUDIN',
     role: 'Lecturer',
@@ -194,7 +194,7 @@ export const LECTURERS = [
     roomId: 'ap1-422'
   },
   {
-    userId: '',
+    id: '29',
     displayName: 'En SALAHUDDIN ABDUL HAKEEM',
     surname: 'ABAS',
     role: 'Lecturer',
@@ -203,7 +203,7 @@ export const LECTURERS = [
     roomId: 'ap1-424'
   },
   {
-    userId: '',
+    id: '8',
     displayName: 'Ar. Dr JAMALUDIN',
     surname: 'MUHAMAD',
     role: 'Senior Lecturer',
@@ -212,7 +212,7 @@ export const LECTURERS = [
     roomId: 'ap1-428'
   },
   {
-    userId: '',
+    id: '12',
     displayName: 'Dr SAYED MUHAMMAD AIMAN',
     surname: 'SAYED ABUL KHAIR',
     role: 'Senior Lecturer',
@@ -221,7 +221,7 @@ export const LECTURERS = [
     roomId: 'ap1-430'
   },
   {
-    userId: '',
+    id: '22',
     displayName: 'Ts. IZZAT',
     surname: 'ANUAR',
     role: 'Lecturer',
@@ -230,7 +230,7 @@ export const LECTURERS = [
     roomId: 'ap1-432'
   },
   {
-    userId: '',
+    id: '15',
     displayName: 'En ABDUL RAHMAN',
     surname: 'KHAMARUZAMAN',
     role: 'Lecturer',
@@ -239,7 +239,7 @@ export const LECTURERS = [
     roomId: 'ap1-413'
   },
   {
-    userId: '',
+    id: '30',
     displayName: 'Ar. MUHAMMAD ASSYAHMIZI',
     surname: 'MOHD YUNUS',
     role: 'Senior Lecturer',
@@ -248,7 +248,7 @@ export const LECTURERS = [
     roomId: 'ap1-415'
   },
   {
-    userId: '',
+    id: '23',
     displayName: 'En MOHAMAD SHAHIN',
     surname: 'SHAHDAN',
     role: 'Lecturer',
@@ -257,7 +257,7 @@ export const LECTURERS = [
     roomId: 'ap1-421'
   },
   {
-    userId: '',
+    id: '21',
     displayName: 'En MUHAMMAD FARIS',
     surname: 'ARMAN',
     role: 'Lecturer',
