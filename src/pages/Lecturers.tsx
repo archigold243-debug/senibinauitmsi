@@ -4,35 +4,36 @@ import { useNavigate } from 'react-router-dom';
 import LecturerCard from './LecturerCard';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
+import { useRoomContext } from '@/contexts/RoomContext';
 import { supabase } from '@/lib/supabaseClient';
 
 const Lecturers: React.FC = () => {
   const navigate = useNavigate();
+  const { lecturers } = useRoomContext();
 
   // --- Academic Advisor Search State ---
   const [search, setSearch] = useState('');
   const [results, setResults] = useState<{ "Student Name": string; "Academic Advisor": string }[]>([]);
   const [loading, setLoading] = useState(false);
 
-  // --- Lecturer Data from Supabase ---
-  const [lecturers, setLecturers] = useState<any[]>([]);
-  const [lecturersLoading, setLecturersLoading] = useState(true);
+  // --- Lecturer Photos from Supabase ---
+  const [lecturersWithPhoto, setLecturersWithPhoto] = useState<any[]>([]);
 
   useEffect(() => {
-    async function fetchLecturers() {
-      setLecturersLoading(true);
+    async function fetchPhotos() {
+      const ids = lecturers.map(l => l.id);
       const { data, error } = await supabase
         .from('user_credentials')
-        .select('id, displayName, surname, role, floor, roomId, photo_url');
-      if (data) {
-        setLecturers(data);
-      } else {
-        setLecturers([]);
-      }
-      setLecturersLoading(false);
+        .select('id, photo_url')
+        .in('id', ids);
+      const merged = lecturers.map(lect => ({
+        ...lect,
+        photo_url: data?.find(u => u.id === lect.id)?.photo_url || '',
+      }));
+      setLecturersWithPhoto(merged);
     }
-    fetchLecturers();
-  }, []);
+    fetchPhotos();
+  }, [lecturers]);
 
   useEffect(() => {
     if (search.trim() === '') {
@@ -115,25 +116,21 @@ const Lecturers: React.FC = () => {
             Click on a lecturer to go directly to their office on the 3D floor plan.
           </p>
         </div>
-        {lecturersLoading ? (
-          <div className="text-center text-gray-500">Loading lecturers...</div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {lecturers.map((lect, idx) => (
-              <LecturerCard
-                key={lect.id}
-                photo_url={lect.photo_url}
-                displayName={lect.displayName}
-                surname={lect.surname}
-                role={lect.role}
-                floor={lect.floor}
-                roomId={lect.roomId}
-                onClick={handleClick}
-                loadingPriority={idx < 6}
-              />
-            ))}
-          </div>
-        )}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {lecturersWithPhoto.map((lect, idx) => (
+            <LecturerCard
+              key={lect.id}
+              photo_url={lect.photo_url}
+              displayName={lect.displayName}
+              surname={lect.surname}
+              role={lect.role}
+              floor={lect.floor}
+              roomId={lect.roomId}
+              onClick={handleClick}
+              loadingPriority={idx < 6}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
