@@ -1,8 +1,9 @@
 import React from 'react';
 import { useRoomContext } from '@/contexts/RoomContext';
+import { Button } from '@/components/ui/button';
 
 const Lecturers: React.FC = () => {
-  const { lecturers, lecturersLoading, lecturersError } = useRoomContext();
+  const { lecturers, lecturersLoading, lecturersError, handleCardClick } = useRoomContext();
 
   if (lecturersLoading)
     return <div style={{ color: 'blue', fontSize: 24 }}>Loading lecturers...</div>;
@@ -19,7 +20,7 @@ const Lecturers: React.FC = () => {
           <div
             key={lect.id}
             className="bg-white rounded-xl shadow p-4 flex items-center gap-4"
-            style={{ border: '2px solid red', background: 'yellow', color: 'black', zIndex: 9999 }}
+            style={{ border: '2px solid red', background: 'purple', color: 'black', zIndex: 9999 }}
           >
             <div className="w-24 h-32 flex-shrink-0">
               <img
@@ -32,9 +33,14 @@ const Lecturers: React.FC = () => {
             <div className="flex-1">
               <div className="font-medium">{lect.displayName}</div>
               <div className="text-sm text-gray-600">{lect.surname}</div>
-              <div className="text-xs text-black mt-1">
-                {lect.floor} - {lect.roomID}
-              </div>
+              <Button
+                size="sm"
+                className="mt-1"
+                variant="secondary"
+                onClick={() => handleCardClick(lect.floor, lect.roomID)}
+              >
+                Go to Room
+              </Button>
             </div>
           </div>
         ))}
@@ -44,4 +50,3 @@ const Lecturers: React.FC = () => {
 };
 
 export default Lecturers;
-
