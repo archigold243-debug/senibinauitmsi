@@ -87,14 +87,17 @@ export const RoomProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   useEffect(() => {
     const fetchLecturers = async () => {
+      console.log('[RoomContext] Fetching lecturers from Supabase...');
       setLecturersLoading(true);
       setLecturersError(null);
       const { data, error } = await supabase
         .from('user_credentials')
         .select('id, title, username, surname, photo_url, roomID, floor');
+      console.log('[RoomContext] Supabase response:', { data, error });
       if (error) {
         setLecturersError(error.message);
         setLecturers([]);
+        console.error('[RoomContext] Error fetching lecturers:', error);
       } else if (data) {
         setLecturers(
           data.map((row: any) => ({
@@ -107,8 +110,10 @@ export const RoomProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           }))
         );
         setLecturersError(null);
+        console.log('[RoomContext] Lecturers loaded:', data);
       }
       setLecturersLoading(false);
+      console.log('[RoomContext] Fetch complete.');
     };
     fetchLecturers();
   }, []);
