@@ -23,7 +23,10 @@ const LecturerCard: React.FC<LecturerCardProps> = ({
 }) => {
   console.log('[LecturerCard] props:', { photo, displayName, surname, floor, roomID, onClick, loadingPriority });
   return (
-    <div className="bg-white rounded-xl shadow p-4 flex items-center gap-4">
+    <div
+      className="bg-white rounded-xl shadow p-4 flex items-center gap-4"
+      style={{ border: '2px solid red', background: 'yellow', color: 'black', zIndex: 9999 }}
+    >
       <div className="w-24 h-32 flex-shrink-0">
         <img
           src={photo.startsWith('http') ? photo : `/${photo}`}
