@@ -21,12 +21,12 @@ export interface LecturerData {
 interface RoomContextType {
   studios: RoomData[];
   namedRooms: RoomData[];
-  updateStudioName: (id: string, newName: string) => void;
-  updateRoomName: (id: string, newName: string) => void;
   lecturers: LecturerData[];
-  updateLecturer: (id: string, updates: Partial<LecturerData>) => void;
   lecturersLoading: boolean;
   lecturersError: string | null;
+  updateStudioName: (id: string, newName: string) => void;
+  updateRoomName: (id: string, newName: string) => void;
+  updateLecturer: (id: string, updates: Partial<LecturerData>) => void;
   handleCardClick: (floor: string, roomID: string) => void;
 }
 
@@ -36,9 +36,10 @@ export const RoomProvider = ({ children }: { children: React.ReactNode }) => {
   const [studios, setStudios] = useState<RoomData[]>([]);
   const [namedRooms, setNamedRooms] = useState<RoomData[]>([]);
   const [lecturers, setLecturers] = useState<LecturerData[]>([]);
-  const [lecturersLoading, setLecturersLoading] = useState<boolean>(true);
+  const [lecturersLoading, setLecturersLoading] = useState(true);
   const [lecturersError, setLecturersError] = useState<string | null>(null);
 
+  // Fetch all three datasets on load
   useEffect(() => {
     const fetchStudios = async () => {
       const { data, error } = await supabase
@@ -48,6 +49,8 @@ export const RoomProvider = ({ children }: { children: React.ReactNode }) => {
 
       if (!error && data) {
         setStudios(data);
+      } else {
+        console.error("Error loading studio_rooms:", error);
       }
     };
 
@@ -59,6 +62,8 @@ export const RoomProvider = ({ children }: { children: React.ReactNode }) => {
 
       if (!error && data) {
         setNamedRooms(data);
+      } else {
+        console.error("Error loading named_rooms:", error);
       }
     };
 
@@ -87,13 +92,17 @@ export const RoomProvider = ({ children }: { children: React.ReactNode }) => {
 
   const updateStudioName = (id: string, newName: string) => {
     setStudios((prev) =>
-      prev.map((room) => (room.id === id ? { ...room, name: newName } : room))
+      prev.map((room) =>
+        room.id === id ? { ...room, currentName: newName } : room
+      )
     );
   };
 
   const updateRoomName = (id: string, newName: string) => {
     setNamedRooms((prev) =>
-      prev.map((room) => (room.id === id ? { ...room, name: newName } : room))
+      prev.map((room) =>
+        room.id === id ? { ...room, currentName: newName } : room
+      )
     );
   };
 
@@ -113,12 +122,12 @@ export const RoomProvider = ({ children }: { children: React.ReactNode }) => {
       value={{
         studios,
         namedRooms,
-        updateStudioName,
-        updateRoomName,
         lecturers,
-        updateLecturer,
         lecturersLoading,
         lecturersError,
+        updateStudioName,
+        updateRoomName,
+        updateLecturer,
         handleCardClick,
       }}
     >
