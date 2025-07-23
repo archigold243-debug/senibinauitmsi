@@ -22,7 +22,7 @@ const Lecturers: React.FC = () => {
             className="bg-white rounded-xl shadow p-4 flex items-center gap-4"
             style={{ border: '2px solid red', background: 'purple', color: 'black', zIndex: 9999 }}
           >
-            <div className="w-24 h-32 flex-shrink-0">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <img
                 src={lect.photo?.startsWith('http') ? lect.photo : `/${lect.photo}`}
                 alt={lect.displayName}
