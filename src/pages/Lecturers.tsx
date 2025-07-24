@@ -15,6 +15,28 @@ const Lecturers: React.FC = () => {
   const [results, setResults] = useState<{ "Student Name": string; "Academic Advisor": string }[]>([]);
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    if (search.trim() === '') {
+      setResults([]);
+      return;
+    }
+    setLoading(true);
+    const fetchResults = async () => {
+      const { data, error } = await supabase
+        .from('academic_advisor')
+        .select('"Student Name", "Academic Advisor"')
+        .ilike('Student Name', `%${search}%`);
+      if (!error && data) {
+        setResults(data);
+      } else {
+        setResults([]);
+      }
+      setLoading(false);
+    };
+    const timeout = setTimeout(fetchResults, 300); // debounce
+    return () => clearTimeout(timeout);
+  }, [search]);
+
   if (lecturersLoading) return (
     <div className="container mx-auto px-4 py-8">
       <div className="max-w-3xl mx-auto space-y-6">
