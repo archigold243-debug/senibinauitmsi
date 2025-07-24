@@ -145,7 +145,17 @@ const Lecturers: React.FC = () => {
 
         {/* Lecturers Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {lecturers.map((lect, idx) => (
+          {[...lecturers]
+            .sort((a, b) => {
+              const [titleA,...nameA] = a.displayName.split(' ');
+              const [titleB,...nameB] = b.displayName.split(' ');
+
+              const titleCompare = titleA.localeCompare(titleB);
+              if (titleCompare !== 0) return titleCompare;
+
+              return nameA.join(' ').localeCompare(nameB.join(' '));
+            })
+            .map((lect, idx) => (
             <div
               key={lect.id}
               className="bg-white rounded-xl shadow p-4 flex items-center gap-4 hover:shadow-md transition-shadow"
