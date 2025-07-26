@@ -5,8 +5,22 @@ import { ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Skeleton } from '@/components/ui/skeleton';
 import { supabase } from '@/lib/supabaseClient';
+import ExpertiseFilter from '@/components/ExpertiseFilter';
 
 const Lecturers: React.FC = () => {
+  const [selectedExpertise, setSelectedExpertise] = useState('');
+  const [filteredLecturers, setFilteredLecturers] = useState(lecturers);
+  useEffect(() => {
+    if (!selectedExpertise) {
+      setFilteredLecturers(lecturers);
+    } else {
+      setFilteredLecturers(
+        lecturers.filter(lect =>
+          lect.expertise_ids && lect.expertise_ids.includes(selectedExpertise)
+        )
+      );
+    }
+  }, [selectedExpertise, lecturers]);
   const navigate = useNavigate();
   const { lecturers, lecturersLoading, lecturersError } = useRoomContext();
 
@@ -137,15 +151,17 @@ const Lecturers: React.FC = () => {
 
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-light mb-2">Lecturers Room Directory</h1>
-          <p className="text-lg text-muted-foreground">
-            Click on a lecturer to go directly to their office on the 3D floor plan.
-          </p>
+        <h1 className="text-3xl md:text-4xl font-light mb-2">Lecturers Room Directory</h1>
+        <p className="text-lg text-muted-foreground">
+          Click on a lecturer to go directly to their office on the 3D floor plan.
+        </p>
+        {/* Expertise Dropdown */}
+        <ExpertiseFilter onChange={setSelectedExpertise} />
         </div>
 
         {/* Lecturers Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {[...lecturers]
+          {[...filteredLecturers]
             .sort((a, b) => {
               const [titleA,...nameA] = a.displayName.split(' ');
               const [titleB,...nameB] = b.displayName.split(' ');
