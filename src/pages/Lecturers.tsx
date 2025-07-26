@@ -8,6 +8,8 @@ import { supabase } from '@/lib/supabaseClient';
 import ExpertiseFilter from '@/components/ExpertiseFilter';
 
 const Lecturers: React.FC = () => {
+  const navigate = useNavigate();
+  const { lecturers, lecturersLoading, lecturersError } = useRoomContext();
   const [selectedExpertise, setSelectedExpertise] = useState('');
   const [filteredLecturers, setFilteredLecturers] = useState(lecturers);
   useEffect(() => {
@@ -15,14 +17,14 @@ const Lecturers: React.FC = () => {
       setFilteredLecturers(lecturers);
     } else {
       setFilteredLecturers(
-        lecturers.filter(lect =>
-          lect.expertise_ids && lect.expertise_ids.includes(selectedExpertise)
-        )
+        lecturers.filter(lect => {
+          // fallback for expertise_ids property
+          const expertise = lect.expertise_ids || lect.expertise || [];
+          return Array.isArray(expertise) && expertise.includes(selectedExpertise);
+        })
       );
     }
   }, [selectedExpertise, lecturers]);
-  const navigate = useNavigate();
-  const { lecturers, lecturersLoading, lecturersError } = useRoomContext();
 
   // --- Academic Advisor Search State ---
   const [search, setSearch] = useState('');
