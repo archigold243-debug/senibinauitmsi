@@ -91,9 +91,10 @@ export const RoomProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       console.log('[RoomContext] Fetching lecturers from Supabase...');
       setLecturersLoading(true);
       setLecturersError(null);
+      // Fetch lecturers and their expertise mapping
       const { data, error } = await supabase
         .from('user_credentials')
-        .select('id, title, username, surname, photo_url, roomID, floor');
+        .select('id, title, username, surname, photo_url, roomID, floor, lecturer_expertise:lecturer_expertise(expertise_id)');
       console.log('[RoomContext] Supabase response:', { data, error });
       if (error) {
         setLecturersError(error.message);
@@ -108,6 +109,9 @@ export const RoomProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             photo: row.photo_url,
             floor: row.floor,
             roomID: row.roomID,
+            expertise: Array.isArray(row.lecturer_expertise)
+              ? row.lecturer_expertise.map((ex: any) => ex.expertise_id)
+              : [],
           }))
         );
         setLecturersError(null);
