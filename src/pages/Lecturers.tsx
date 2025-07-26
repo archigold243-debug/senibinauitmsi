@@ -5,7 +5,6 @@ import { ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Skeleton } from '@/components/ui/skeleton';
 import { supabase } from '@/lib/supabaseClient';
-import ExpertiseFilter from "@/components/ExpertiseFilter";
 
 const Lecturers: React.FC = () => {
   const navigate = useNavigate();
@@ -27,22 +26,6 @@ const Lecturers: React.FC = () => {
       default: return '/';
     }
   } 
-  const [selectedExpertise, setSelectedExpertise] = useState("");
-
-  useEffect(() => {
-    // fetch lecturers based on selectedExpertise
-  }, [selectedExpertise]);
-
-  return (
-    <>
-      <ExpertiseFilter
-        selectedExpertise={selectedExpertise}
-        onChange={setSelectedExpertise}
-      />
-
-      {/* render filtered lecturers */}
-    </>
-  );
 
   useEffect(() => {
     if (search.trim() === '') {
@@ -207,6 +190,5 @@ const Lecturers: React.FC = () => {
     </div>
   );
 };
-
 
 export default Lecturers;
