@@ -18,8 +18,11 @@ const Lecturers: React.FC = () => {
     } else {
       setFilteredLecturers(
         lecturers.filter(lect => {
-          // fallback for expertise_ids property
-          const expertise = lect.expertise_ids || lect.expertise || [];
+          // Support array, string, or comma-separated string for expertise
+          let expertise = lect.expertise || [];
+          if (typeof expertise === 'string') {
+            expertise = expertise.split(',').map(e => e.trim());
+          }
           return Array.isArray(expertise) && expertise.includes(selectedExpertise);
         })
       );

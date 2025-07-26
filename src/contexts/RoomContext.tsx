@@ -16,6 +16,7 @@ interface LecturerData {
   photo: string;
   floor: string;
   roomID: string;
+  expertise?: string | string[];
 }
 
 interface RoomContextType {
