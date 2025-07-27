@@ -31,7 +31,7 @@ const ExpertiseFilter: React.FC<ExpertiseFilterProps> = ({ onChange }) => {
   return (
     <div style={{ marginBottom: "1rem" }}>
       <label htmlFor="expertise-select" style={{ marginRight: "0.5rem" }}>
-        Filter by Expertise:
+        Filter by Research Interest:
       </label>
       <select
         id="expertise-select"
