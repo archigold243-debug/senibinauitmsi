@@ -141,6 +141,21 @@ export const RoomProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     );
   };
 
+  // Add this function to fetch today's visitor count
+  const getTodayVisitorCount = async () => {
+    const today = new Date().toISOString().slice(0, 10); // 'YYYY-MM-DD'
+    const { data, error } = await supabase
+      .from('visitors')
+      .select('id')
+      .eq('visit_date', today);
+
+    if (error) {
+      console.error('Error fetching today\'s visitors:', error);
+      return 0;
+    }
+    return data ? data.length : 0;
+  };
+
   return (
     <RoomContext.Provider value={{ studios, namedRooms, updateStudioName, updateRoomName, lecturers, updateLecturer, lecturersLoading, lecturersError }}>
       {children}
