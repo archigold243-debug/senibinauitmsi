@@ -153,13 +153,13 @@ const LecturerAdminPanel: React.FC = () => {
                     </div>
                   </div>
                   <div className="flex-1 min-w-[140px]">
-                    <Label htmlFor={`roomId-${lect.id}`}>
+                    <Label htmlFor={`roomID-${lect.id}`}>
                       Room ID <span className="text-xs text-gray-400">(fixed)</span>
                     </Label>
                     <Input
-                      id={`roomId-${lect.id}`}
-                      name="roomId"
-                      value={lect.roomId}
+                      id={`roomID-${lect.id}`}
+                      name="roomID"
+                      value={lect.roomID}
                       readOnly
                       tabIndex={-1}
                       className="bg-gray-100 text-gray-500 cursor-not-allowed border-dashed border-2 border-gray-300 opacity-80"
@@ -198,8 +198,7 @@ const LecturerAdminPanel: React.FC = () => {
                     <img src={lect.photo} alt={lect.displayName} className="w-12 h-12 rounded-full object-cover border" />
                     <div>
                       <div className="font-semibold">{lect.displayName} <span className="text-gray-400 font-normal">{lect.surname}</span></div>
-                      <div className="text-sm">{lect.role}</div>
-                      <div className="text-xs text-gray-500">Floor: {lect.floor} | Room: {lect.roomId}</div>
+                      <div className="text-xs text-gray-500">Floor: {lect.floor} | Room: {lect.roomID}</div>
                     </div>
                   </div>
                 </div>
