@@ -9,7 +9,7 @@ interface GroundFloorHotspotsProps {
 
 const GroundFloorHotspots: React.FC<GroundFloorHotspotsProps> = ({ roomIdToPosition, targetRoomId }) => {
   const { rooms, lecturers } = useRoomContext();
-  const floorRooms = rooms.filter(room => room.floor === 'ground-floor');
+  const floorRooms = rooms.filter(room => room.floor === 'Ground Floor');
 
   return (
     <>

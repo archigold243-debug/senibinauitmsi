@@ -16,7 +16,7 @@ interface FourthFloorHotspotsProps {
 
 const FourthFloorHotspots: React.FC<FourthFloorHotspotsProps> = ({ roomIdToPosition, targetRoomId }) => {
   const { rooms, lecturers } = useRoomContext();
-  const floorRooms = rooms.filter(room => room.floor === 'fourth-floor');
+  const floorRooms = rooms.filter(room => room.floor === 'Fourth Floor');
 
   return (
     <>

@@ -10,7 +10,7 @@ interface FirstFloorHotspotsProps {
 
 const FirstFloorHotspots: React.FC<FirstFloorHotspotsProps> = ({ roomIdToPosition, targetRoomId }) => {
   const { rooms, lecturers } = useRoomContext();
-  const floorRooms = rooms.filter(room => room.floor === 'first-floor');
+  const floorRooms = rooms.filter(room => room.floor === 'First Floor');
 
   const getRoomName = (id: string) => {
     const room = rooms.find(r => r.roomID === id);
