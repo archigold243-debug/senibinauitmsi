@@ -21,24 +21,32 @@ const SecondFloorHotspots: React.FC<SecondFloorHotspotsProps> = ({ roomIdToPosit
 
   return (
     <>
-      <HoverDetails
-        title="Studio 02A"
-        roomID="studio-02a"
-        description="Max Pax =30, 2 AC split unit, Projector"
-        position="right"
-        modelPosition={roomIdToPosition["studio-02a"]}
-        isHighlighted={targetRoomId === "studio-02a"}
-        autoOpen={targetRoomId === "studio-02a"}
-      />
-      <HoverDetails
-        title="Studio 02B"
-        roomID="studio-02b"
-        description="Max Pax =30, 2 AC split unit, Non projector"
-        position="right"
-        modelPosition={roomIdToPosition["studio-02b"]}
-        isHighlighted={targetRoomId === "studio-02b"}
-        autoOpen={targetRoomId === "studio-02b"}
-      />
+      {rooms.map(room => (
+        <HoverDetails
+          key={room.roomID}
+          title={room.room_name}
+          roomID={room.roomID}
+          description={`Capacity: ${room.capacity ?? '-'} | Type: ${room.room_type ?? '-'}`}
+          position="right"
+          modelPosition={room.position ?? [0,0,0]}
+          isHighlighted={targetRoomId === room.roomID}
+          autoOpen={targetRoomId === room.roomID}
+        />
+      ))}
+      {lecturers.map(lect => (
+        <HoverDetails
+          key={lect.id}
+          title={lect.displayName}
+          surname={lect.surname}
+          description="Lecturer Office"
+          position="right"
+          modelPosition={rooms.find(r => r.roomID === lect.roomID)?.position ?? [0,0,0]}
+          imageSrc={lect.photo}
+          roomID={lect.roomID}
+          isHighlighted={targetRoomId === lect.roomID}
+          autoOpen={targetRoomId === lect.roomID}
+        />
+      ))}
       <HoverDetails
         title="Staff Lounge"
         roomID="staff-lounge"

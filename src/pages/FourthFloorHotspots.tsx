@@ -17,28 +17,36 @@ interface FourthFloorHotspotsProps {
 const FourthFloorHotspots: React.FC<FourthFloorHotspotsProps> = ({ roomIdToPosition, targetRoomId }) => {
   const { rooms, lecturers } = useRoomContext();
 
-  const getRoomName = (id: string) => {
-    const room = rooms.find(r => r.roomID === id);
-    return room ? room.room_name : id;
-  };
 
-  const getLecturerByRoomId = (roomId: string) =>
-    lecturers.find((lect) => lect.roomID?.toLowerCase() === roomId.toLowerCase());
-
-  // Lecturer office hotspots -- UPDATED to match new IDs
-  const lecturerRoomIds = [
-    "ap1-412", // Dr Farid
-    "ap1-414", // Mamoo
-    "ap1-422", // Syathir
-    "ap1-424", // Saha
-    "ap1-428", // Jamal
-    "ap1-430", // Aiman
-    "ap1-432", // Izzat
-    "ap1-413", // AR (Abdul Rahman)
-    "ap1-415", // Mizi
-    "ap1-421", // Shahin
-    "ap1-429", // Baa
-  ];
+  return (
+    <>
+      {rooms.map(room => (
+        <HoverDetails
+          key={room.roomID}
+          title={room.room_name}
+          roomID={room.roomID}
+          description={`Capacity: ${room.capacity ?? '-'} | Type: ${room.room_type ?? '-'}`}
+          position="right"
+          modelPosition={room.position ?? [0,0,0]}
+          isHighlighted={targetRoomId === room.roomID}
+          autoOpen={targetRoomId === room.roomID}
+        />
+      ))}
+      {lecturers.map(lect => (
+        <HoverDetails
+          key={lect.id}
+          title={lect.displayName}
+          surname={lect.surname}
+          description="Lecturer Office"
+          position="right"
+          modelPosition={rooms.find(r => r.roomID === lect.roomID)?.position ?? [0,0,0]}
+          imageSrc={lect.photo}
+          roomID={lect.roomID}
+          isHighlighted={targetRoomId === lect.roomID}
+          autoOpen={targetRoomId === lect.roomID}
+        />
+      ))}
+    </>
 
   return (
     <>
