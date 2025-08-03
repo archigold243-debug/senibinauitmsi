@@ -8,118 +8,36 @@ interface GroundFloorHotspotsProps {
 }
 
 const GroundFloorHotspots: React.FC<GroundFloorHotspotsProps> = ({ roomIdToPosition, targetRoomId }) => {
-  const { lecturers, rooms } = useRoomContext();
-
-  const getLecturerByRoomId = (roomId: string) =>
-    lecturers.find((lect) => lect.roomID?.toLowerCase() === roomId.toLowerCase());
-
-  const getRoomName = (id: string) => {
-    const room = rooms.find(r => r.roomID === id);
-    return room ? room.room_name : id;
-  };
+  const { rooms, lecturers } = useRoomContext();
 
   return (
     <>
-      <HoverDetails
-        title={getRoomName('studio-08b')}
-        roomID="studio-08b"
-        description="Max Pax= 30. Fixed Workstation, 3 AC, Projector"
-        position="right"
-        modelPosition={roomIdToPosition["studio-08b"]}
-        isHighlighted={targetRoomId === "studio-08b"}
-        autoOpen={targetRoomId === "studio-08b"}
-      />
-      <HoverDetails
-        title={getRoomName('studio-master-01')}
-        roomID="studio-master-01"
-        description="Max Pax= 25. 24 hours operational Studio, Fixed Workstation, Projector"
-        position="right"
-        modelPosition={roomIdToPosition["studio-master-01"]}
-        isHighlighted={targetRoomId === "studio-master-01"}
-        autoOpen={targetRoomId === "studio-master-01"}
-      />
-      <HoverDetails
-        title={getRoomName('studio-master-03')}
-        roomID="studio-master-03"
-        description="Max Pax= 25. 24 hours operational Studio, Fixed Workstation, Projector"
-        position="right"
-        modelPosition={roomIdToPosition["studio-master-03"]}
-        isHighlighted={targetRoomId === "studio-master-03"}
-        autoOpen={targetRoomId === "studio-master-03"}
-      />
-      <HoverDetails
-        title={getRoomName('studio-08a')}
-        roomID="studio-08a"
-        description="Max Pax= 30. Fixed Workstation, 3 AC, Projector"
-        position="right"
-        modelPosition={roomIdToPosition["studio-08a"]}
-        isHighlighted={targetRoomId === "studio-08a"}
-        autoOpen={targetRoomId === "studio-08a"}
-      />
-      <HoverDetails
-        title="Arc.Lab"
-        roomID="arclab"
-        description="Laser Cutter"
-        position="top"
-        modelPosition={roomIdToPosition["arclab"]}
-        isHighlighted={targetRoomId === "arclab"}
-        autoOpen={targetRoomId === "arclab"}
-      />
-      <HoverDetails
-        title={getRoomName('studio-master-04')}
-        roomID="studio-master-04"
-        description="Max Pax= 25. 24 hours operational Studio, Fixed Workstation, Projector"
-        position="right"
-        modelPosition={roomIdToPosition["studio-master-04"]}
-        isHighlighted={targetRoomId === "studio-master-04"}
-        autoOpen={targetRoomId === "studio-master-04"}
-      />
-      <HoverDetails
-        title={getRoomName('studio-master-02')}
-        roomID="studio-master-02"
-        description="Max Pax= 25. 24 hours operational Studio, Fixed Workstation, Projector"
-        position="right"
-        modelPosition={roomIdToPosition["studio-master-02"]}
-        isHighlighted={targetRoomId === "studio-master-02"}
-        autoOpen={targetRoomId === "studio-master-02"}
-       />
-      <HoverDetails
-        title="Classroom"
-        description="Max Pax= 40. Projector, AP1 022"
-        position="right"
-        modelPosition={roomIdToPosition["classroom-022"]}
-        roomID="classroom-022"
-        isHighlighted={targetRoomId === "classroom-022"}
-        autoOpen={targetRoomId === "classroom-022"}
-       />
-      <HoverDetails
-        title="Classroom"
-        description="Max Pax= 40. Projector, AP1 002"
-        position="right"
-        modelPosition={roomIdToPosition["classroom-002"]}
-        roomID="classroom-002"
-        isHighlighted={targetRoomId === "classroom-002"}
-        autoOpen={targetRoomId === "classroom-002"}
-       />
-      {/* Lecturer Hotspots using dynamic data */}
-      {["ap1-019", "ap1-004", "ap1-017", "ap1-023"].map((id) => {
-        const lect = getLecturerByRoomId(id);
-        if (!lect) return null;
-        return (
-          <HoverDetails
-            key={id}
-            title={lect.displayName}
-            surname={lect.surname}
-            description="Lecturer Office"
-            position="right"
-            modelPosition={roomIdToPosition[id]}
-            imageSrc={lect.photo}
-            roomID={id}
-            isHighlighted={targetRoomId === id}
-            autoOpen={targetRoomId === id}
-          />
-        );
-      })}
+      {rooms.map(room => (
+        <HoverDetails
+          key={room.roomID}
+          title={room.room_name}
+          roomID={room.roomID}
+          description={`Capacity: ${room.capacity ?? '-'} | Type: ${room.room_type ?? '-'}`}
+          position="right"
+          modelPosition={room.position ?? [0,0,0]}
+          isHighlighted={targetRoomId === room.roomID}
+          autoOpen={targetRoomId === room.roomID}
+        />
+      ))}
+      {lecturers.map(lect => (
+        <HoverDetails
+          key={lect.id}
+          title={lect.displayName}
+          surname={lect.surname}
+          description="Lecturer Office"
+          position="right"
+          modelPosition={rooms.find(r => r.roomID === lect.roomID)?.position ?? [0,0,0]}
+          imageSrc={lect.photo}
+          roomID={lect.roomID}
+          isHighlighted={targetRoomId === lect.roomID}
+          autoOpen={targetRoomId === lect.roomID}
+        />
+      ))}
     </>
   );
 };

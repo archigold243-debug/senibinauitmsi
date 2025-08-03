@@ -28,7 +28,7 @@ const FirstFloorHotspots: React.FC<FirstFloorHotspotsProps> = ({ roomIdToPositio
           roomID={room.roomID}
           description={`Capacity: ${room.capacity ?? '-'} | Type: ${room.room_type ?? '-'}`}
           position="right"
-          modelPosition={room.position ?? [0,0,0]}
+          modelPosition={room.position ?? [0, 0, 0]}
           isHighlighted={targetRoomId === room.roomID}
           autoOpen={targetRoomId === room.roomID}
         />
