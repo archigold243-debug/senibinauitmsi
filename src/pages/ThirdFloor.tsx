@@ -5,22 +5,25 @@ import ModelViewer from '@/components/ModelViewer';
 import ThirdFloorHotspots from './ThirdFloorHotspots';
 import ThirdFloorSpecsCard from './ThirdFloorSpecsCard';
 import ThirdFloorFeaturesCard from './ThirdFloorFeaturesCard';
+import { useRoomContext } from '@/contexts/RoomContext';
 import { useSearchParams } from "react-router-dom";
 
 // RoomId to position mapping for Third Floor
-const roomIdToPosition: Record<string, [number, number, number]> = {
-  "classroom-0303": [24, 12, 2],
-  "studio-3a": [-8, 12, 13],
-  "studio-3b": [11, 12, 13],
-  "floating-studio-05": [-15, 12, -10],
-  "classroom-0313": [-24, 12, 2],
-  "studio-05b": [-24, 12, -10],
-  "studio-04b": [24, 12, -10],
-  "floating-studio-04": [13, 12, -10],
+// Dynamic mapping from backend
+const useRoomIdToPosition = () => {
+  const { rooms } = useRoomContext();
+  return React.useMemo(() => {
+    const map: Record<string, [number, number, number]> = {};
+    rooms.forEach(room => {
+      if (room.position) map[room.roomID.toLowerCase()] = room.position;
+    });
+    return map;
+  }, [rooms]);
 };
 
 const ThirdFloor = () => {
   const [params] = useSearchParams();
+  const roomIdToPosition = useRoomIdToPosition();
   const targetRoomId = params.get("room")?.toLowerCase() ?? undefined;
   const targetRoomPosition = targetRoomId && roomIdToPosition[targetRoomId] ? roomIdToPosition[targetRoomId] : undefined;
 

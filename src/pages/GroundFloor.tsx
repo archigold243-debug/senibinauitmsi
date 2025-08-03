@@ -4,30 +4,27 @@ import ModelViewer from '@/components/ModelViewer';
 import GroundFloorHotspots from './GroundFloorHotspots';
 import GroundFloorSpecsCard from './GroundFloorSpecsCard';
 import GroundFloorFeaturesCard from './GroundFloorFeaturesCard';
+import { useRoomContext } from '@/contexts/RoomContext';
 import { useSearchParams } from "react-router-dom";
 
 // Room position mapping for Ground Floor
-const roomIdToPosition: Record<string, [number, number, number]> = {
-  "ap1-004": [-14, 2, 4.5],     // Dr AZHAN
-  "ap1-017": [17, 2, -7],       // En AHMAD FAISOL
-  "ap1-019": [24, 2, -19],      // Ts. MOHD NASURUDIN
-  "ap1-023": [32, 2, -7],       // Ts. Dr. WAN NUR RUKIAH
-  "studio-08b": [27, 2, 3],
-  "studio-master-01": [-4, 2, -3],
-  "studio-master-03": [9, 2, -3],
-  "studio-08a": [-22, 2, -3],
-  "studio-master-04": [-2, 2, 20],
-  "studio-master-02": [13, 2, 20],
-  "arclab": [-22, 2, 10],
-  "classroom-022": [30, 2, -15],
-  "classroom-002": [-25, 2, -15]
+// Dynamic mapping from backend
+const useRoomIdToPosition = () => {
+  const { rooms } = useRoomContext();
+  return React.useMemo(() => {
+    const map: Record<string, [number, number, number]> = {};
+    rooms.forEach(room => {
+      if (room.position) map[room.roomID.toLowerCase()] = room.position;
+    });
+    return map;
+  }, [rooms]);
 };
 
 const GroundFloor = () => {
   const [params] = useSearchParams();
+  const roomIdToPosition = useRoomIdToPosition();
   const targetRoomId = params.get("room")?.toLowerCase() ?? undefined;
-  const targetRoomPosition =
-    targetRoomId && roomIdToPosition[targetRoomId] ? roomIdToPosition[targetRoomId] : undefined;
+  const targetRoomPosition = targetRoomId && roomIdToPosition[targetRoomId] ? roomIdToPosition[targetRoomId] : undefined;
 
   // --- ModelViewer auto-scroll-to-view logic ---
   const modelViewerRef = useRef<HTMLDivElement>(null);
