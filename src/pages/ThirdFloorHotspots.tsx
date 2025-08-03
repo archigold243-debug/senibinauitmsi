@@ -10,10 +10,11 @@ interface ThirdFloorHotspotsProps {
 
 const ThirdFloorHotspots: React.FC<ThirdFloorHotspotsProps> = ({ roomIdToPosition, targetRoomId }) => {
   const { rooms, lecturers } = useRoomContext();
+  const floorRooms = rooms.filter(room => room.floor === 'third-floor');
 
   return (
     <>
-      {rooms.map(room => (
+      {floorRooms.map(room => (
         <HoverDetails
           key={room.roomID}
           title={room.room_name}
