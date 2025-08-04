@@ -12,16 +12,21 @@ const NamedRoomAdminPanel: React.FC = () => {
   const [editingRoom, setEditingRoom] = useState<string | null>(null);
   const [newRoomName, setNewRoomName] = useState('');
 
-  const handleRoomRename = (roomId: string) => {
+  const handleRoomRename = async (roomId: string) => {
     if (!newRoomName.trim()) {
       toast.error('Please enter a valid name');
       return;
     }
 
-    updateRoomName(roomId, newRoomName.trim());
-    toast.success('Room renamed successfully');
-    setEditingRoom(null);
-    setNewRoomName('');
+    try {
+      await updateRoomName(roomId, newRoomName.trim());
+      toast.success('Room renamed successfully');
+      setEditingRoom(null);
+      setNewRoomName('');
+    } catch (error) {
+      toast.error('Failed to rename room');
+      console.error('Error renaming room:', error);
+    }
   };
 
   const startEditingRoom = (room: any) => {

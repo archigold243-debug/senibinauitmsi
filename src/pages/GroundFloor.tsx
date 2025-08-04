@@ -5,25 +5,10 @@ import GroundFloorHotspots from './GroundFloorHotspots';
 import GroundFloorSpecsCard from './GroundFloorSpecsCard';
 import GroundFloorFeaturesCard from './GroundFloorFeaturesCard';
 import { useSearchParams } from "react-router-dom";
-
-// Room position mapping for Ground Floor
-const roomIdToPosition: Record<string, [number, number, number]> = {
-  "ap1-004": [-14, 2, 4.5],     // Dr AZHAN
-  "ap1-017": [17, 2, -7],       // En AHMAD FAISOL
-  "ap1-019": [24, 2, -19],      // Ts. MOHD NASURUDIN
-  "ap1-023": [32, 2, -7],       // Ts. Dr. WAN NUR RUKIAH
-  "studio-08b": [27, 2, 3],
-  "studio-master-01": [-4, 2, -3],
-  "studio-master-03": [9, 2, -3],
-  "studio-08a": [-22, 2, -3],
-  "studio-master-04": [-2, 2, 20],
-  "studio-master-02": [13, 2, 20],
-  "arclab": [-22, 2, 10],
-  "classroom-022": [30, 2, -15],
-  "classroom-002": [-25, 2, -15]
-};
+import { useRoomContext } from '@/contexts/RoomContext';
 
 const GroundFloor = () => {
+  const { roomIdToPosition, loading } = useRoomContext();
   const [params] = useSearchParams();
   const targetRoomId = params.get("room")?.toLowerCase() ?? undefined;
   const targetRoomPosition =
@@ -39,6 +24,18 @@ const GroundFloor = () => {
       }, 120);
     }
   }, [targetRoomId]);
+
+  if (loading) {
+    return (
+      <Layout>
+        <div className="container mx-auto px-4 py-8">
+          <div className="max-w-4xl mx-auto text-center">
+            <p>Loading room data...</p>
+          </div>
+        </div>
+      </Layout>
+    );
+  }
 
   return (
     <Layout>

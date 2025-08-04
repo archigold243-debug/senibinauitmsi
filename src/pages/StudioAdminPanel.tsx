@@ -12,16 +12,21 @@ const StudioAdminPanel: React.FC = () => {
   const [editingStudio, setEditingStudio] = useState<string | null>(null);
   const [newStudioName, setNewStudioName] = useState('');
 
-  const handleStudioRename = (studioId: string) => {
+  const handleStudioRename = async (studioId: string) => {
     if (!newStudioName.trim()) {
       toast.error('Please enter a valid name');
       return;
     }
 
-    updateStudioName(studioId, newStudioName.trim());
-    toast.success('Studio renamed successfully');
-    setEditingStudio(null);
-    setNewStudioName('');
+    try {
+      await updateStudioName(studioId, newStudioName.trim());
+      toast.success('Studio renamed successfully');
+      setEditingStudio(null);
+      setNewStudioName('');
+    } catch (error) {
+      toast.error('Failed to rename studio');
+      console.error('Error renaming studio:', error);
+    }
   };
 
   const startEditingStudio = (studio: any) => {
