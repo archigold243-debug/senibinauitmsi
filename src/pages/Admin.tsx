@@ -17,7 +17,7 @@ const Admin = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const { rooms, lecturers, updateLecturer } = useRoomContext();
+  const { studios, namedRooms, updateStudioName, updateRoomName, lecturers, updateLecturer } = useRoomContext();
 
   // Check localStorage for existing auth state on component mount
   useEffect(() => {
@@ -50,7 +50,29 @@ const Admin = () => {
   const [newStudioName, setNewStudioName] = useState('');
   const [newRoomName, setNewRoomName] = useState('');
 
-  // ...existing code...
+  const handleStudioRename = (studioId: string) => {
+    if (!newStudioName.trim()) {
+      toast.error('Please enter a valid name');
+      return;
+    }
+
+    updateStudioName(studioId, newStudioName.trim());
+    toast.success('Studio renamed successfully');
+    setEditingStudio(null);
+    setNewStudioName('');
+  };
+
+  const handleRoomRename = (roomId: string) => {
+    if (!newRoomName.trim()) {
+      toast.error('Please enter a valid name');
+      return;
+    }
+
+    updateRoomName(roomId, newRoomName.trim());
+    toast.success('Room renamed successfully');
+    setEditingRoom(null);
+    setNewRoomName('');
+  };
 
   const startEditingStudio = (studio: any) => {
     setEditingStudio(studio.id);

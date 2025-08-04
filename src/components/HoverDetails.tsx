@@ -66,7 +66,7 @@ const HoverDetails: React.FC<HoverDetailsProps> = ({
       style={{ transform: 'translate(-50%, -50%)' }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      data-position={modelPosition?.join(',') || '0,0,0'}
+      data-position={modelPosition.join(',')}
       data-room-id={roomID}
     >
       <div className={cn("w-2 h-2 bg-white rounded-full", isHighlighted && "bg-red-500")} />

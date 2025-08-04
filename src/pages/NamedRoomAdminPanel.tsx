@@ -8,34 +8,25 @@ import { toast } from 'sonner';
 import { useRoomContext } from '@/contexts/RoomContext';
 
 const NamedRoomAdminPanel: React.FC = () => {
-  const { rooms } = useRoomContext();
+  const { namedRooms, updateRoomName } = useRoomContext();
   const [editingRoom, setEditingRoom] = useState<string | null>(null);
   const [newRoomName, setNewRoomName] = useState('');
 
-  // Only show named rooms (not studios)
-  const namedRooms = rooms.filter(room => !room.roomID.startsWith('studio'));
-
-  const handleRoomRename = async (roomId: string) => {
+  const handleRoomRename = (roomId: string) => {
     if (!newRoomName.trim()) {
       toast.error('Please enter a valid name');
       return;
     }
-    // Update room name in Supabase
-    const { error } = await import('@/lib/supabaseClient').then(({ supabase }) =>
-      supabase.from('rooms').update({ room_name: newRoomName.trim() }).eq('roomID', roomId)
-    );
-    if (error) {
-      toast.error('Failed to rename room');
-    } else {
-      toast.success('Room renamed successfully');
-    }
+
+    updateRoomName(roomId, newRoomName.trim());
+    toast.success('Room renamed successfully');
     setEditingRoom(null);
     setNewRoomName('');
   };
 
   const startEditingRoom = (room: any) => {
-    setEditingRoom(room.roomID);
-    setNewRoomName(room.room_name);
+    setEditingRoom(room.id);
+    setNewRoomName(room.currentName);
   };
 
   const cancelEdit = () => {
@@ -51,23 +42,23 @@ const NamedRoomAdminPanel: React.FC = () => {
       <CardContent>
         <div className="grid gap-4">
           {namedRooms.map((room) => (
-            <div key={room.roomID} className="flex items-center justify-between p-4 border rounded-lg">
+            <div key={room.id} className="flex items-center justify-between p-4 border rounded-lg">
               <div className="flex-1">
                 <div className="flex items-center gap-4">
-                  {editingRoom === room.roomID ? (
+                  {editingRoom === room.id ? (
                     <div className="flex items-center gap-2 flex-1">
-                      <Label htmlFor={`room-${room.roomID}`} className="sr-only">
+                      <Label htmlFor={`room-${room.id}`} className="sr-only">
                         Room Name
                       </Label>
                       <Input
-                        id={`room-${room.roomID}`}
+                        id={`room-${room.id}`}
                         value={newRoomName}
                         onChange={(e) => setNewRoomName(e.target.value)}
                         className="flex-1"
                         placeholder="Enter new room name"
                       />
                       <Button 
-                        onClick={() => handleRoomRename(room.roomID)}
+                        onClick={() => handleRoomRename(room.id)}
                         size="sm"
                       >
                         Save
@@ -83,8 +74,8 @@ const NamedRoomAdminPanel: React.FC = () => {
                   ) : (
                     <>
                       <div className="flex-1">
-                        <h3 className="font-medium">{room.room_name}</h3>
-                        <p className="text-sm text-gray-600">{room.room_type} {room.capacity ? `(${room.capacity} pax)` : ''}</p>
+                        <h3 className="font-medium">{room.currentName}</h3>
+                        <p className="text-sm text-gray-600">{room.description}</p>
                         <p className="text-xs text-gray-500">{room.floor}</p>
                       </div>
                       <Button 
