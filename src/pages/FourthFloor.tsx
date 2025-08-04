@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import Layout from '@/components/Layout';
 import ModelViewer from '@/components/ModelViewer';
-import FourthFloorHotspots from './FourthFloorHotspots';
+import DynamicHotspots from '@/components/DynamicHotspots';
 import FourthFloorSpecsCard from './FourthFloorSpecsCard';
 import FourthFloorFeaturesCard from './FourthFloorFeaturesCard';
 import { useSearchParams } from "react-router-dom";
@@ -63,10 +63,7 @@ const FourthFloor = () => {
             ref={modelViewerRef}
           >
             <ModelViewer modelSrc="Annex14F.gltf" targetRoomPosition={targetRoomPosition}>
-              <FourthFloorHotspots
-                roomIdToPosition={roomIdToPosition}
-                targetRoomId={targetRoomId}
-              />
+              <DynamicHotspots floor="Fourth Floor" targetRoomId={targetRoomId} />
             </ModelViewer>
           </div>
           
