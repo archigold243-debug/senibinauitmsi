@@ -108,12 +108,54 @@ export const useRooms = () => {
     !room.roomID?.toLowerCase().includes('studio')
   );
 
+  // Fallback position data for rooms without positions in database
+  const fallbackPositions: Record<string, [number, number, number]> = {
+    // Ground Floor
+    'ap1-004': [-2.5, 0, -1.5],
+    'ap1-017': [-1.5, 0, -2.5],
+    'ap1-019': [1.5, 0, -2.5],
+    'ap1-023': [2.5, 0, -1.5],
+    
+    // First Floor
+    'ap1-113': [-2.5, 1, -1.5],
+    'ap1-117': [-1.5, 1, -2.5],
+    'ap1-118': [1.5, 1, -2.5],
+    
+    // Second Floor
+    'ap1-206': [-2.5, 2, 0],
+    'ap1-207': [-1.5, 2, 0],
+    'ap1-208': [-0.5, 2, 0],
+    'ap1-209': [0.5, 2, 0],
+    'ap1-211': [1.5, 2, 0],
+    'ap1-212': [2.5, 2, 0],
+    'ap1-213': [-2.5, 2, 1],
+    'ap1-215': [-1.5, 2, 1],
+    'ap1-218': [0, 2, -2.5],
+    'ap1-219': [1, 2, -2.5],
+    'ap1-222': [2, 2, -2.5],
+    
+    // Fourth Floor
+    'ap1-412': [-2.5, 4, -1.5],
+    'ap1-413': [-1.5, 4, -1.5],
+    'ap1-414': [-0.5, 4, -1.5],
+    'ap1-415': [0.5, 4, -1.5],
+    'ap1-421': [1.5, 4, -1.5],
+    'ap1-422': [2.5, 4, -1.5],
+    'ap1-424': [-2.5, 4, 0],
+    'ap1-428': [-1.5, 4, 0],
+    'ap1-429': [0, 4, 0],
+    'ap1-430': [1.5, 4, 0],
+    'ap1-432': [2.5, 4, 0],
+  };
+
   // Create room position mapping
   const getRoomIdToPosition = () => {
     const mapping: Record<string, [number, number, number]> = {};
     rooms.forEach(room => {
       if (room.position && room.roomID) {
         mapping[room.roomID] = room.position;
+      } else if (room.roomID && fallbackPositions[room.roomID]) {
+        mapping[room.roomID] = fallbackPositions[room.roomID];
       }
     });
     return mapping;
