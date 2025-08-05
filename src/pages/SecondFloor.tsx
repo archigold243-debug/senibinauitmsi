@@ -5,33 +5,14 @@ import DynamicHotspots from '@/components/DynamicHotspots';
 import SecondFloorSpecsCard from './SecondFloorSpecsCard';
 import SecondFloorFeaturesCard from './SecondFloorFeaturesCard';
 import { useSearchParams } from "react-router-dom";
-
-// RoomId to position mapping for Second Floor
-const roomIdToPosition: Record<string, [number, number, number]> = {
-  "studio-02a": [24, 8, 2],
-  "studio-02b": [24, 8, -10],
-  "staff-lounge": [-17, 8, 15],
-  "studio-02c": [11, 8, 15],
-  "studio-02d": [-8, 8, 15],
-  "crit-main": [-24, 8, 0],
-  "ap1-218": [10, 8, -8],       // Dr FAZIDAH HANIM
-  "ap1-219": [10, 8, -15],      // En MOHAMMAD NAZRIN
-  "ap1-215": [5, 8, -20],       // Dr MAYAMIN
-  "ap1-222": [16, 8, -8],       // Ar. IZNNY
-  "ap1-213": [-8, 8, -15],      // En MD ANWAR
-  "ap1-207": [-18, 8, -8],      // Dr NOR SYAMIMI
-  "ap1-209": [-15, 8, -8],      // Dr FADHLIZIL FARIZ
-  "ap1-212": [-8, 8, -8],       // En AMIRUL AMIN
-  "ap1-211": [-11, 8, -8],      // En AMRAN
-  "ap1-206": [-18, 8, -15],     // En ADEEB
-  "ap1-208": [-15, 8, -15],     // Dr IRYANI
-  "unoccupied": [-11, 8, -15],
-};
+import { useRoomContext } from '@/contexts/RoomContext';
 
 const SecondFloor = () => {
+  const { roomIdToPosition, loading } = useRoomContext();
   const [params] = useSearchParams();
   const targetRoomId = params.get("room")?.toLowerCase() ?? undefined;
-  const targetRoomPosition = targetRoomId && roomIdToPosition[targetRoomId] ? roomIdToPosition[targetRoomId] : undefined;
+  const targetRoomPosition =
+    targetRoomId && roomIdToPosition[targetRoomId] ? roomIdToPosition[targetRoomId] : undefined;
 
   // --- ModelViewer auto-scroll-to-view logic ---
   const modelViewerRef = useRef<HTMLDivElement>(null);
@@ -43,6 +24,18 @@ const SecondFloor = () => {
       }, 120);
     }
   }, [targetRoomId]);
+
+  if (loading) {
+    return (
+      <Layout>
+        <div className="container mx-auto px-4 py-8">
+          <div className="max-w-4xl mx-auto text-center">
+            <p>Loading room data...</p>
+          </div>
+        </div>
+      </Layout>
+    );
+  }
 
   return (
     <Layout>

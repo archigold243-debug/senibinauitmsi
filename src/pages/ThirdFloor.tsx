@@ -6,23 +6,14 @@ import DynamicHotspots from '@/components/DynamicHotspots';
 import ThirdFloorSpecsCard from './ThirdFloorSpecsCard';
 import ThirdFloorFeaturesCard from './ThirdFloorFeaturesCard';
 import { useSearchParams } from "react-router-dom";
-
-// RoomId to position mapping for Third Floor
-const roomIdToPosition: Record<string, [number, number, number]> = {
-  "classroom-0303": [24, 12, 2],
-  "studio-3a": [-8, 12, 13],
-  "studio-3b": [11, 12, 13],
-  "floating-studio-05": [-15, 12, -10],
-  "classroom-0313": [-24, 12, 2],
-  "studio-05b": [-24, 12, -10],
-  "studio-04b": [24, 12, -10],
-  "floating-studio-04": [13, 12, -10],
-};
+import { useRoomContext } from '@/contexts/RoomContext';
 
 const ThirdFloor = () => {
+  const { roomIdToPosition, loading } = useRoomContext();
   const [params] = useSearchParams();
   const targetRoomId = params.get("room")?.toLowerCase() ?? undefined;
-  const targetRoomPosition = targetRoomId && roomIdToPosition[targetRoomId] ? roomIdToPosition[targetRoomId] : undefined;
+  const targetRoomPosition =
+    targetRoomId && roomIdToPosition[targetRoomId] ? roomIdToPosition[targetRoomId] : undefined;
 
   // --- ModelViewer auto-scroll-to-view logic ---
   const modelViewerRef = useRef<HTMLDivElement>(null);
@@ -34,6 +25,18 @@ const ThirdFloor = () => {
       }, 120);
     }
   }, [targetRoomId]);
+
+  if (loading) {
+    return (
+      <Layout>
+        <div className="container mx-auto px-4 py-8">
+          <div className="max-w-4xl mx-auto text-center">
+            <p>Loading room data...</p>
+          </div>
+        </div>
+      </Layout>
+    );
+  }
 
   return (
     <Layout>
