@@ -47,46 +47,11 @@ export const useRooms = () => {
           throw lecturersError;
         }
 
-        // Temporary position mapping for rooms based on floor (until rooms table is populated)
-        const getPositionByFloorAndRoom = (roomID: string, floor: string) => {
-          const roomNumber = roomID.split('-')[1];
-          const roomInt = parseInt(roomNumber);
-          
-          switch (floor) {
-            case 'ground-floor':
-              return [-2 + (roomInt % 5) * 1, 0, -2 + Math.floor(roomInt / 10) * 1] as [number, number, number];
-            case 'first-floor':
-              return [-2 + (roomInt % 5) * 1, 1, -2 + Math.floor(roomInt / 10) * 1] as [number, number, number];
-            case 'second-floor':
-              return [-2 + (roomInt % 5) * 1, 2, -2 + Math.floor(roomInt / 10) * 1] as [number, number, number];
-            case 'third-floor':
-              return [-2 + (roomInt % 5) * 1, 3, -2 + Math.floor(roomInt / 10) * 1] as [number, number, number];
-            case 'fourth-floor':
-              return [-2 + (roomInt % 5) * 1, 4, -2 + Math.floor(roomInt / 10) * 1] as [number, number, number];
-            default:
-              return [0, 0, 0] as [number, number, number];
-          }
-        };
-
-        // If rooms table is empty, create rooms from lecturer data
-        let processedRooms = roomsData?.map(room => ({
+        // Process rooms data - handle position as JSON string
+        const processedRooms = roomsData?.map(room => ({
           ...room,
           position: room.position ? (typeof room.position === 'string' ? JSON.parse(room.position) : room.position) : undefined
         })) || [];
-
-        // If no rooms from database, create them from lecturer data
-        if (processedRooms.length === 0 && lecturersData) {
-          const roomsFromLecturers = lecturersData.map(lecturer => ({
-            roomID: lecturer.roomID,
-            room_name: `Room ${lecturer.roomID}`,
-            description: `Office of ${lecturer.title} ${lecturer.username} ${lecturer.surname}`.trim(),
-            floor: lecturer.floor,
-            position: getPositionByFloorAndRoom(lecturer.roomID, lecturer.floor),
-            room_type: 'office'
-          }));
-          
-          processedRooms = roomsFromLecturers;
-        }
 
         // Process lecturers data and link with room IDs
         const processedLecturers = lecturersData?.map(lecturer => ({
