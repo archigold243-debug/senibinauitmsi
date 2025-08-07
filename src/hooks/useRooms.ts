@@ -64,6 +64,9 @@ export const useRooms = () => {
             : [],
         })) || [];
 
+        console.log('Fetched rooms from database:', processedRooms);
+        console.log('Fetched lecturers from database:', processedLecturers);
+        
         setRooms(processedRooms);
         setLecturers(processedLecturers);
         setError(null);
@@ -116,6 +119,8 @@ export const useRooms = () => {
         mapping[room.roomID] = room.position;
       }
     });
+    console.log('Room position mapping generated:', mapping);
+    console.log('Total rooms with positions:', Object.keys(mapping).length);
     return mapping;
   };
 
