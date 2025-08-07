@@ -48,10 +48,17 @@ export const useRooms = () => {
         }
 
         // Process rooms data - handle position as JSON string
-        const processedRooms = roomsData?.map(room => ({
-          ...room,
-          position: room.position ? (typeof room.position === 'string' ? JSON.parse(room.position) : room.position) : undefined
-        })) || [];
+        const processedRooms = roomsData?.map(room => {
+          console.log(`Room ${room.roomID}: position data =`, room.position, typeof room.position);
+          return {
+            ...room,
+            position: room.position ? (typeof room.position === 'string' ? JSON.parse(room.position) : room.position) : undefined
+          };
+        }) || [];
+        
+        console.log('Total rooms fetched from database:', processedRooms.length);
+        console.log('Rooms with position data:', processedRooms.filter(r => r.position).length);
+        console.log('Rooms without position data:', processedRooms.filter(r => !r.position).map(r => r.roomID));
 
         // Process lecturers data and link with room IDs
         const processedLecturers = lecturersData?.map(lecturer => ({
