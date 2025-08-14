@@ -17,6 +17,7 @@ interface LecturerData {
   floor: string;
   roomID: string;
   expertise?: string | string[];
+  title?: string;
 }
 
 interface RoomContextType {
@@ -62,6 +63,7 @@ const convertUserToLecturer = (user: UserCredential): LecturerData => ({
   floor: user.floor || '',
   roomID: user.roomID || user.room || '',
   expertise: user.expertise,
+  title: user.title || '',
 });
 
 export const RoomProvider: React.FC<{ children: ReactNode }> = ({ children }) => {

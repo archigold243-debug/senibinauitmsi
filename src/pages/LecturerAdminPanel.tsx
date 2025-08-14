@@ -207,7 +207,7 @@ const LecturerAdminPanel: React.FC = () => {
                     />
                     <div>
                       <div className="font-semibold">
-                        {lect.username}{" "}
+                        {lect.title ? `${lect.title} ` : ''}{lect.username}{" "}
                         <span className="text-gray-400 font-normal">
                           {lect.surname}
                         </span>
