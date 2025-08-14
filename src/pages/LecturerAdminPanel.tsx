@@ -74,6 +74,7 @@ const LecturerAdminPanel: React.FC = () => {
         displayName: form.displayName!.trim(),
         surname: form.surname!.trim(),
         floor: form.floor ?? "",
+        roomID: form.roomID ?? "",
         photo: photoUrl,
       });
 
@@ -109,23 +110,29 @@ const LecturerAdminPanel: React.FC = () => {
               >
                 <div className="flex flex-wrap gap-4">
                   <div className="flex-1 min-w-[180px]">
-                    <Label htmlFor={`displayName-${lect.id}`}>Name</Label>
+                    <Label htmlFor={`displayName-${lect.id}`}>
+                      Name <span className="text-xs text-gray-400">(fixed)</span>
+                    </Label>
                     <Input
                       id={`displayName-${lect.id}`}
                       name="displayName"
-                      value={form.displayName ?? ""}
-                      onChange={handleChange}
-                      className="mb-1"
+                      value={lect.displayName}
+                      readOnly
+                      tabIndex={-1}
+                      className="bg-gray-100 text-gray-500 cursor-not-allowed border-dashed border-2 border-gray-300 opacity-80"
                     />
                   </div>
                   <div className="flex-1 min-w-[160px]">
-                    <Label htmlFor={`surname-${lect.id}`}>Surname</Label>
+                    <Label htmlFor={`surname-${lect.id}`}>
+                      Surname <span className="text-xs text-gray-400">(fixed)</span>
+                    </Label>
                     <Input
                       id={`surname-${lect.id}`}
                       name="surname"
-                      value={form.surname ?? ""}
-                      onChange={handleChange}
-                      className="mb-1"
+                      value={lect.surname}
+                      readOnly
+                      tabIndex={-1}
+                      className="bg-gray-100 text-gray-500 cursor-not-allowed border-dashed border-2 border-gray-300 opacity-80"
                     />
                   </div>
                   <div className="flex-1 min-w-[180px] flex flex-col gap-2">
@@ -158,16 +165,14 @@ const LecturerAdminPanel: React.FC = () => {
                     </div>
                   </div>
                   <div className="flex-1 min-w-[140px]">
-                    <Label htmlFor={`roomID-${lect.id}`}>
-                      Room ID <span className="text-xs text-gray-400">(fixed)</span>
-                    </Label>
+                    <Label htmlFor={`roomID-${lect.id}`}>Room ID</Label>
                     <Input
                       id={`roomID-${lect.id}`}
                       name="roomID"
-                      value={lect.roomID}
-                      readOnly
-                      tabIndex={-1}
-                      className="bg-gray-100 text-gray-500 cursor-not-allowed border-dashed border-2 border-gray-300 opacity-80"
+                      value={form.roomID ?? ""}
+                      onChange={handleChange}
+                      className="mb-1"
+                      placeholder="Enter Room ID"
                     />
                   </div>
                 </div>
@@ -180,7 +185,7 @@ const LecturerAdminPanel: React.FC = () => {
                   </Button>
                 </div>
                 <div className="text-xs text-gray-400 mt-2 italic">
-                  Note: <b>Room ID</b> is fixed, used to connect lecturers to their floor hotspot, and cannot be changed.
+                  Note: <b>Name and Surname</b> are fixed. <b>Room ID</b> can be updated when lecturers move rooms.
                 </div>
               </div>
             ) : (
