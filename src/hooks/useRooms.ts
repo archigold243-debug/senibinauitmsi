@@ -66,6 +66,7 @@ export const useRooms = () => {
           displayName: `${lecturer.title ? lecturer.title + ' ' : ''}${lecturer.username}`.trim(),
           photo: lecturer.photo_url,
           roomID: lecturer.roomID, // Use the correct column
+          floor: room?.floor || '',
           expertise: Array.isArray(lecturer.lecturer_expertise)
             ? lecturer.lecturer_expertise.map((ex: any) => ex.expertise_id)
             : [],
