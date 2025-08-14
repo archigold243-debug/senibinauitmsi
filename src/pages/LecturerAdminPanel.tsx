@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -6,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { useRoomContext } from "@/contexts/RoomContext";
 import { toast } from "sonner";
+import { supabase } from "@/lib/supabaseClient";
 
 const LecturerAdminPanel: React.FC = () => {
   const { lecturers, updateLecturer } = useRoomContext();
@@ -30,39 +30,54 @@ const LecturerAdminPanel: React.FC = () => {
     if (file) {
       setSelectedFile(file);
       setLocalPhotoURL(URL.createObjectURL(file));
-      // Autofill photo field with recommended filename if possible:
+
+      // Suggest filename (lecturer id + extension)
       const ext = file.name.split(".").pop();
-      // Optionally: use displayName_surname.ext or lecturer id as a unique filename
-      const displayName = (form.displayName ?? "").replace(/\s+/g, "");
-      const surname = (form.surname ?? "").replace(/\s+/g, "");
-      const safeName =
-        displayName && surname
-          ? `${displayName}_${surname}.${ext}`
-          : file.name;
+      const safeName = `${form.id || "lecturer"}_${Date.now()}.${ext}`;
       setForm((curr) => ({
         ...curr,
         photo: safeName,
       }));
-      toast.info(
-        "Image selected; please save changes and upload the image file to /public"
-      );
+
+      toast.info("Image selected; will be uploaded to Supabase on save");
     }
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (editId && form.displayName?.trim() && form.surname?.trim()) {
+      let photoUrl = form.photo ?? "";
+
+      // If new file selected, upload to Supabase and get public URL
+      if (selectedFile) {
+        const filePath = `${editId}/${form.photo}`;
+        const { error: uploadError } = await supabase
+          .storage
+          .from("lecturer-photos")
+          .upload(filePath, selectedFile, { upsert: true });
+
+        if (uploadError) {
+          toast.error("Photo upload failed");
+          return;
+        }
+
+        const { data: publicData } = supabase
+          .storage
+          .from("lecturer-photos")
+          .getPublicUrl(filePath);
+
+        if (publicData?.publicUrl) {
+          photoUrl = publicData.publicUrl;
+        }
+      }
+
       updateLecturer(editId, {
         displayName: form.displayName!.trim(),
         surname: form.surname!.trim(),
-        photo: form.photo ?? "",
         floor: form.floor ?? "",
-        // roomId intentionally removed from updates for safety
+        photo: photoUrl,
       });
-      toast.success(
-        selectedFile
-          ? "Lecturer info updated. Remember to upload image manually to /public."
-          : "Lecturer info updated!"
-      );
+
+      toast.success("Lecturer info updated!");
       setEditId(null);
       setForm({});
       setSelectedFile(null);
@@ -148,7 +163,7 @@ const LecturerAdminPanel: React.FC = () => {
                         value={form.photo ?? ""}
                         onChange={handleChange}
                         className="mb-1"
-                        placeholder="Photo filename (e.g. John_Doe.jpg)"
+                        placeholder="Stored filename in Supabase"
                       />
                     </div>
                   </div>
@@ -177,38 +192,43 @@ const LecturerAdminPanel: React.FC = () => {
                 <div className="text-xs text-gray-400 mt-2 italic">
                   Note: <b>Room ID</b> is fixed, used to connect lecturers to their floor hotspot, and cannot be changed.
                 </div>
-                <div className="text-xs text-blue-700 mt-1">
-                  To change the lecturer's photo:
-                  <ol className="list-decimal ml-4">
-                    <li>Select an image using the 'Upload new photo' field.</li>
-                    <li>
-                      After saving, <b>manually place the image file</b> into the <code>/public</code> folder of your project
-                      with the filename shown above for the photo.
-                    </li>
-                    <li>
-                      The image will be displayed as soon as it is available in <code>/public</code>!
-                    </li>
-                  </ol>
-                </div>
               </div>
             ) : (
-              <div key={lect.id} className="flex items-center justify-between p-4 border rounded-lg">
+              <div
+                key={lect.id}
+                className="flex items-center justify-between p-4 border rounded-lg"
+              >
                 <div className="flex flex-col sm:flex-row flex-1 gap-3 sm:items-center">
                   <div className="flex items-center gap-3">
-                    <img src={lect.photo} alt={lect.displayName} className="w-12 h-12 rounded-full object-cover border" />
+                    <img
+                      src={lect.photo || "/placeholder.svg"}
+                      alt={lect.displayName}
+                      className="w-12 h-12 rounded-full object-cover border"
+                    />
                     <div>
-                      <div className="font-semibold">{lect.displayName} <span className="text-gray-400 font-normal">{lect.surname}</span></div>
-                      <div className="text-xs text-gray-500">Floor: {lect.floor} | Room: {lect.roomID}</div>
+                      <div className="font-semibold">
+                        {lect.displayName}{" "}
+                        <span className="text-gray-400 font-normal">
+                          {lect.surname}
+                        </span>
+                      </div>
+                      <div className="text-xs text-gray-500">
+                        Floor: {lect.floor} | Room: {lect.roomID}
+                      </div>
                     </div>
                   </div>
                 </div>
-                <Button className="ml-3" variant="outline" size="sm" onClick={() => startEdit(lect)}>Edit</Button>
+                <Button
+                  className="ml-3"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => startEdit(lect)}
+                >
+                  Edit
+                </Button>
               </div>
             )
           )}
-        </div>
-        <div className="text-xs text-gray-400 mt-6">
-          To update a photo, select it then upload the resulting file to <code>/public</code>.
         </div>
       </CardContent>
     </Card>
