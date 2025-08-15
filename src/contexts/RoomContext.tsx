@@ -126,7 +126,7 @@ export const RoomProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         .update({
           username: updates.username,
           surname: updates.surname,
-          photo: updates.photo,
+          photo_url: updates.photo,
           floor: updates.floor,
           roomID: updates.roomID,
         })
