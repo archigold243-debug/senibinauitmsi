@@ -173,8 +173,8 @@ const Lecturers: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {[...filteredLecturers]
             .sort((a, b) => {
-              const [titleA,...nameA] = a.displayName.split(' ');
-              const [titleB,...nameB] = b.displayName.split(' ');
+              const [titleA,...nameA] = (a.username || '').split(' ');
+              const [titleB,...nameB] = (b.username || '').split(' ');
 
               const titleCompare = titleA.localeCompare(titleB);
               if (titleCompare !== 0) return titleCompare;
@@ -189,13 +189,13 @@ const Lecturers: React.FC = () => {
               <div className="w-24 h-32 flex-shrink-0">
                 <img
                   src={lect.photo?.startsWith('http') ? lect.photo : `/${lect.photo}`}
-                  alt={lect.displayName}
+                  alt={lect.username}
                   className="w-full h-full object-cover rounded-lg border border-muted"
                   loading={idx < 4 ? 'eager' : 'lazy'}
                 />
               </div>
               <div className="flex-1">
-                <div className="font-medium">{lect.displayName}</div>
+                <div className="font-medium">{lect.title ? `${lect.title} ` : ''}{lect.username}</div>
                 <div className="text-sm text-gray-600">{lect.surname}</div>
                 <Button
                   size="sm"
@@ -203,7 +203,7 @@ const Lecturers: React.FC = () => {
                   variant="secondary"
                   onClick={() => {
                     console.log('Lecturer ID:', lect.id);
-                    console.log('Lecturer Display Name:', lect.displayName);
+                    console.log('Lecturer Username:', lect.username);
                     console.log('Lecturer Floor:', lect.floor);
                     console.log('Lecturer Room ID:', lect.roomID);
                     const route = getFloorRoute(lect.floor);

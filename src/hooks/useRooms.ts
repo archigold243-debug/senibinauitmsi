@@ -13,12 +13,13 @@ export interface Room {
 export interface UserCredential {
   id: string;
   room?: string; // links to rooms.roomID
-  displayName?: string;
+  username?: string;
   surname?: string;
   photo?: string;
   expertise?: string | string[];
   roomID?: string; // for compatibility
   floor?: string; // floor information
+  title?: string;
 }
 
 export const useRooms = () => {
