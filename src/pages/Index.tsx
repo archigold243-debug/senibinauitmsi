@@ -23,20 +23,32 @@ const Index = () => {
 
   const getRoomLink = (roomName: string, defaultRoomId: string) => {
     const room = namedRooms.find(r => r.currentName === roomName || r.id === defaultRoomId);
+    console.log(`Attempting to get link for roomName: ${roomName}, defaultRoomId: ${defaultRoomId}`);
+    console.log('Found room:', room);
+
     if (room) {
-      // Determine the floor path based on the floor name
+      // Find the floor object that matches the room's floor (case-insensitive)
+      const matchedFloor = floors.find(floor => 
+        floor.name.toLowerCase() === room.floor?.toLowerCase()
+      );
+      
       let floorPath = '/ground-floor'; // Default to ground floor
-      if (room.floor) {
-        switch (room.floor.toLowerCase()) {
-          case '1st floor': floorPath = '/first-floor'; break;
-          case '2nd floor': floorPath = '/second-floor'; break;
-          case '3rd floor': floorPath = '/third-floor'; break;
-          case '4th floor': floorPath = '/fourth-floor'; break;
-          case 'ground floor': floorPath = '/ground-floor'; break;
-        }
+      if (matchedFloor) {
+        floorPath = matchedFloor.path;
+      } else if (room.floor) {
+        // Fallback for cases where floor name doesn't exactly match predefined names
+        // This handles cases like "1st Floor" vs "first floor"
+        const simpleFloorName = room.floor.toLowerCase().replace(/[^a-z0-9]/g, '');
+        if (simpleFloorName.includes('ground')) floorPath = '/ground-floor';
+        else if (simpleFloorName.includes('1st') || simpleFloorName.includes('first')) floorPath = '/first-floor';
+        else if (simpleFloorName.includes('2nd') || simpleFloorName.includes('second')) floorPath = '/second-floor';
+        else if (simpleFloorName.includes('3rd') || simpleFloorName.includes('third')) floorPath = '/third-floor';
+        else if (simpleFloorName.includes('4th') || simpleFloorName.includes('fourth')) floorPath = '/fourth-floor';
       }
+      console.log(`Generated floorPath: ${floorPath} for room ID: ${room.id}`);
       return `${floorPath}?room=${room.id}`; // Use room.id as the query parameter
     }
+    console.log(`Room not found for ${roomName} or ${defaultRoomId}. Using fallback link.`);
     return `/second-floor?room=${defaultRoomId}`; // Fallback to original hardcoded link
   };
 
