@@ -35,7 +35,7 @@ const LecturerAdminPanel: React.FC = () => {
       const safeName = `${form.id || "lecturer"}_${Date.now()}.${ext}`;
       setForm((curr) => ({
         ...curr,
-        photo: safeName,
+        photo_url: safeName,
       }));
 
       toast.info("Image selected; will be uploaded to Supabase on save");
@@ -44,10 +44,10 @@ const LecturerAdminPanel: React.FC = () => {
 
   const handleSave = async () => {
     if (editId && form.username?.trim() && form.surname?.trim()) {
-      let photoUrl = form.photo ?? "";
+      let photoUrl = form.photo_url ?? "";
 
       if (selectedFile) {
-        const filePath = `${editId}/${form.photo}`;
+        const filePath = `${editId}/${form.photo_url}`;
         const { error: uploadError } = await supabase
           .storage
           .from("lecturer-photos")
@@ -75,7 +75,7 @@ const LecturerAdminPanel: React.FC = () => {
           .update({
             floor: form.floor ?? "",
             roomID: form.roomID ?? "",
-            photo: photoUrl,
+            photo_url: photoUrl,
           })
           .eq("id", editId);
 
@@ -158,7 +158,7 @@ const LecturerAdminPanel: React.FC = () => {
                   <div className="flex-1 min-w-[180px] flex flex-col gap-2">
                     <Label>Current Photo</Label>
                     <img
-                      src={localPhotoURL || form.photo || lect.photo || "/placeholder.svg"}
+                      src={localPhotoURL || form.photo_url || lect.photo_url || "/placeholder.svg"}
                       alt={form.username ?? lect.username}
                       className="w-14 h-14 rounded-full object-cover border mb-2"
                     />
@@ -177,7 +177,7 @@ const LecturerAdminPanel: React.FC = () => {
                       <Input
                         id={`photo-${lect.id}`}
                         name="photo"
-                        value={form.photo ?? ""}
+                        value={form.photo_url ?? ""}
                         onChange={handleChange}
                         className="mb-1"
                         placeholder="Stored filename in Supabase"
@@ -216,7 +216,7 @@ const LecturerAdminPanel: React.FC = () => {
                 <div className="flex flex-col sm:flex-row flex-1 gap-3 sm:items-center">
                   <div className="flex items-center gap-3">
                     <img
-                      src={lect.photo || "/placeholder.svg"}
+                      src={lect.photo_url || "/placeholder.svg"}
                       alt={lect.username}
                       className="w-12 h-12 rounded-full object-cover border"
                     />
