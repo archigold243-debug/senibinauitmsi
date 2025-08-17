@@ -176,7 +176,7 @@ const LecturerAdminPanel: React.FC = () => {
                       <Label htmlFor={`photo-${lect.id}`}>Photo filename</Label>
                       <Input
                         id={`photo-${lect.id}`}
-                        name="photo"
+                        name="photo_url"
                         value={form.photo_url ?? ""}
                         onChange={handleChange}
                         className="mb-1"
