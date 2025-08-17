@@ -50,7 +50,7 @@ const StudioAdminPanel: React.FC = () => {
       {Object.entries(studiosByFloor).map(([floor, floorStudios]) => (
         <Card key={floor}>
           <CardHeader>
-            <CardTitle>Floor {floor}</CardTitle>
+            <CardTitle>{floor}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid gap-4">
