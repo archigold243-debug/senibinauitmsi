@@ -59,7 +59,7 @@ const convertUserToLecturer = (user: UserCredential): LecturerData => ({
   id: user.id,
   username: user.username || '',
   surname: user.surname || '',
-  photo_url: user.photo || '',
+  photo_url: user.photo_url || '',
   floor: user.floor || '',
   roomID: user.roomID || user.room || '',
   expertise: user.expertise,
