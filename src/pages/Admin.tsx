@@ -12,6 +12,7 @@ import { useRoomContext } from '@/contexts/RoomContext';
 import LecturerAdminPanel from "./LecturerAdminPanel";
 import StudioAdminPanel from "./StudioAdminPanel";
 import NamedRoomAdminPanel from "./NamedRoomAdminPanel";
+import AnnouncementAdminPanel from "./AnnouncementAdminPanel";
 
 const Admin = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -160,6 +161,7 @@ const Admin = () => {
               <TabsTrigger value="studios">Studios</TabsTrigger>
               <TabsTrigger value="named-rooms">Named Rooms</TabsTrigger>
               <TabsTrigger value="lecturers">Lecturers</TabsTrigger>
+              <TabsTrigger value="announcements">Announcements</TabsTrigger>
             </TabsList>
             
             <TabsContent value="studios" className="space-y-4">
@@ -171,6 +173,9 @@ const Admin = () => {
             </TabsContent>
             <TabsContent value="lecturers" className="space-y-4">
               <LecturerAdminPanel />
+            </TabsContent>
+            <TabsContent value="announcements" className="space-y-4">
+              <AnnouncementAdminPanel />
             </TabsContent>
           </Tabs>
         </div>
