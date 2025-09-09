@@ -1,64 +1,32 @@
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
+import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 
 const StudioPlan = () => {
-  const [image, setImage] = useState<string | null>(null);
-
-  // Handle image upload
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setImage(reader.result as string);
-    };
-    reader.readAsDataURL(file);
-  };
-
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      {/* Top bar with back button */}
-      <div className="flex items-center justify-between mb-6">
-        <Link href="/">
-          <Button variant="outline">← Back</Button>
-        </Link>
-        <h1 className="text-xl font-light">Upload Studio Plan</h1>
-        <div />
-      </div>
+    <Layout>
+      <div className="container mx-auto px-4 py-8">
+        {/* Back Button */}
+        <div className="mb-6">
+          <Link href="/">
+            <Button variant="outline">← Back</Button>
+          </Link>
+        </div>
 
-      {/* Upload Section */}
-      <div className="max-w-3xl mx-auto">
-        <label className="block mb-4">
-          <span className="text-sm font-medium text-gray-700">
-            Choose an image
-          </span>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageUpload}
-            className="mt-2 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4
-                       file:rounded-md file:border-0 file:text-sm file:font-semibold
-                       file:bg-primary file:text-white hover:file:bg-primary/90"
-          />
-        </label>
-
-        {/* Preview Area */}
-        <div className="border rounded-lg bg-white shadow p-4">
-          {image ? (
+        {/* Floor Plan Image */}
+        <div className="text-center">
+          <h2 className="text-2xl font-light mb-4">Studio Plan Overview</h2>
+          <div className="relative inline-block">
             <img
-              src={image}
-              alt="Uploaded Plan"
-              className="max-w-full h-auto mx-auto rounded"
+              src="/images/studio-plan.png" // <-- replace with your uploaded image path
+              alt="Architecture Studio Plan"
+              className="max-w-full h-auto rounded-lg shadow-md"
             />
-          ) : (
-            <p className="text-gray-500 text-center py-10">
-              No image uploaded yet
-            </p>
-          )}
+          </div>
         </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 
