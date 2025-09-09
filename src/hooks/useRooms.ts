@@ -93,19 +93,25 @@ export const useRooms = () => {
 
   const updateRoomName = async (roomID: string, newName: string) => {
     try {
+      const { supabase } = await import('@/lib/supabaseClient');
       const { error } = await supabase
         .from('rooms')
         .update({ room_name: newName })
         .eq('roomID', roomID);
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error updating room name in Supabase:', error);
+        throw error;
+      }
+
+      console.log(`Room name updated successfully for ID: ${roomID}`);
 
       // Update local state
       setRooms(prev => prev.map(room => 
         room.roomID === roomID ? { ...room, room_name: newName } : room
       ));
     } catch (err) {
-      console.error('Error updating room name:', err);
+      console.error('Failed to update room name:', err);
       throw err;
     }
   };

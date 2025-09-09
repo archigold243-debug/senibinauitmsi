@@ -101,11 +101,43 @@ export const RoomProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   }, [studios, namedRooms, lecturers, roomIdToPosition]);
 
   const updateStudioName = async (id: string, newName: string) => {
-    await updateRoomNameInDB(id, newName);
+    try {
+      const { supabase } = await import('@/lib/supabaseClient');
+      const { error } = await supabase
+        .from('rooms')
+        .update({ room_name: newName })
+        .eq('roomID', id);
+
+      if (error) {
+        console.error('Error updating studio name in Supabase:', error);
+        throw error;
+      }
+
+      console.log(`Studio name updated successfully for ID: ${id}`);
+    } catch (err) {
+      console.error('Failed to update studio name:', err);
+      throw err;
+    }
   };
 
   const updateRoomName = async (id: string, newName: string) => {
-    await updateRoomNameInDB(id, newName);
+    try {
+      const { supabase } = await import('@/lib/supabaseClient');
+      const { error } = await supabase
+        .from('rooms')
+        .update({ room_name: newName })
+        .eq('roomID', id);
+
+      if (error) {
+        console.error('Error updating room name in Supabase:', error);
+        throw error;
+      }
+
+      console.log(`Room name updated successfully for ID: ${id}`);
+    } catch (err) {
+      console.error('Failed to update room name:', err);
+      throw err;
+    }
   };
 
   const updateLecturer = async (id: string, updates: Partial<LecturerData>) => {
