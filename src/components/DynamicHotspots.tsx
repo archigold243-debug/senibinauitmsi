@@ -8,55 +8,32 @@ interface DynamicHotspotsProps {
 }
 
 const DynamicHotspots: React.FC<DynamicHotspotsProps> = ({ floor, targetRoomId }) => {
-  const { rooms, lecturers, roomIdToPosition } = useRoomContext();
+  const { lecturers, roomIdToPosition } = useRoomContext();
 
-  // Filter rooms by floor if specified
-  const floorRooms = floor 
-    ? rooms.filter(room => room.floor?.toLowerCase().includes(floor.toLowerCase()))
-    : rooms;
-
-  // Get lecturer by room ID
-  const getLecturerByRoomId = (roomId: string) =>
-    lecturers.find((lect) => lect.roomID?.toLowerCase() === roomId.toLowerCase());
+  // Filter lecturers by floor if specified
+  const floorLecturers = floor 
+    ? lecturers.filter(lecturer => lecturer.floor?.toLowerCase().includes(floor.toLowerCase()))
+    : lecturers;
 
   return (
     <>
-      {/* Render room hotspots */}
-      {floorRooms.map((room) => {
-        const position = roomIdToPosition[room.roomID];
+      {/* Render lecturer hotspots */}
+      {floorLecturers.map((lecturer) => {
+        const position = roomIdToPosition[lecturer.roomID];
         if (!position) return null;
 
-        const lecturer = getLecturerByRoomId(room.roomID);
-        
-        // If there's a lecturer in this room, show lecturer details
-        if (lecturer) {
-          return (
-            <HoverDetails
-              key={room.roomID}
-              title={lecturer.username}
-              surname={lecturer.surname}
-              description={Array.isArray(lecturer.expertise) && lecturer.expertise.length > 0 ? lecturer.expertise.join(", ") : (typeof lecturer.expertise === 'string' && lecturer.expertise ? lecturer.expertise : "Lecturer")}
-              position="right"
-              modelPosition={position}
-              imageSrc={lecturer.photo_url}
-              roomID={room.roomID}
-              isHighlighted={targetRoomId === room.roomID}
-              autoOpen={targetRoomId === room.roomID}
-            />
-          );
-        }
-
-        // Otherwise show room details
         return (
           <HoverDetails
-            key={room.roomID}
-            title={room.room_name}
-            description={room.description || ''}
+            key={lecturer.roomID}
+            title={lecturer.username}
+            surname={lecturer.surname}
+            description={Array.isArray(lecturer.expertise) && lecturer.expertise.length > 0 ? lecturer.expertise.join(", ") : (typeof lecturer.expertise === 'string' && lecturer.expertise ? lecturer.expertise : "Lecturer")}
             position="right"
             modelPosition={position}
-            roomID={room.roomID}
-            isHighlighted={targetRoomId === room.roomID}
-            autoOpen={targetRoomId === room.roomID}
+            imageSrc={lecturer.photo_url}
+            roomID={lecturer.roomID}
+            isHighlighted={targetRoomId === lecturer.roomID}
+            autoOpen={targetRoomId === lecturer.roomID}
           />
         );
       })}
