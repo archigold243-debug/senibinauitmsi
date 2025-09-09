@@ -59,9 +59,9 @@ const convertUserToLecturer = (user: UserCredential): LecturerData => ({
   id: user.id,
   username: user.username || '',
   surname: user.surname || '',
-  photo_url: user.photo || '',
+  photo_url: user.photo_url || '',
   floor: user.floor || '',
-  roomID: user.roomID || user.room || '',
+  roomID: user.roomID || '',
   expertise: user.expertise,
   title: user.title || '',
 });
@@ -126,7 +126,7 @@ export const RoomProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         .update({
           username: updates.username,
           surname: updates.surname,
-          photo_url: updates.photo,
+          photo_url: updates.photo_url,
           floor: updates.floor,
           roomID: updates.roomID,
         })
