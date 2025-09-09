@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
-const StudioPlanEmpty = () => {
+const StudioPlan = () => {
   const [image, setImage] = useState<string | null>(null);
 
   // Handle image upload
