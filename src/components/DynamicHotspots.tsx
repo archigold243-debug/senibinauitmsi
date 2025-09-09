@@ -10,17 +10,10 @@ interface DynamicHotspotsProps {
 const DynamicHotspots: React.FC<DynamicHotspotsProps> = ({ floor, targetRoomId }) => {
   const { rooms, lecturers, roomIdToPosition } = useRoomContext();
 
-  // Filter rooms by floor if specified (strict equality)
+  // Filter rooms by floor if specified
   const floorRooms = floor 
-    ? rooms.filter(room => room.floor === floor)
+    ? rooms.filter(room => room.floor?.toLowerCase().includes(floor.toLowerCase()))
     : rooms;
-
-  // Debug: Log filtered rooms and available positions
-  React.useEffect(() => {
-    console.log('[DynamicHotspots] floor:', floor);
-    console.log('[DynamicHotspots] Filtered rooms:', floorRooms);
-    console.log('[DynamicHotspots] roomIdToPosition:', roomIdToPosition);
-  }, [floor, floorRooms, roomIdToPosition]);
 
   // Get lecturer by room ID
   const getLecturerByRoomId = (roomId: string) =>
