@@ -57,7 +57,7 @@ const Index = () => {
         <div className="lg:col-span-3">
           {/* Hero Section */}
           <section className="relative min-h-screen bg-gradient-to-br from-primary/20 via-background to-secondary/20 overflow-hidden">
-            <div className="absolute inset-0 bg-[url('/images/studio-plan.png')] bg-cover bg-center opacity-10" />
+            
             <div className="relative container mx-auto px-4 py-20 text-center">
               <div className="max-w-4xl mx-auto space-y-8">
                 <h1 className="text-5xl md:text-7xl font-light tracking-tight">
@@ -157,7 +157,7 @@ const Index = () => {
         </div>
 
         {/* Instagram Feed Sidebar */}
-        <div className="lg:col-span-1 lg:sticky lg:top-20 lg:h-fit">
+        <div className="lg:col-span-1">
           <div className="p-6 bg-card border rounded-lg shadow-sm">
             <h3 className="text-lg font-semibold mb-4 text-center">Follow Our Journey</h3>
             <div className="elfsight-app-a590ee74-19ef-423f-932e-b9b0dcfab450" data-elfsight-app-lazy></div>
