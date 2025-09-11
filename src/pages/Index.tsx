@@ -60,19 +60,25 @@ const Index = () => {
             
             <div className="relative container mx-auto px-4 py-20 text-center">
               <div className="max-w-4xl mx-auto space-y-8">
-                <h1 className="text-5xl md:text-7xl font-light tracking-tight">
-                  Architecture School
-                  <span className="block text-primary font-normal">Annex 1</span>
+                <h1 className="text-5xl md:text-7xl font-normal tracking-tight">
+                  Welcome to the School of Architecture
+                  <span className="block text-3xl font-light">UiTM</span>
                 </h1>
                 <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                  Explore our state-of-the-art facilities and discover the spaces where creativity meets innovation
+                  Explore our activities, facilities, students work and roam around our building in 3D.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                  <Button asChild size="lg" className="text-lg px-8 py-6 bg-primary hover:bg-primary/90">
-                    <Link to={getRoomLink("Bilik Krit Utama", "1")}>
-                      Start Exploring
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up" style={{ animationDelay: '300ms' }}>
+                    <Link to={getRoomLink('Bilik Krit Utama', 'ap1-234')} className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary/90 transition-colors">
+                      Bilik Krit Utama
                     </Link>
-                  </Button>
+                    <Link to={getRoomLink('Bilik Krit Kecil', 'ap1-104')} className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary/90 transition-colors">
+                      Bilik Krit Kecil
+                    </Link>
+                    <Link to={getRoomLink('Bilik Krit TEC', 'ap1-132')} className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary/90 transition-colors">
+                      Bilik Krit TEC
+                    </Link>
+                  </div>
                   <Button asChild variant="outline" size="lg" className="text-lg px-8 py-6">
                     <a
                       href="https://maps.google.com/?q=Architecture+School+Annex+1"
@@ -80,7 +86,7 @@ const Index = () => {
                       rel="noopener noreferrer"
                     >
                       <ExternalLink className="w-5 h-5 mr-2" />
-                      View Location
+                      Our location 
                     </a>
                   </Button>
                 </div>
@@ -112,25 +118,6 @@ const Index = () => {
               </div>
               <div className="mt-6 text-center text-sm text-muted-foreground">
                 Click and drag to rotate. Use scroll wheel to zoom in and out.
-              </div>
-            </div>
-          </section>
-
-          {/* Floor List */}
-          <section className="py-16">
-            <div className="container mx-auto px-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
-                {floors.map(floor => (
-                  <div key={floor.name} className="bg-card rounded-lg p-6 shadow-sm border hover:shadow-md transition-shadow">
-                    <h3 className="text-lg font-semibold mb-2">{floor.name}</h3>
-                    <p className="text-sm text-muted-foreground mb-4">{floor.description}</p>
-                    <Button asChild variant="outline" size="sm" className="w-full">
-                      <Link to={floor.path}>
-                        Explore {floor.name}
-                      </Link>
-                    </Button>
-                  </div>
-                ))}
               </div>
             </div>
           </section>
