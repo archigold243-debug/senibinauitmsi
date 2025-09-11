@@ -61,7 +61,7 @@ const Index = () => {
             <div className="relative container mx-auto px-4 py-20 text-center">
               <div className="max-w-4xl mx-auto space-y-8">
                 <h1 className="text-5xl md:text-7xl font-normal tracking-tight">
-                  Welcome to the School of Architecture
+                  Welcome to School of Architecture
                   <span className="block text-3xl font-light">UiTM</span>
                 </h1>
                 <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
