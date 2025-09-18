@@ -51,7 +51,6 @@ const DynamicHotspots: React.FC<DynamicHotspotsProps> = ({ floor, targetRoomId }
           <HoverDetails
             key={room.roomID}
             title={room.room_name}
-            email={room.email}
             position="right"
             modelPosition={position}
             roomID={room.roomID}

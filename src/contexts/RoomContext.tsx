@@ -4,7 +4,6 @@ import { useRooms, Room, UserCredential } from '@/hooks/useRooms';
 interface RoomData {
   id: string;
   currentName: string;
-  email: string;
   floor: string;
   position: [number, number, number];
 }
@@ -50,7 +49,6 @@ export const useRoomContext = () => {
 const convertRoomToRoomData = (room: Room): RoomData => ({
   id: room.roomID,
   currentName: room.room_name,
-  email: room.email || '',
   floor: room.floor || '',
   position: room.position || [0, 0, 0],
 });
