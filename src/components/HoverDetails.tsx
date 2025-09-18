@@ -22,7 +22,7 @@ const HoverDetails: React.FC<HoverDetailsProps> = ({
   y,
   title,
   surname,
-  email,
+  email='lecturer.email',
   imageSrc,
   position = 'right',
   className,
@@ -96,8 +96,10 @@ const HoverDetails: React.FC<HoverDetailsProps> = ({
             <h4 className="text-base font-medium mb-0">{title}</h4>
             {surname && <p className="text-sm font-normal text-gray-600 mt-0">{surname}</p>}
             {roomID && <p className="text-xs text-gray-500 mt-0">Room: {roomID}</p>}
+            {email && <p className="text-xs text-gray-500 mt-0">{email}</p>}
           </div>
-          <p className="text-sm text-gray-600">{email}</p>
+          <div className="text-xs text-gray-500">
+          </div>
         </div>
       )}
     </div>
