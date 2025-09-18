@@ -41,7 +41,8 @@ const Lecturers: React.FC = () => {
 
   // Helper to map floor string to route
   const getFloorRoute = (floor: string) => {
-    switch (floor.toLowerCase()) {
+    const normalized = floor.toLowerCase().replace(/\s+/g, '-');
+    switch (normalized) {
       case 'ground-floor': return '/ground-floor';
       case 'first-floor': return '/first-floor';
       case 'second-floor': return '/second-floor';
