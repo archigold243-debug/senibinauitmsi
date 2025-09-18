@@ -18,20 +18,25 @@ const floors = [
   { name: '4th Floor', path: '/fourth-floor', description: 'Surau, Studio, Classroom and Lecturers Offices' },
 ];
 
+// Map backend roomID to display name
+const roomDisplayNames: Record<string, string> = {
+  'ap1-234': 'Bilik Krit Utama',
+  'ap1-231': 'Bilik Krit Kecil',
+  'ap1-132': 'Bilik Krit TEC',
+  // Add more as needed
+};
+
 const Index = () => {
   const { visitorCount } = useVisitorTracker();
   const { namedRooms } = useRoomContext();
 
-  const getRoomLink = (roomName: string, defaultRoomId: string) => {
-    const room = namedRooms.find(r => r.currentName === roomName || r.id === defaultRoomId);
-    console.log(`Attempting to get link for roomName: ${roomName}, defaultRoomId: ${defaultRoomId}`);
-    console.log('Found room:', room);
-
+  // Update getRoomLink to use roomID
+  const getRoomLink = (roomID: string) => {
+    const room = namedRooms.find(r => r.id === roomID);
     if (room) {
       const matchedFloor = floors.find(floor => 
         floor.name.toLowerCase() === room.floor?.toLowerCase()
       );
-      
       let floorPath = '/ground-floor';
       if (matchedFloor) {
         floorPath = matchedFloor.path;
@@ -43,11 +48,9 @@ const Index = () => {
         else if (simpleFloorName.includes('3rd') || simpleFloorName.includes('third')) floorPath = '/third-floor';
         else if (simpleFloorName.includes('4th') || simpleFloorName.includes('fourth')) floorPath = '/fourth-floor';
       }
-      console.log(`Generated floorPath: ${floorPath} for room ID: ${room.id}`);
       return `${floorPath}?room=${room.id}`;
     }
-    console.log(`Room not found for ${roomName} or ${defaultRoomId}. Using fallback link.`);
-    return `/second-floor?room=${defaultRoomId}`;
+    return `/second-floor`;
   };
 
   return (
@@ -69,14 +72,14 @@ const Index = () => {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                   <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up" style={{ animationDelay: '300ms' }}>
-                    <Link to={getRoomLink('Bilik Krit Utama', 'ap1-234')} className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary/90 transition-colors">
-                      Bilik Krit Utama
+                    <Link to={getRoomLink('ap1-234')} className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary/90 transition-colors">
+                      {roomDisplayNames['ap1-234']}
                     </Link>
-                    <Link to={getRoomLink('Bilik Krit Kecil', 'ap1-231')} className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary/90 transition-colors">
-                      Bilik Krit Kecil
+                    <Link to={getRoomLink('ap1-231')} className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary/90 transition-colors">
+                      {roomDisplayNames['ap1-231']}
                     </Link>
-                    <Link to={getRoomLink('Bilik Krit TEC', 'ap1-132')} className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary/90 transition-colors">
-                      Bilik Krit TEC
+                    <Link to={getRoomLink('ap1-132')} className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary/90 transition-colors">
+                      {roomDisplayNames['ap1-132']}
                     </Link>
                   </div>
                   <Button asChild variant="outline" size="lg" className="text-lg px-8 py-6">
