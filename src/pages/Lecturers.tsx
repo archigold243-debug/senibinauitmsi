@@ -34,7 +34,7 @@ const Lecturers: React.FC = () => {
     }
   }, [selectedExpertise, lecturers]);
 
-  // --- Academic Advisor Search State ---
+  // --- Student Search State ---
   const [search, setSearch] = useState('');
   const [results, setResults] = useState<{ "Student Name": string; "Batch Name": string; "Intake": string  }[]>([]);
   const [loading, setLoading] = useState(false);
@@ -60,7 +60,7 @@ const Lecturers: React.FC = () => {
     const fetchResults = async () => {
       const { data, error } = await supabase
         .from('academic_advisor')
-        .select('"Student Name", "Academic Advisor"')
+        .select('"Student Name", "Batch Name", "Intake"')
         .ilike('Student Name', `%${search}%`);
       if (!error && data) {
         setResults(data);
@@ -113,9 +113,9 @@ const Lecturers: React.FC = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="max-w-3xl mx-auto">
-        {/* Academic Advisor Search */}
+        {/* Student Search */}
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold mb-2">Search Academic Advisor</h2>
+          <h2 className="text-2xl font-semibold mb-2">Search Student</h2>
           <input
             type="text"
             className="w-full border rounded px-3 py-2 mb-2"
@@ -129,14 +129,16 @@ const Lecturers: React.FC = () => {
               <thead>
                 <tr>
                   <th className="border px-2 py-1">Student Name</th>
-                  <th className="border px-2 py-1">Academic Advisor</th>
+                  <th className="border px-2 py-1">Batch Name</th>
+                  <th className="border px-2 py-1">Intake</th>
                 </tr>
               </thead>
               <tbody>
                 {results.map((row, i) => (
                   <tr key={i}>
                     <td className="border px-2 py-1">{row["Student Name"]}</td>
-                    <td className="border px-2 py-1">{row["Academic Advisor"]}</td>
+                    <td className="border px-2 py-1">{row["Batch Name"]}</td>
+                    <td className="border px-2 py-1">{row["Intake"]}</td>
                   </tr>
                 ))}
               </tbody>
