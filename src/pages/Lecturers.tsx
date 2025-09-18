@@ -200,6 +200,7 @@ const Lecturers: React.FC = () => {
               <div className="flex-1">
                 <div className="font-medium">{lect.title ? `${lect.title} ` : ''}{lect.username}</div>
                 <div className="text-sm text-gray-600">{lect.surname}</div>
+                <div className="text-sm text-gray-600">{lect.email}</div>
                 <Button
                   size="sm"
                   className="mt-1"
