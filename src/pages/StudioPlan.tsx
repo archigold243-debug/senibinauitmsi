@@ -41,13 +41,11 @@ const StudioPlan = () => {
               alt="Architecture Studio Plan"
               className="max-w-full h-auto rounded-lg shadow-md"
             />
-            {/* Render all room labels with position */}
+            {/* Render all room labels with location */}
             {rooms.map((room) => {
-              // Skip rooms without position data
-              if (!room.position) return null;
-              // Use position data for 2D layout (assuming first two coordinates)
-              const left = `${(room.position[0] + 10) * 5}%`; // Convert 3D position to percentage
-              const top = `${(room.position[2] + 10) * 5}%`;
+              // Expecting location as "left%,top%" e.g. "50%,81%"
+              if (!room.location) return null;
+              const [left, top] = room.location.split(",");
               return (
                 <span
                   key={room.roomID}
