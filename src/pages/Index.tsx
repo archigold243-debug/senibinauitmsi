@@ -93,6 +93,10 @@ const Index = () => {
                     </a>
                   </Button>
                 </div>
+                {/* 3D ModelViewer inserted here to fill the gap */}
+                <div className="w-full max-w-3xl mx-auto mt-10 mb-4 bg-card rounded-lg shadow-lg p-4 flex justify-center items-center min-h-[350px]">
+                  <ModelViewer modelSrc="Annex1.glb" />
+                </div>
               </div>
             </div>
           </section>
@@ -101,26 +105,8 @@ const Index = () => {
           <section className="py-8">
             <div className="container mx-auto px-4 text-center">
               <div className="inline-flex items-center gap-3 bg-gradient-to-r from-primary/10 to-secondary/10 px-6 py-4 rounded-full border">
-                <div className="text-lg font-semibold">Total Visitors Today:</div>
+                <div className="text-lg font-semibold">Total Visitors Since website created:</div>
                 <div className="text-2xl font-bold text-primary">{visitorCount === null ? '...' : visitorCount}</div>
-              </div>
-            </div>
-          </section>
-
-          {/* 3D Model Overview */}
-          <section className="py-16 bg-secondary/5">
-            <div className="container mx-auto px-4">
-              <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-light tracking-tight mb-4">Building Overview</h2>
-                <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                  Explore our interactive 3D model of the building. Use your mouse to rotate and zoom.
-                </p>
-              </div>
-              <div className="bg-card rounded-lg shadow-lg p-4">
-                <ModelViewer modelSrc="Annex1.glb" />
-              </div>
-              <div className="mt-6 text-center text-sm text-muted-foreground">
-                Click and drag to rotate. Use scroll wheel to zoom in and out.
               </div>
             </div>
           </section>
