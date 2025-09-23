@@ -35,7 +35,7 @@ const DynamicHotspots: React.FC<DynamicHotspotsProps> = ({ floor, targetRoomId }
               key={room.roomID}
               title={lecturer.username}
               surname={lecturer.surname}
-              description={Array.isArray(lecturer.expertise) && lecturer.expertise.length > 0 ? lecturer.expertise.join(", ") : (typeof lecturer.expertise === 'string' && lecturer.expertise ? lecturer.expertise : "Lecturer")}
+              email={lecturer.email}
               position="right"
               modelPosition={position}
               imageSrc={lecturer.photo_url}
@@ -51,7 +51,6 @@ const DynamicHotspots: React.FC<DynamicHotspotsProps> = ({ floor, targetRoomId }
           <HoverDetails
             key={room.roomID}
             title={room.room_name}
-            description={room.description || ''}
             position="right"
             modelPosition={position}
             roomID={room.roomID}

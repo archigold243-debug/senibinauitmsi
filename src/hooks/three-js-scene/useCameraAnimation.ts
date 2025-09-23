@@ -13,7 +13,7 @@ export function focusCameraOnPosition(
   controls: OrbitControls | null,
   target: [number, number, number],
   desiredDistance: number = 38,
-  yOffset: number = 10,
+  yOffset: number = 20,
   durationMs: number = 850,
   onComplete?: () => void
 ) {

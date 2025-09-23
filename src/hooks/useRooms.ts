@@ -4,7 +4,6 @@ import { supabase } from '@/lib/supabaseClient';
 export interface Room {
   roomID: string;
   room_name: string;
-  description?: string;
   floor?: string;
   position?: [number, number, number];
   room_type?: string;
@@ -16,6 +15,7 @@ export interface UserCredential {
   username?: string;
   surname?: string;
   photo_url?: string;
+  email?: string;
   expertise?: string | string[];
   roomID?: string; // for compatibility
   floor?: string; // floor information
@@ -43,7 +43,7 @@ export const useRooms = () => {
         // Fetch lecturers from user_credentials with proper field mapping
         const { data: lecturersData, error: lecturersError } = await supabase
           .from('user_credentials')
-          .select('id, title, username, surname, photo_url, roomID, floor, lecturer_expertise:lecturer_expertise(expertise_id)');
+          .select('id, title, username, surname, photo_url, roomID, floor, email, lecturer_expertise:lecturer_expertise(expertise_id)');
 
         if (lecturersError) {
           throw lecturersError;

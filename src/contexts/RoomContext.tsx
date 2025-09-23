@@ -4,7 +4,6 @@ import { useRooms, Room, UserCredential } from '@/hooks/useRooms';
 interface RoomData {
   id: string;
   currentName: string;
-  description: string;
   floor: string;
   position: [number, number, number];
 }
@@ -16,6 +15,7 @@ interface LecturerData {
   photo_url: string;
   floor: string;
   roomID: string;
+  email: string;
   expertise?: string | string[];
   title?: string;
 }
@@ -49,7 +49,6 @@ export const useRoomContext = () => {
 const convertRoomToRoomData = (room: Room): RoomData => ({
   id: room.roomID,
   currentName: room.room_name,
-  description: room.description || '',
   floor: room.floor || '',
   position: room.position || [0, 0, 0],
 });
@@ -62,7 +61,7 @@ const convertUserToLecturer = (user: UserCredential): LecturerData => ({
   photo_url: user.photo_url || '',
   floor: user.floor || '',
   roomID: user.roomID || '',
-  expertise: user.expertise,
+  email: user.email || '',
   title: user.title || '',
 });
 
@@ -160,6 +159,7 @@ export const RoomProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           surname: updates.surname,
           photo_url: updates.photo_url,
           floor: updates.floor,
+          email: updates.email,
           roomID: updates.roomID,
         })
         .eq('id', lecturerIdAsNumber) // Use the parsed number ID here

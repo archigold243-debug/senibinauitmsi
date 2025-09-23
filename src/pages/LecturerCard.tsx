@@ -7,6 +7,7 @@ interface LecturerCardProps {
   displayName: string;
   surname: string;
   floor: string;
+  email: string;
   roomID: string;
   onClick: (floor: string, roomID: string) => void;
   loadingPriority?: boolean;
@@ -18,6 +19,7 @@ const LecturerCard: React.FC<LecturerCardProps> = ({
   surname,
   floor,
   roomID,
+  email,
   onClick,
   loadingPriority = false,
 }) => {

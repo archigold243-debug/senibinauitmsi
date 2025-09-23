@@ -21,7 +21,9 @@ const SecondFloor = () => {
     if (targetRoomId && modelViewerRef.current) {
       setTimeout(() => {
         modelViewerRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 120);
+      // Offset scroll by -80px (adjust as needed for your header height)
+      window.scrollBy({ top: -80, left: 0, behavior: "smooth" });
+    }, 120);
     }
   }, [targetRoomId]);
 
