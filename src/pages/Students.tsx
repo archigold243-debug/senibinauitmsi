@@ -48,10 +48,10 @@ const Students = () => {
     },
     {
       id: 7,
-      title: 'Sester 08',
+      title: 'Semester 08',
       description: 'Student work showcase',
       driveLink: 'https://drive.google.com/drive/folders/1SMXxhXnSuBJU8nRbycO20AljvqDw_3Sw?usp=drive_link',
-      thumbnail: '/placeholder.svg'
+      thumbnail: 'public/Screenshot 2025-09-29 155028.png'
     }
   ];
 
