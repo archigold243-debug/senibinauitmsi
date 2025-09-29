@@ -6,7 +6,7 @@ interface HoverDetailsProps {
   y?: number;
   title: string;
   surname?: string;
-  email?: string;
+  email: string;
   imageSrc?: string;
   position?: 'right' | 'left' | 'top' | 'bottom';
   className?: string;

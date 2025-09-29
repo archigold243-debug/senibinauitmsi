@@ -13,7 +13,6 @@ import { RoomProvider } from '@/contexts/RoomContext';
 import './App.css';
 import Lecturers from '@/pages/Lecturers';
 import StudioPlan from '@/pages/StudioPlan';
-import Students from '@/pages/Students';
 
 const queryClient = new QueryClient();
 
@@ -30,7 +29,6 @@ function App() {
             <Route path="/third-floor" element={<ThirdFloor />} />
             <Route path="/fourth-floor" element={<FourthFloor />} />
             <Route path="/lecturers" element={<Lecturers />} />
-            <Route path="/students" element={<Students />} />
             <Route path="/studio-plan" element={<StudioPlan />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="*" element={<NotFound />} />
