@@ -16,7 +16,7 @@ const Students = () => {
       title: 'Semester 02',
       description: 'Design AAA450',
       driveLink: 'https://drive.google.com/drive/folders/1VOvWmrZ5xM28IlyQVV7jQ5hq23LDM10G?usp=drive_link',
-      thumbnail: '/placeholder.svg'
+      thumbnail: 'https://drive.google.com/file/d/15F0UjmKxeoK4Jb0Dk0Vt6sKd-wCt0x_0/view?usp=sharing'
     },
     {
       id: 3,
