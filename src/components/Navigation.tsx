@@ -17,6 +17,7 @@ const Navigation: React.FC = () => {
   const mainRoutes = [
     { name: 'Overview', path: '/' },
     { name: 'Lecturers', path: '/lecturers' },
+    { name: 'Students', path: '/students' },
     { name: 'Studio Plan', path: '/studio-plan' },
     { name: 'Admin', path: '/admin' },
   ];
