@@ -63,6 +63,7 @@ const convertUserToLecturer = (user: UserCredential): LecturerData => ({
   roomID: user.roomID || '',
   email: user.email || '',
   title: user.title || '',
+  expertise: user.expertise || [],
 });
 
 export const RoomProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
