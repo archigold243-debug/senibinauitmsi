@@ -21,15 +21,9 @@ const Lecturers: React.FC = () => {
       setFilteredLecturers(lecturers);
     } else {
       setFilteredLecturers(
-        lecturers.filter(lect => {
-          // Support array, string, or comma-separated string for expertise
-          let expertise = lect.expertise || [];
-          if (typeof expertise === 'string') {
-            expertise = expertise.split(',').map(e => e.trim());
-          }
-          // Compare expertise IDs as strings
-          return Array.isArray(expertise) && expertise.map(String).includes(selectedExpertise);
-        })
+        lecturers.filter(lect =>
+          Array.isArray(lect.expertise) && lect.expertise.map(String).includes(selectedExpertise)
+        )
       );
     }
   }, [selectedExpertise, lecturers]);
@@ -51,28 +45,6 @@ const Lecturers: React.FC = () => {
       default: return '/';
     }
   } 
-
-  useEffect(() => {
-    if (search.trim() === '') {
-      setResults([]);
-      return;
-    }
-    setLoading(true);
-    const fetchResults = async () => {
-      const { data, error } = await supabase
-        .from('academic_advisor')
-        .select('"Student Name", "Academic Advisor"')
-        .ilike('Student Name', `%${search}%`);
-      if (!error && data) {
-        setResults(data);
-      } else {
-        setResults([]);
-      }
-      setLoading(false);
-    };
-    const timeout = setTimeout(fetchResults, 300); // debounce
-    return () => clearTimeout(timeout);
-  }, [search]);
 
   if (lecturersLoading) return (
     <div className="container mx-auto px-4 py-8">
