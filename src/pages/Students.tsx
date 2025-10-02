@@ -129,7 +129,7 @@ const Students = () => {
             className="w-40 h-40 object-contain mb-4 border rounded-lg shadow"
           />
           <div className="text-lg font-medium text-center text-muted-foreground">
-            Scan this QR code to search for your Academic Advisor
+            Scan this QR code to search for your Academic Advisor, this qr only work for UiTM Perak architectural students only.
           </div>
         </div>
 
