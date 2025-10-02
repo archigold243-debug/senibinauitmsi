@@ -21,9 +21,15 @@ const Lecturers: React.FC = () => {
       setFilteredLecturers(lecturers);
     } else {
       setFilteredLecturers(
-        lecturers.filter(lect =>
-          Array.isArray(lect.expertise) && lect.expertise.map(String).includes(selectedExpertise)
-        )
+        lecturers.filter(lect => {
+          let expertise = lect.expertise || [];
+          console.log('lect.expertise:', expertise, 'selectedExpertise:', selectedExpertise);
+          if (typeof expertise === 'string') {
+            expertise = expertise.split(',').map(e => e.trim());
+          }
+          console.log('Mapped expertise:', expertise.map(String));
+          return Array.isArray(expertise) && expertise.map(String).includes(selectedExpertise);
+        })
       );
     }
   }, [selectedExpertise, lecturers]);
