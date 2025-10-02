@@ -121,6 +121,18 @@ const Students = () => {
           </p>
         </div>
 
+        {/* QR Invite Section */}
+        <div className="flex flex-col items-center justify-center mb-12">
+          <img
+            src="/qr-academic-advisor.png"
+            alt="Scan to search Academic Advisor"
+            className="w-40 h-40 object-contain mb-4 border rounded-lg shadow"
+          />
+          <div className="text-lg font-medium text-center text-muted-foreground">
+            Scan this QR code to search for your Academic Advisor
+          </div>
+        </div>
+
         {/* Degree Section */}
         <section className="mb-16">
           <div className="mb-8">
