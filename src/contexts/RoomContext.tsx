@@ -8,7 +8,7 @@ interface RoomData {
   position: [number, number, number];
 }
 
-interface LecturerData {
+export interface LecturerData {
   id: string;
   username: string;
   surname: string;
