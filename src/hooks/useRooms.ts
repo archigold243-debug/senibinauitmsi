@@ -7,6 +7,7 @@ export interface Room {
   floor?: string;
   position?: [number, number, number];
   room_type?: string;
+  location?: string;
 }
 
 export interface UserCredential {

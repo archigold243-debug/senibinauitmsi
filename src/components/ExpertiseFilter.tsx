@@ -23,7 +23,9 @@ const ExpertiseFilter: React.FC<ExpertiseFilterProps> = ({ onChange }) => {
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
     setSelectedExpertise(value);
-    onChange(value); // pass selected expertise ID to parent component
+    // Find the label for the selected ID and pass it to parent for filtering
+    const selectedOption = EXPERTISE_OPTIONS.find(opt => opt.id === value);
+    onChange(selectedOption ? selectedOption.label : '');
   };
 
   const selectedOption = EXPERTISE_OPTIONS.find(opt => opt.id === selectedExpertise);
