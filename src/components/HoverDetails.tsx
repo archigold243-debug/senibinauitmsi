@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 
-interface HoverDetailsProps {
+export interface HoverDetailsProps {
   x?: number;
   y?: number;
   title: string;
   surname?: string;
-  email: string;
+  email?: string;
   imageSrc?: string;
   position?: 'right' | 'left' | 'top' | 'bottom';
   className?: string;
