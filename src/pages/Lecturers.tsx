@@ -151,93 +151,105 @@ const Lecturers: React.FC = () => {
             ))}
           </div>
 
-          {/* Detailed Lecturer Card */}
+          {/* Overlay + Detailed Lecturer Card */}
           {selectedLecturer && (
-            <div ref={detailRef} className="mt-10 bg-white rounded-2xl shadow-xl p-6 border border-border">
-              <div className="flex justify-between items-start mb-4">
-                <h2 className="text-xl font-semibold text-foreground">Lecturer Details</h2>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={handleCloseDetail}
-                  className="text-muted-foreground hover:text-foreground"
-                >
-                  <X className="h-5 w-5" />
-                </Button>
-              </div>
+            <>
+              {/* Dark overlay - 60% opacity */}
+              <div 
+                className="fixed inset-0 bg-black/60 z-40"
+                onClick={handleCloseDetail}
+              />
               
-              <div className="flex flex-col md:flex-row gap-6">
-                <div className="w-36 h-48 flex-shrink-0">
-                  <img
-                    src={selectedLecturer.photo_url?.startsWith('http') ? selectedLecturer.photo_url : `/${selectedLecturer.photo_url}`}
-                    alt={selectedLecturer.username}
-                    className="w-full h-full object-cover rounded-xl border border-muted shadow-sm"
-                  />
+              {/* Detail card - positioned above overlay */}
+              <div 
+                ref={detailRef} 
+                className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 w-full max-w-2xl mx-auto bg-white rounded-2xl shadow-xl p-6 border border-border max-h-[90vh] overflow-y-auto"
+              >
+                <div className="flex justify-between items-start mb-4">
+                  <h2 className="text-xl font-semibold text-foreground">Lecturer Details</h2>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={handleCloseDetail}
+                    className="text-muted-foreground hover:text-foreground"
+                  >
+                    <X className="h-5 w-5" />
+                  </Button>
                 </div>
                 
-                <div className="flex-1 space-y-3">
-                  <div>
-                    <h3 className="text-2xl font-semibold text-foreground">
-                      {selectedLecturer.title ? `${selectedLecturer.title} ` : ''}{selectedLecturer.username}
-                    </h3>
-                    <p className="text-muted-foreground">{selectedLecturer.surname}</p>
+                <div className="flex flex-col md:flex-row gap-6">
+                  <div className="w-36 h-48 flex-shrink-0">
+                    <img
+                      src={selectedLecturer.photo_url?.startsWith('http') ? selectedLecturer.photo_url : `/${selectedLecturer.photo_url}`}
+                      alt={selectedLecturer.username}
+                      className="w-full h-full object-cover rounded-xl border border-muted shadow-sm"
+                    />
                   </div>
                   
-                  <a 
-                    href={`mailto:${selectedLecturer.email}`}
-                    className="flex items-center gap-2 text-primary hover:underline"
-                  >
-                    <Mail className="h-4 w-4" />
-                    {selectedLecturer.email}
-                  </a>
-                  
-                  <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                    <span className="flex items-center gap-1">
-                      <MapPin className="h-4 w-4" />
-                      Room: {selectedLecturer.roomID}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <Building className="h-4 w-4" />
-                      {selectedLecturer.floor}
-                    </span>
-                  </div>
-                  
-                  {/* Expertise Section */}
-                  <div className="pt-3">
-                    <h4 className="font-medium text-foreground mb-2">Areas of Expertise</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {parseExpertise(selectedLecturer.expertise).length > 0 ? (
-                        parseExpertise(selectedLecturer.expertise).map((exp, i) => (
-                          <span
-                            key={i}
-                            className="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium"
-                          >
-                            {exp}
-                          </span>
-                        ))
-                      ) : (
-                        <span className="text-muted-foreground text-sm">No expertise listed</span>
-                      )}
+                  <div className="flex-1 space-y-3">
+                    <div>
+                      <h3 className="text-2xl font-semibold text-foreground">
+                        {selectedLecturer.title ? `${selectedLecturer.title} ` : ''}{selectedLecturer.username}
+                      </h3>
+                      <p className="text-muted-foreground">{selectedLecturer.surname}</p>
                     </div>
-                  </div>
-                  
-                  {/* Action Buttons */}
-                  <div className="flex gap-3 pt-4">
-                    <Button
-                      onClick={() => {
-                        const route = getFloorRoute(selectedLecturer.floor);
-                        navigate(`${route}?room=${selectedLecturer.roomID}`);
-                      }}
+                    
+                    <a 
+                      href={`mailto:${selectedLecturer.email}`}
+                      className="flex items-center gap-2 text-primary hover:underline"
                     >
-                      Go to Room
-                    </Button>
-                    <Button variant="outline" onClick={handleCloseDetail}>
-                      Done
-                    </Button>
+                      <Mail className="h-4 w-4" />
+                      {selectedLecturer.email}
+                    </a>
+                    
+                    <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                      <span className="flex items-center gap-1">
+                        <MapPin className="h-4 w-4" />
+                        Room: {selectedLecturer.roomID}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Building className="h-4 w-4" />
+                        {selectedLecturer.floor}
+                      </span>
+                    </div>
+                    
+                    {/* Expertise Section */}
+                    <div className="pt-3">
+                      <h4 className="font-medium text-foreground mb-2">Areas of Expertise</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {parseExpertise(selectedLecturer.expertise).length > 0 ? (
+                          parseExpertise(selectedLecturer.expertise).map((exp, i) => (
+                            <span
+                              key={i}
+                              className="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium"
+                            >
+                              {exp}
+                            </span>
+                          ))
+                        ) : (
+                          <span className="text-muted-foreground text-sm">No expertise listed</span>
+                        )}
+                      </div>
+                    </div>
+                    
+                    {/* Action Buttons */}
+                    <div className="flex gap-3 pt-4">
+                      <Button
+                        onClick={() => {
+                          const route = getFloorRoute(selectedLecturer.floor);
+                          navigate(`${route}?room=${selectedLecturer.roomID}`);
+                        }}
+                      >
+                        Go to Room
+                      </Button>
+                      <Button variant="outline" onClick={handleCloseDetail}>
+                        Done
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </>
           )}
         </div>
       </div>
