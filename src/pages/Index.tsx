@@ -9,6 +9,7 @@ import { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 import { useRoomContext } from '@/contexts/RoomContext';
 import { ExternalLink, Users, Building2 } from 'lucide-react';
+import AnnouncementsSection from '@/components/AnnouncementsSection';
 
 const floors = [
   { name: 'Ground Floor', path: '/ground-floor', description: 'Entrance, Master Studios, Studios, Classroom, Lab and Lecturer Offices' },
@@ -59,7 +60,7 @@ const Index = () => {
         {/* Main Content */}
         <div className="lg:col-span-3">
           {/* Hero Section */}
-          <section className="relative min-h-screen bg-gradient-to-br from-primary/20 via-background to-secondary/20 overflow-hidden">
+          <section className="relative bg-gradient-to-br from-primary/20 via-background to-secondary/20 overflow-hidden">
             <div className="relative container mx-auto px-4 py-20 text-center">
               <div className="max-w-4xl mx-auto space-y-8">
                 <h1 className="text-5xl md:text-7xl font-normal tracking-tight">
@@ -69,30 +70,7 @@ const Index = () => {
                 <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
                   Explore our activities, facilities, students work and roam around our building in 3D.
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up" style={{ animationDelay: '300ms' }}>
-                    <Link to={getRoomLink('ap1-234')} className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary/90 transition-colors">
-                      {roomDisplayNames['ap1-234']}
-                    </Link>
-                    <Link to={getRoomLink('ap1-231')} className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary/90 transition-colors">
-                      {roomDisplayNames['ap1-231']}
-                    </Link>
-                    <Link to={getRoomLink('ap1-132')} className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary/90 transition-colors">
-                      {roomDisplayNames['ap1-132']}
-                    </Link>
-                  </div>
-                  <Button asChild variant="outline" size="lg" className="text-lg px-8 py-6">
-                    <a
-                      href="https://maps.google.com/?q=Architecture+School+Annex+1"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <ExternalLink className="w-5 h-5 mr-2" />
-                      Our location 
-                    </a>
-                  </Button>
-                </div>
-                {/* 3D ModelViewer inserted here to fill the gap */}
+                {/* 3D ModelViewer */}
                 <div className="text-center mb-12">
                   <h2 className="text-3xl md:text-4xl font-light tracking-tight mb-4">Our Annex 1</h2>
                   <div className="w-full max-w-3xl mx-auto mt-10 mb-4 bg-card rounded-lg shadow-lg p-4 flex justify-center items-center min-h-[350px]">
@@ -102,6 +80,9 @@ const Index = () => {
               </div>
             </div>
           </section>
+
+          {/* Announcements Section */}
+          <AnnouncementsSection />
 
           {/* Visitor Count */}
           <section className="py-8">
@@ -134,8 +115,41 @@ const Index = () => {
           </section>
         </div>
 
-        {/* Instagram Feed Sidebar */}
-        <div className="lg:col-span-1">
+        {/* Right Sidebar */}
+        <div className="lg:col-span-1 space-y-6">
+          {/* Quick Navigation Buttons */}
+          <div className="p-6 bg-card border rounded-lg shadow-sm space-y-3">
+            <h3 className="text-lg font-semibold mb-4 text-center">Quick Access</h3>
+            <Link 
+              to={getRoomLink('ap1-234')} 
+              className="block w-full text-center px-4 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary/90 transition-colors"
+            >
+              {roomDisplayNames['ap1-234']}
+            </Link>
+            <Link 
+              to={getRoomLink('ap1-231')} 
+              className="block w-full text-center px-4 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary/90 transition-colors"
+            >
+              {roomDisplayNames['ap1-231']}
+            </Link>
+            <Link 
+              to={getRoomLink('ap1-132')} 
+              className="block w-full text-center px-4 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary/90 transition-colors"
+            >
+              {roomDisplayNames['ap1-132']}
+            </Link>
+            <a
+              href="https://maps.google.com/?q=Architecture+School+Annex+1"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 w-full px-4 py-3 border text-base font-medium rounded-md hover:bg-muted transition-colors"
+            >
+              <ExternalLink className="w-4 h-4" />
+              Our Location
+            </a>
+          </div>
+
+          {/* Instagram Feed */}
           <div className="p-6 bg-card border rounded-lg shadow-sm">
             <h3 className="text-lg font-semibold mb-4 text-center">Follow Our Journey</h3>
             <div className="elfsight-app-a590ee74-19ef-423f-932e-b9b0dcfab450" data-elfsight-app-lazy></div>
