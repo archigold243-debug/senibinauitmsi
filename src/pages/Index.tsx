@@ -70,19 +70,21 @@ const Index = () => {
                 <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
                   Explore our activities, facilities, students work and roam around our building in 3D.
                 </p>
-                {/* 3D ModelViewer */}
-                <div className="text-center mb-12">
-                  <h2 className="text-3xl md:text-4xl font-light tracking-tight mb-4">Our Annex 1</h2>
-                  <div className="w-full max-w-3xl mx-auto mt-10 mb-4 bg-card rounded-lg shadow-lg p-4 flex justify-center items-center min-h-[350px]">
-                    <ModelViewer modelSrc="Annex1.glb" />
-                  </div>
-                </div>
+                {/* Announcements Section - Inside Hero */}
+                <AnnouncementsSection />
               </div>
             </div>
           </section>
 
-          {/* Announcements Section */}
-          <AnnouncementsSection />
+          {/* 3D Model Section */}
+          <section className="py-12">
+            <div className="container mx-auto px-4 text-center">
+              <h2 className="text-3xl md:text-4xl font-light tracking-tight mb-4">Our Annex 1</h2>
+              <div className="w-full max-w-3xl mx-auto mt-10 mb-4 bg-card rounded-lg shadow-lg p-4 flex justify-center items-center min-h-[350px]">
+                <ModelViewer modelSrc="Annex1.glb" />
+              </div>
+            </div>
+          </section>
 
           {/* Visitor Count */}
           <section className="py-8">
