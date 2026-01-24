@@ -5,17 +5,38 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { toast } from 'sonner';
-import { useAnnouncements } from '@/hooks/useAnnouncements';
-import { Trash2, Plus, Megaphone } from 'lucide-react';
+import { useAnnouncements, Announcement } from '@/hooks/useAnnouncements';
+import { Trash2, Plus, Megaphone, Pencil, X } from 'lucide-react';
 import { format } from 'date-fns';
 
 const AnnouncementAdminPanel: React.FC = () => {
-  const { announcements, addAnnouncement, deleteAnnouncement, isAdding, isDeleting } = useAnnouncements();
+  const { announcements, addAnnouncement, deleteAnnouncement, updateAnnouncement, isAdding, isDeleting, isUpdating } = useAnnouncements();
   
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [youtubeUrl, setYoutubeUrl] = useState('');
+  const [editingAnnouncement, setEditingAnnouncement] = useState<Announcement | null>(null);
+
+  const resetForm = () => {
+    setTitle('');
+    setDescription('');
+    setImageUrl('');
+    setYoutubeUrl('');
+    setEditingAnnouncement(null);
+  };
+
+  const handleEdit = (announcement: Announcement) => {
+    setEditingAnnouncement(announcement);
+    setTitle(announcement.title);
+    setDescription(announcement.description);
+    setImageUrl(announcement.image_url || '');
+    setYoutubeUrl(announcement.youtube_url || '');
+  };
+
+  const handleCancelEdit = () => {
+    resetForm();
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,20 +47,27 @@ const AnnouncementAdminPanel: React.FC = () => {
     }
 
     try {
-      await addAnnouncement({
-        title: title.trim(),
-        description: description.trim(),
-        image_url: imageUrl.trim() || undefined,
-        youtube_url: youtubeUrl.trim() || undefined,
-      });
-      
-      toast.success('Announcement posted successfully');
-      setTitle('');
-      setDescription('');
-      setImageUrl('');
-      setYoutubeUrl('');
+      if (editingAnnouncement) {
+        await updateAnnouncement({
+          id: editingAnnouncement.id,
+          title: title.trim(),
+          description: description.trim(),
+          image_url: imageUrl.trim() || undefined,
+          youtube_url: youtubeUrl.trim() || undefined,
+        });
+        toast.success('Announcement updated successfully');
+      } else {
+        await addAnnouncement({
+          title: title.trim(),
+          description: description.trim(),
+          image_url: imageUrl.trim() || undefined,
+          youtube_url: youtubeUrl.trim() || undefined,
+        });
+        toast.success('Announcement posted successfully');
+      }
+      resetForm();
     } catch (error) {
-      toast.error('Failed to post announcement');
+      toast.error(editingAnnouncement ? 'Failed to update announcement' : 'Failed to post announcement');
       console.error(error);
     }
   };
@@ -50,23 +78,31 @@ const AnnouncementAdminPanel: React.FC = () => {
     try {
       await deleteAnnouncement(id);
       toast.success('Announcement deleted');
+      if (editingAnnouncement?.id === id) {
+        resetForm();
+      }
     } catch (error) {
       toast.error('Failed to delete announcement');
       console.error(error);
     }
   };
 
+  const isSubmitting = isAdding || isUpdating;
+
   return (
     <div className="space-y-6">
-      {/* Add New Announcement Form */}
+      {/* Add/Edit Announcement Form */}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Megaphone className="w-5 h-5" />
-            Post New Announcement
+            {editingAnnouncement ? 'Edit Announcement' : 'Post New Announcement'}
           </CardTitle>
           <CardDescription>
-            Create a new announcement that will appear on the homepage
+            {editingAnnouncement 
+              ? 'Update the announcement details below'
+              : 'Create a new announcement that will appear on the homepage'
+            }
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -88,7 +124,7 @@ const AnnouncementAdminPanel: React.FC = () => {
                 id="description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                placeholder="Enter announcement details"
+                placeholder="Enter announcement details. You can include URLs and they will be clickable."
                 rows={4}
                 required
               />
@@ -113,14 +149,31 @@ const AnnouncementAdminPanel: React.FC = () => {
                 placeholder="https://www.youtube.com/watch?v=..."
               />
               <p className="text-xs text-muted-foreground">
-                If both image and YouTube URL are provided, YouTube video will be shown
+                If both image and YouTube URL are provided, YouTube video will be shown at the bottom
               </p>
             </div>
             
-            <Button type="submit" disabled={isAdding} className="w-full">
-              <Plus className="w-4 h-4 mr-2" />
-              {isAdding ? 'Posting...' : 'Post Announcement'}
-            </Button>
+            <div className="flex gap-2">
+              <Button type="submit" disabled={isSubmitting} className="flex-1">
+                {editingAnnouncement ? (
+                  <>
+                    <Pencil className="w-4 h-4 mr-2" />
+                    {isUpdating ? 'Updating...' : 'Update Announcement'}
+                  </>
+                ) : (
+                  <>
+                    <Plus className="w-4 h-4 mr-2" />
+                    {isAdding ? 'Posting...' : 'Post Announcement'}
+                  </>
+                )}
+              </Button>
+              {editingAnnouncement && (
+                <Button type="button" variant="outline" onClick={handleCancelEdit}>
+                  <X className="w-4 h-4 mr-2" />
+                  Cancel
+                </Button>
+              )}
+            </div>
           </form>
         </CardContent>
       </Card>
@@ -143,7 +196,9 @@ const AnnouncementAdminPanel: React.FC = () => {
               {announcements.map((announcement) => (
                 <div
                   key={announcement.id}
-                  className="flex items-start justify-between gap-4 p-4 border rounded-lg bg-muted/50"
+                  className={`flex items-start justify-between gap-4 p-4 border rounded-lg bg-muted/50 ${
+                    editingAnnouncement?.id === announcement.id ? 'ring-2 ring-primary' : ''
+                  }`}
                 >
                   <div className="flex-1 min-w-0">
                     <h4 className="font-medium truncate">{announcement.title}</h4>
@@ -164,14 +219,24 @@ const AnnouncementAdminPanel: React.FC = () => {
                       </span>
                     )}
                   </div>
-                  <Button
-                    variant="destructive"
-                    size="icon"
-                    onClick={() => handleDelete(announcement.id)}
-                    disabled={isDeleting}
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </Button>
+                  <div className="flex gap-2">
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={() => handleEdit(announcement)}
+                      disabled={isSubmitting}
+                    >
+                      <Pencil className="w-4 h-4" />
+                    </Button>
+                    <Button
+                      variant="destructive"
+                      size="icon"
+                      onClick={() => handleDelete(announcement.id)}
+                      disabled={isDeleting}
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </Button>
+                  </div>
                 </div>
               ))}
             </div>

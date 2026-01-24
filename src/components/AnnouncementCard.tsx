@@ -13,6 +13,28 @@ const getYouTubeEmbedUrl = (url: string): string | null => {
   return match ? `https://www.youtube.com/embed/${match[1]}` : null;
 };
 
+const renderDescriptionWithLinks = (text: string) => {
+  const urlRegex = /(https?:\/\/[^\s]+)/g;
+  const parts = text.split(urlRegex);
+  
+  return parts.map((part, index) => {
+    if (part.match(urlRegex)) {
+      return (
+        <a
+          key={index}
+          href={part}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-primary underline hover:text-primary/80 transition-colors"
+        >
+          {part}
+        </a>
+      );
+    }
+    return part;
+  });
+};
+
 const AnnouncementCard: React.FC<AnnouncementCardProps> = ({ announcement, isLatest }) => {
   const isMobile = useIsMobile();
   const [mousePosition, setMousePosition] = useState({ x: 50, y: 50 });
@@ -73,12 +95,23 @@ const AnnouncementCard: React.FC<AnnouncementCardProps> = ({ announcement, isLat
         {/* Title */}
         <h3 className="text-xl md:text-2xl font-semibold">{announcement.title}</h3>
 
-        {/* Description */}
+        {/* Image - NOW ABOVE DESCRIPTION (only shown if no YouTube) */}
+        {announcement.image_url && !youtubeEmbedUrl && (
+          <div className="relative w-full rounded-lg overflow-hidden">
+            <img
+              src={announcement.image_url}
+              alt={announcement.title}
+              className="w-full h-auto object-cover rounded-lg"
+            />
+          </div>
+        )}
+
+        {/* Description with clickable links */}
         <p className="text-muted-foreground leading-relaxed whitespace-pre-wrap">
-          {announcement.description}
+          {renderDescriptionWithLinks(announcement.description)}
         </p>
 
-        {/* Media: YouTube or Image */}
+        {/* YouTube - STAYS AT BOTTOM */}
         {youtubeEmbedUrl && (
           <div className="relative w-full aspect-video rounded-lg overflow-hidden">
             <iframe
@@ -87,16 +120,6 @@ const AnnouncementCard: React.FC<AnnouncementCardProps> = ({ announcement, isLat
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
               title={announcement.title}
-            />
-          </div>
-        )}
-
-        {announcement.image_url && !youtubeEmbedUrl && (
-          <div className="relative w-full rounded-lg overflow-hidden">
-            <img
-              src={announcement.image_url}
-              alt={announcement.title}
-              className="w-full h-auto object-cover rounded-lg"
             />
           </div>
         )}

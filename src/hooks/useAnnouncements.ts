@@ -66,13 +66,43 @@ export const useAnnouncements = () => {
     },
   });
 
+  const updateAnnouncementMutation = useMutation({
+    mutationFn: async (announcement: {
+      id: string;
+      title: string;
+      description: string;
+      image_url?: string;
+      youtube_url?: string;
+    }) => {
+      const { data, error } = await supabase
+        .from('Announcement Web')
+        .update({
+          title: announcement.title,
+          description: announcement.description,
+          image_url: announcement.image_url || null,
+          youtube_url: announcement.youtube_url || null,
+        })
+        .eq('id', announcement.id)
+        .select()
+        .single();
+      
+      if (error) throw error;
+      return data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['announcements'] });
+    },
+  });
+
   return {
     announcements,
     isLoading,
     error,
     addAnnouncement: addAnnouncementMutation.mutateAsync,
     deleteAnnouncement: deleteAnnouncementMutation.mutateAsync,
+    updateAnnouncement: updateAnnouncementMutation.mutateAsync,
     isAdding: addAnnouncementMutation.isPending,
     isDeleting: deleteAnnouncementMutation.isPending,
+    isUpdating: updateAnnouncementMutation.isPending,
   };
 };
