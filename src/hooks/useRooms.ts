@@ -21,8 +21,6 @@ export interface UserCredential {
   roomID?: string; // for compatibility
   floor?: string; // floor information
   title?: string;
-  googleScholarUrl?: string;
-  research?: { title: string; link: string }[];
 }
 
 export const useRooms = () => {
@@ -46,11 +44,7 @@ export const useRooms = () => {
         // Fetch lecturers from user_credentials with expertise names through join
         const { data: lecturersData, error: lecturersError } = await supabase
           .from('user_credentials')
-          .select(`
-            id, title, username, surname, photo_url, roomID, floor, email,
-            googleScholarUrl, research,
-            lecturer_expertise(expertise:expertise(name))
-          `);
+          .select('id, title, username, surname, photo_url, roomID, floor, email, lecturer_expertise(expertise:expertise(name))');
 
         if (lecturersError) {
           throw lecturersError;
@@ -79,8 +73,6 @@ export const useRooms = () => {
           expertise: Array.isArray(lecturer.lecturer_expertise)
             ? lecturer.lecturer_expertise.map((ex: any) => ex.expertise?.name).filter(Boolean)
             : [],
-          googleScholarUrl: lecturer.googleScholarUrl || '',
-          research: lecturer.research || [],
         })) || [];
 
         console.log('Fetched rooms from database:', processedRooms);

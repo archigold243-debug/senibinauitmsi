@@ -7,7 +7,6 @@ import { supabase } from '@/lib/supabaseClient';
 import ExpertiseFilter from '@/components/ExpertiseFilter';
 import Layout from '@/components/Layout';
 import { Mail, MapPin, Building, X } from 'lucide-react';
-import scholarIcon from '@/public/images/google-scholar-icon.png'; // Add the icon to your public/images folder
 
 const Lecturers: React.FC = () => {
   const navigate = useNavigate();
@@ -49,23 +48,8 @@ const Lecturers: React.FC = () => {
     }
   };
 
-  const fetchResearchDetails = async (googleScholarUrl: string) => {
-    try {
-      const response = await fetch(`/api/fetch-research?url=${encodeURIComponent(googleScholarUrl)}`);
-      if (!response.ok) throw new Error('Failed to fetch research details');
-      return await response.json();
-    } catch (error) {
-      console.error(error);
-      return [];
-    }
-  };
-
-  const handleLecturerClick = async (lect: LecturerData) => {
+  const handleLecturerClick = (lect: LecturerData) => {
     setSelectedLecturer(lect);
-    if (lect.googleScholarUrl) {
-      const research = await fetchResearchDetails(lect.googleScholarUrl);
-      setSelectedLecturer({ ...lect, research });
-    }
     setTimeout(() => {
       detailRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 100);
@@ -248,44 +232,6 @@ const Lecturers: React.FC = () => {
                       </div>
                     </div>
                     
-                    {/* Google Scholar Profile Link */}
-                    {selectedLecturer.googleScholarUrl && (
-                      <a
-                        href={selectedLecturer.googleScholarUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 text-primary hover:underline"
-                      >
-                        <img
-                          src={scholarIcon}
-                          alt="Google Scholar"
-                          className="h-6 w-6 object-contain"
-                        />
-                        Google Scholar
-                      </a>
-                    )}
-
-                    {/* Research Publications */}
-                    {selectedLecturer.research && selectedLecturer.research.length > 0 && (
-                      <div className="pt-3">
-                        <h4 className="font-medium text-foreground mb-2">Research Publications</h4>
-                        <ul className="list-disc pl-5 space-y-1">
-                          {selectedLecturer.research.map((paper, index) => (
-                            <li key={index} className="text-sm text-muted-foreground">
-                              <a
-                                href={paper.link}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-primary hover:underline"
-                              >
-                                {paper.title}
-                              </a>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-
                     {/* Action Buttons */}
                     <div className="flex gap-3 pt-4">
                       <Button
