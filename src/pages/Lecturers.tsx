@@ -233,6 +233,42 @@ const Lecturers: React.FC = () => {
                     </div>
                     
                     {/* Action Buttons */}
+                    {selectedLecturer.googleScholarUrl && (
+                      <div className="pt-3">
+                        <a
+                          href={selectedLecturer.googleScholarUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2"
+                        >
+                          <img
+                            src="/images/google-scholar-icon.png"
+                            alt="Google Scholar"
+                            className="h-6 w-6 object-contain"
+                          />
+                        </a>
+                      </div>
+                    )}
+
+                    {selectedLecturer.research && selectedLecturer.research.length > 0 && (
+                      <div className="pt-3">
+                        <h4 className="font-medium text-foreground mb-2">Research Publications</h4>
+                        <ul className="list-disc pl-5 space-y-1">
+                          {selectedLecturer.research.map((paper, idx) => (
+                            <li key={idx} className="text-sm text-muted-foreground">
+                              {paper.link ? (
+                                <a href={paper.link} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                                  {paper.title}
+                                </a>
+                              ) : (
+                                <span>{paper.title}</span>
+                              )}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
                     <div className="flex gap-3 pt-4">
                       <Button
                         onClick={() => {
