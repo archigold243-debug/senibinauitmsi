@@ -234,13 +234,14 @@ const Lecturers: React.FC = () => {
                     
                     {/* Action Buttons */}
                     {selectedLecturer.googleScholarUrl && (
-                      <div className="pt-3">
+                      <div className="pt-3 w-full">
                         <a
                           href={selectedLecturer.googleScholarUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2"
+                          className="flex items-center gap-2 text-primary hover:underline"
                         >
+                          <span className="text-sm font-medium text-foreground"> Google Scholar Profile:</span>
                           <img
                             src="/images/google-scholar-icon.png"
                             alt="Google Scholar"
