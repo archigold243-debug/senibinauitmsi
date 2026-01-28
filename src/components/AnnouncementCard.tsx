@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { format } from 'date-fns';
+import { ExternalLink } from 'lucide-react';
 import type { Announcement } from '@/hooks/useAnnouncements';
 
 interface AnnouncementCardProps {
@@ -123,11 +124,24 @@ const AnnouncementCard: React.FC<AnnouncementCardProps> = ({ announcement, isLat
         {/* Image - NOW ABOVE DESCRIPTION (only shown if no YouTube) */}
         {announcement.image_url && !youtubeEmbedUrl && (
           <div className="relative w-full rounded-lg overflow-hidden">
-            <img
-              src={announcement.image_url}
-              alt={announcement.title}
-              className="w-full h-auto object-cover rounded-lg"
-            />
+            {announcement.instagram_url ? (
+              <a href={announcement.instagram_url} target="_blank" rel="noopener noreferrer" className="block relative">
+                <img
+                  src={announcement.image_url}
+                  alt={announcement.title}
+                  className="w-full h-auto object-cover rounded-lg"
+                />
+                <div className="absolute top-3 right-3 bg-white/90 p-1 rounded-full">
+                  <ExternalLink className="w-4 h-4 text-primary" />
+                </div>
+              </a>
+            ) : (
+              <img
+                src={announcement.image_url}
+                alt={announcement.title}
+                className="w-full h-auto object-cover rounded-lg"
+              />
+            )}
           </div>
         )}
 

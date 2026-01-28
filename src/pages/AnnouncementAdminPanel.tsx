@@ -17,6 +17,7 @@ const AnnouncementAdminPanel: React.FC = () => {
   const [description, setDescription] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [youtubeUrl, setYoutubeUrl] = useState('');
+  const [instagramUrl, setInstagramUrl] = useState('');
   const [audience, setAudience] = useState<string[]>([]);
   const [editingAnnouncement, setEditingAnnouncement] = useState<Announcement | null>(null);
 
@@ -25,6 +26,7 @@ const AnnouncementAdminPanel: React.FC = () => {
     setDescription('');
     setImageUrl('');
     setYoutubeUrl('');
+    setInstagramUrl('');
     setAudience([]);
     setEditingAnnouncement(null);
   };
@@ -35,6 +37,7 @@ const AnnouncementAdminPanel: React.FC = () => {
     setDescription(announcement.description);
     setImageUrl(announcement.image_url || '');
     setYoutubeUrl(announcement.youtube_url || '');
+    setInstagramUrl(announcement.instagram_url || '');
     setAudience(announcement.audience ?? []);
   };
 
@@ -58,6 +61,7 @@ const AnnouncementAdminPanel: React.FC = () => {
           description: description.trim(),
           image_url: imageUrl.trim() || undefined,
           youtube_url: youtubeUrl.trim() || undefined,
+          instagram_url: instagramUrl.trim() || undefined,
           audience: audience.length > 0 ? audience : undefined,
         });
         toast.success('Announcement updated successfully');
@@ -67,6 +71,7 @@ const AnnouncementAdminPanel: React.FC = () => {
           description: description.trim(),
           image_url: imageUrl.trim() || undefined,
           youtube_url: youtubeUrl.trim() || undefined,
+          instagram_url: instagramUrl.trim() || undefined,
           audience: audience.length > 0 ? audience : undefined,
         });
         toast.success('Announcement posted successfully');
@@ -163,6 +168,19 @@ For links:
               />
               <p className="text-xs text-muted-foreground">
                 If both image and YouTube URL are provided, YouTube video will be shown at the bottom
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="instagramUrl">Instagram Post URL (optional)</Label>
+              <Input
+                id="instagramUrl"
+                value={instagramUrl}
+                onChange={(e) => setInstagramUrl(e.target.value)}
+                placeholder="https://www.instagram.com/p/POST_ID/"
+              />
+              <p className="text-xs text-muted-foreground">
+                Optional link to the Instagram post for the image. If provided, the announcement image will link to the Instagram post.
               </p>
             </div>
 
@@ -266,6 +284,9 @@ For links:
                         <span className="inline-block text-xs bg-blue-100 text-blue-800 px-2 py-0.5 rounded">Students</span>
                       )}
                     </div>
+                    {announcement.instagram_url && (
+                      <span className="inline-block mt-1 text-xs bg-pink-100 text-pink-700 px-2 py-0.5 rounded">Instagram</span>
+                    )}
                     {announcement.youtube_url && (
                       <span className="inline-block mt-1 text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded">
                         YouTube

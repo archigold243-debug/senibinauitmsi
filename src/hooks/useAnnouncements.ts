@@ -8,6 +8,7 @@ export interface Announcement {
   image_url: string | null;
   youtube_url: string | null;
   audience?: string[] | null;
+  instagram_url?: string | null;
   created_at: string;
 }
 
@@ -33,6 +34,7 @@ export const useAnnouncements = () => {
       description: string;
       image_url?: string;
       youtube_url?: string;
+      instagram_url?: string;
       audience?: string[];
     }) => {
       const { data, error } = await supabase
@@ -42,6 +44,7 @@ export const useAnnouncements = () => {
           description: announcement.description,
           image_url: announcement.image_url || null,
           youtube_url: announcement.youtube_url || null,
+          instagram_url: announcement.instagram_url || null,
           audience: announcement.audience || null,
         }])
         .select()
@@ -76,6 +79,7 @@ export const useAnnouncements = () => {
       description: string;
       image_url?: string;
       youtube_url?: string;
+      instagram_url?: string;
       audience?: string[];
     }) => {
       const { data, error } = await supabase
@@ -85,6 +89,7 @@ export const useAnnouncements = () => {
           description: announcement.description,
           image_url: announcement.image_url || null,
           youtube_url: announcement.youtube_url || null,
+          instagram_url: announcement.instagram_url || null,
           audience: announcement.audience || null,
         })
         .eq('id', announcement.id)
