@@ -17,7 +17,6 @@ const Students = () => {
       title: 'Semester 02',
       description: 'Design AAA450',
       driveLink: 'https://drive.google.com/drive/folders/1VOvWmrZ5xM28IlyQVV7jQ5hq23LDM10G?usp=drive_link',
-      thumbnail: 'https://drive.google.com/uc?id=15F0UjmKxeoK4Jb0Dk0Vt6sKd-wCt0x_0'
     },
     {
       id: 3,
@@ -54,25 +53,25 @@ const Students = () => {
   const masterSegments = [
     {
       id: 1,
-      title: 'Master Semester 01',
+      title: 'Semester 01',
       description: 'Graduate student work',
       driveLink: 'https://drive.google.com/drive/folders/16ep05Ts5vAEYIUKPJDyQxDdZnjILsCdT?usp=drive_link',
     },
     {
       id: 2,
-      title: 'Master Semester 02',
+      title: 'Semester 02',
       description: 'Graduate student work',
       driveLink: 'https://drive.google.com/drive/folders/15fgQETU1tlza6AvltP3EI0WK65AmGKSl?usp=drive_link',
     },
     {
       id: 3,
-      title: 'Master Semester 03',
+      title: 'Semester 03',
       description: 'Graduate student work',
       driveLink: 'https://drive.google.com/drive/folders/1-gjCsY88dLrgHwjwP0usBk2KDe21JgkN?usp=drive_link',
     },
     {
       id: 4,
-      title: 'Master Semester 04',
+      title: 'Semester 04',
       description: 'Graduate student work',
       driveLink: 'https://drive.google.com/drive/folders/1xk9EAokPmCwVJt8GLWDjiemLNw2N5R2F?usp=drive_link',
     }
@@ -82,7 +81,7 @@ const Students = () => {
     <Card className="group cursor-pointer hover:shadow-lg transition-all duration-300">
       <CardHeader className="flex items-start justify-between p-4">
         <div>
-          <CardTitle className="text-lg">
+          <CardTitle className="text-lg flex items-baseline gap-1">
             <a href={segment.driveLink} target="_blank" rel="noopener noreferrer" className="hover:underline">
               {segment.title}
             </a>
