@@ -109,7 +109,7 @@ const Lecturers: React.FC = () => {
         <div className="max-w-3xl mx-auto">
           {/* Header */}
           <div className="mb-8">
-            <h1 className="text-3xl md:text-4xl font-light mb-2">Lecturers Room Directory</h1>
+            <h1 className="text-3xl md:text-4xl font-light mb-2">Lecturers Directory</h1>
             <p className="text-lg text-muted-foreground">
               Click on a lecturer to view their details and expertise.
             </p>
