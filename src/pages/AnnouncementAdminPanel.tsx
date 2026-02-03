@@ -10,7 +10,11 @@ import { useAnnouncements, Announcement } from '@/hooks/useAnnouncements';
 import { Trash2, Plus, Megaphone, Pencil, X } from 'lucide-react';
 import { format } from 'date-fns';
 
-const AnnouncementAdminPanel: React.FC = () => {
+interface AnnouncementAdminPanelProps {
+  role?: 'admin' | 'archisa';
+}
+
+const AnnouncementAdminPanel: React.FC<AnnouncementAdminPanelProps> = ({ role = 'admin' }) => {
   const { announcements, addAnnouncement, deleteAnnouncement, updateAnnouncement, isAdding, isDeleting, isUpdating } = useAnnouncements();
   
   const [title, setTitle] = useState('');
@@ -18,8 +22,13 @@ const AnnouncementAdminPanel: React.FC = () => {
   const [imageUrl, setImageUrl] = useState('');
   const [youtubeUrl, setYoutubeUrl] = useState('');
   const [instagramUrl, setInstagramUrl] = useState('');
-  const [audience, setAudience] = useState<string[]>([]);
+  const [audience, setAudience] = useState<string[]>(role === 'archisa' ? ['students'] : []);
   const [editingAnnouncement, setEditingAnnouncement] = useState<Announcement | null>(null);
+
+  // Filter announcements based on role
+  const filteredAnnouncements = role === 'archisa'
+    ? announcements.filter(a => a.posted_by === 'archisa')
+    : announcements;
 
   const resetForm = () => {
     setTitle('');
@@ -27,7 +36,7 @@ const AnnouncementAdminPanel: React.FC = () => {
     setImageUrl('');
     setYoutubeUrl('');
     setInstagramUrl('');
-    setAudience([]);
+    setAudience(role === 'archisa' ? ['students'] : []);
     setEditingAnnouncement(null);
   };
 
@@ -38,7 +47,7 @@ const AnnouncementAdminPanel: React.FC = () => {
     setImageUrl(announcement.image_url || '');
     setYoutubeUrl(announcement.youtube_url || '');
     setInstagramUrl(announcement.instagram_url || '');
-    setAudience(announcement.audience ?? []);
+    setAudience(role === 'archisa' ? ['students'] : (announcement.audience ?? []));
   };
 
   const handleCancelEdit = () => {
@@ -53,6 +62,9 @@ const AnnouncementAdminPanel: React.FC = () => {
       return;
     }
 
+    // Determine the audience based on role
+    const finalAudience = role === 'archisa' ? ['students'] : (audience.length > 0 ? audience : undefined);
+
     try {
       if (editingAnnouncement) {
         await updateAnnouncement({
@@ -62,7 +74,8 @@ const AnnouncementAdminPanel: React.FC = () => {
           image_url: imageUrl.trim() || undefined,
           youtube_url: youtubeUrl.trim() || undefined,
           instagram_url: instagramUrl.trim() || undefined,
-          audience: audience.length > 0 ? audience : undefined,
+          audience: finalAudience,
+          posted_by: role,
         });
         toast.success('Announcement updated successfully');
       } else {
@@ -72,7 +85,8 @@ const AnnouncementAdminPanel: React.FC = () => {
           image_url: imageUrl.trim() || undefined,
           youtube_url: youtubeUrl.trim() || undefined,
           instagram_url: instagramUrl.trim() || undefined,
-          audience: audience.length > 0 ? audience : undefined,
+          audience: finalAudience,
+          posted_by: role,
         });
         toast.success('Announcement posted successfully');
       }
@@ -112,7 +126,9 @@ const AnnouncementAdminPanel: React.FC = () => {
           <CardDescription>
             {editingAnnouncement 
               ? 'Update the announcement details below'
-              : 'Create a new announcement that will appear on the homepage'
+              : role === 'archisa'
+                ? 'Create a new announcement for students'
+                : 'Create a new announcement that will appear on the homepage'
             }
           </CardDescription>
         </CardHeader>
@@ -184,39 +200,51 @@ For links:
               </p>
             </div>
 
-            <div className="space-y-2">
-              <Label>Target Audience</Label>
-              <div className="flex items-center gap-4">
-                <label className="flex items-center gap-2">
-                  <Checkbox
-                    checked={audience.includes('students')}
-                    onCheckedChange={(val) => {
-                      const checked = !!val;
-                      setAudience((prev) => {
-                        if (checked) return Array.from(new Set([...prev, 'students']));
-                        return prev.filter((p) => p !== 'students');
-                      });
-                    }}
-                  />
-                  <span>Students</span>
-                </label>
+            {/* Only show audience selection for admin role */}
+            {role === 'admin' && (
+              <div className="space-y-2">
+                <Label>Target Audience</Label>
+                <div className="flex items-center gap-4">
+                  <label className="flex items-center gap-2">
+                    <Checkbox
+                      checked={audience.includes('students')}
+                      onCheckedChange={(val) => {
+                        const checked = !!val;
+                        setAudience((prev) => {
+                          if (checked) return Array.from(new Set([...prev, 'students']));
+                          return prev.filter((p) => p !== 'students');
+                        });
+                      }}
+                    />
+                    <span>Students</span>
+                  </label>
 
-                <label className="flex items-center gap-2">
-                  <Checkbox
-                    checked={audience.includes('public')}
-                    onCheckedChange={(val) => {
-                      const checked = !!val;
-                      setAudience((prev) => {
-                        if (checked) return Array.from(new Set([...prev, 'public']));
-                        return prev.filter((p) => p !== 'public');
-                      });
-                    }}
-                  />
-                  <span>Public</span>
-                </label>
+                  <label className="flex items-center gap-2">
+                    <Checkbox
+                      checked={audience.includes('public')}
+                      onCheckedChange={(val) => {
+                        const checked = !!val;
+                        setAudience((prev) => {
+                          if (checked) return Array.from(new Set([...prev, 'public']));
+                          return prev.filter((p) => p !== 'public');
+                        });
+                      }}
+                    />
+                    <span>Public</span>
+                  </label>
+                </div>
+                <p className="text-xs text-muted-foreground">If none selected, announcement will default to public (homepage).</p>
               </div>
-              <p className="text-xs text-muted-foreground">If none selected, announcement will default to public (homepage).</p>
-            </div>
+            )}
+
+            {/* Show info for archisa role */}
+            {role === 'archisa' && (
+              <div className="p-3 bg-muted rounded-lg">
+                <p className="text-sm text-muted-foreground">
+                  📢 Your announcements will be visible on the <strong>Students</strong> page.
+                </p>
+              </div>
+            )}
             
             <div className="flex gap-2">
               <Button type="submit" disabled={isSubmitting} className="flex-1">
@@ -246,19 +274,23 @@ For links:
       {/* Existing Announcements */}
       <Card>
         <CardHeader>
-          <CardTitle>Existing Announcements</CardTitle>
+          <CardTitle>
+            {role === 'archisa' ? 'Your Announcements' : 'Existing Announcements'}
+          </CardTitle>
           <CardDescription>
-            {announcements.length} announcement{announcements.length !== 1 ? 's' : ''} posted
+            {filteredAnnouncements.length} announcement{filteredAnnouncements.length !== 1 ? 's' : ''} {role === 'archisa' ? 'posted by you' : 'posted'}
           </CardDescription>
         </CardHeader>
         <CardContent>
-          {announcements.length === 0 ? (
+          {filteredAnnouncements.length === 0 ? (
             <p className="text-muted-foreground text-center py-8">
-              No announcements yet. Create one above!
+              {role === 'archisa' 
+                ? 'You haven\'t posted any announcements yet. Create one above!'
+                : 'No announcements yet. Create one above!'}
             </p>
           ) : (
             <div className="space-y-4">
-              {announcements.map((announcement) => (
+              {filteredAnnouncements.map((announcement) => (
                 <div
                   key={announcement.id}
                   className={`flex items-start justify-between gap-4 p-4 border rounded-lg bg-muted/50 ${
@@ -273,7 +305,7 @@ For links:
                     <p className="text-xs text-muted-foreground mt-1">
                       Posted on {format(new Date(announcement.created_at), 'MMM d, yyyy')}
                     </p>
-                    <div className="mt-2 flex gap-2">
+                    <div className="mt-2 flex gap-2 flex-wrap">
                       {(!announcement.audience || announcement.audience.length === 0) && (
                         <span className="inline-block text-xs bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded">Public</span>
                       )}
@@ -282,6 +314,11 @@ For links:
                       )}
                       {announcement.audience?.includes('students') && (
                         <span className="inline-block text-xs bg-blue-100 text-blue-800 px-2 py-0.5 rounded">Students</span>
+                      )}
+                      {announcement.posted_by && (
+                        <span className="inline-block text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded">
+                          By: {announcement.posted_by}
+                        </span>
                       )}
                     </div>
                     {announcement.instagram_url && (

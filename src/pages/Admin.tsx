@@ -14,8 +14,11 @@ import StudioAdminPanel from "./StudioAdminPanel";
 import NamedRoomAdminPanel from "./NamedRoomAdminPanel";
 import AnnouncementAdminPanel from "./AnnouncementAdminPanel";
 
+type AdminRole = 'admin' | 'archisa' | null;
+
 const Admin = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userRole, setUserRole] = useState<AdminRole>(null);
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const { studios, namedRooms, updateStudioName, updateRoomName, lecturers, updateLecturer } = useRoomContext();
@@ -23,8 +26,10 @@ const Admin = () => {
   // Check localStorage for existing auth state on component mount
   useEffect(() => {
     const authState = localStorage.getItem('admin_authenticated');
-    if (authState === 'true') {
+    const savedRole = localStorage.getItem('admin_role') as AdminRole;
+    if (authState === 'true' && savedRole) {
       setIsAuthenticated(true);
+      setUserRole(savedRole);
     }
   }, []);
 
@@ -32,8 +37,16 @@ const Admin = () => {
     e.preventDefault();
     if (password === 'admin123') {
       setIsAuthenticated(true);
+      setUserRole('admin');
       localStorage.setItem('admin_authenticated', 'true');
-      toast.success('Access granted');
+      localStorage.setItem('admin_role', 'admin');
+      toast.success('Access granted - Full Admin');
+    } else if (password === 'archisa123') {
+      setIsAuthenticated(true);
+      setUserRole('archisa');
+      localStorage.setItem('admin_authenticated', 'true');
+      localStorage.setItem('admin_role', 'archisa');
+      toast.success('Access granted - Student Announcer');
     } else {
       toast.error('Invalid password');
       setPassword('');
@@ -42,7 +55,9 @@ const Admin = () => {
 
   const handleLogout = () => {
     setIsAuthenticated(false);
+    setUserRole(null);
     localStorage.removeItem('admin_authenticated');
+    localStorage.removeItem('admin_role');
     toast.success('Logged out successfully');
   };
 
@@ -145,7 +160,9 @@ const Admin = () => {
             <div>
               <h1 className="text-3xl md:text-4xl font-light mb-4">Admin Panel</h1>
               <p className="text-lg text-muted-foreground">
-                Manage room and studio names across all floors of the building.
+                {userRole === 'admin' 
+                  ? 'Manage room and studio names across all floors of the building.'
+                  : 'Manage student announcements.'}
               </p>
             </div>
             <Button 
@@ -156,28 +173,35 @@ const Admin = () => {
             </Button>
           </div>
 
-          <Tabs defaultValue="studios" className="w-full">
-            <TabsList className="grid w-full grid-cols-4">
-              <TabsTrigger value="studios">Studios</TabsTrigger>
-              <TabsTrigger value="named-rooms">Named Rooms</TabsTrigger>
-              <TabsTrigger value="lecturers">Lecturers</TabsTrigger>
-              <TabsTrigger value="announcements">Announcements</TabsTrigger>
-            </TabsList>
-            
-            <TabsContent value="studios" className="space-y-4">
-              <StudioAdminPanel />
-            </TabsContent>
+          {userRole === 'admin' ? (
+            <Tabs defaultValue="studios" className="w-full">
+              <TabsList className="grid w-full grid-cols-4">
+                <TabsTrigger value="studios">Studios</TabsTrigger>
+                <TabsTrigger value="named-rooms">Named Rooms</TabsTrigger>
+                <TabsTrigger value="lecturers">Lecturers</TabsTrigger>
+                <TabsTrigger value="announcements">Announcements</TabsTrigger>
+              </TabsList>
+              
+              <TabsContent value="studios" className="space-y-4">
+                <StudioAdminPanel />
+              </TabsContent>
 
-            <TabsContent value="named-rooms" className="space-y-4">
-              <NamedRoomAdminPanel />
-            </TabsContent>
-            <TabsContent value="lecturers" className="space-y-4">
-              <LecturerAdminPanel />
-            </TabsContent>
-            <TabsContent value="announcements" className="space-y-4">
-              <AnnouncementAdminPanel />
-            </TabsContent>
-          </Tabs>
+              <TabsContent value="named-rooms" className="space-y-4">
+                <NamedRoomAdminPanel />
+              </TabsContent>
+              <TabsContent value="lecturers" className="space-y-4">
+                <LecturerAdminPanel />
+              </TabsContent>
+              <TabsContent value="announcements" className="space-y-4">
+                <AnnouncementAdminPanel role="admin" />
+              </TabsContent>
+            </Tabs>
+          ) : (
+            <div className="space-y-4">
+              <h2 className="text-xl font-semibold">Student Announcements</h2>
+              <AnnouncementAdminPanel role="archisa" />
+            </div>
+          )}
         </div>
       </div>
     </Layout>
