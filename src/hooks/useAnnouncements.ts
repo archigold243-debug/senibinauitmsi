@@ -9,6 +9,7 @@ export interface Announcement {
   youtube_url: string | null;
   audience?: string[] | null;
   instagram_url?: string | null;
+  posted_by?: string | null;
   created_at: string;
 }
 
@@ -36,6 +37,7 @@ export const useAnnouncements = () => {
       youtube_url?: string;
       instagram_url?: string;
       audience?: string[];
+      posted_by?: string;
     }) => {
       const { data, error } = await supabase
         .from('Announcement Web')
@@ -46,6 +48,7 @@ export const useAnnouncements = () => {
           youtube_url: announcement.youtube_url || null,
           instagram_url: announcement.instagram_url || null,
           audience: announcement.audience || null,
+          posted_by: announcement.posted_by || 'admin',
         }])
         .select()
         .single();
@@ -81,6 +84,7 @@ export const useAnnouncements = () => {
       youtube_url?: string;
       instagram_url?: string;
       audience?: string[];
+      posted_by?: string;
     }) => {
       const { data, error } = await supabase
         .from('Announcement Web')
@@ -91,6 +95,7 @@ export const useAnnouncements = () => {
           youtube_url: announcement.youtube_url || null,
           instagram_url: announcement.instagram_url || null,
           audience: announcement.audience || null,
+          posted_by: announcement.posted_by || 'admin',
         })
         .eq('id', announcement.id)
         .select()
