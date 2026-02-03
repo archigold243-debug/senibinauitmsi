@@ -195,7 +195,7 @@ const AnnouncementCard: React.FC<AnnouncementCardProps> = ({ announcement, isLat
               );
             })()
           ) : (
-            <div className="relative w-full rounded-lg overflow-hidden">
+            <div className="relative w-full rounded-lg overflow-hidden flex justify-center">
               <div ref={mediaRef} className="instagram-embed" data-permalink={announcement.instagram_url} />
             </div>
           )
